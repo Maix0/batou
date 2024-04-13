@@ -1,0 +1,47 @@
+enum ts_field_identifiers {
+  field_alternative = 1,
+  field_argument = 2,
+  field_body = 3,
+  field_condition = 4,
+  field_consequence = 5,
+  field_descriptor = 6,
+  field_destination = 7,
+  field_fallthrough = 8,
+  field_index = 9,
+  field_initializer = 10,
+  field_left = 11,
+  field_name = 12,
+  field_operator = 13,
+  field_redirect = 14,
+  field_right = 15,
+  field_termination = 16,
+  field_update = 17,
+  field_value = 18,
+  field_variable = 19,
+};
+
+static const char *const ts_field_names[20] = {};
+
+void init_ts_field_names(const char *v[]) 
+{
+    v[0] = NULL,
+    v[field_alternative] = "alternative",
+    v[field_argument] = "argument",
+    v[field_body] = "body",
+    v[field_condition] = "condition",
+    v[field_consequence] = "consequence",
+    v[field_descriptor] = "descriptor",
+    v[field_destination] = "destination",
+    v[field_fallthrough] = "fallthrough",
+    v[field_index] = "index",
+    v[field_initializer] = "initializer",
+    v[field_left] = "left",
+    v[field_name] = "name",
+    v[field_operator] = "operator",
+    v[field_redirect] = "redirect",
+    v[field_right] = "right",
+    v[field_termination] = "termination",
+    v[field_update] = "update",
+    v[field_value] = "value",
+    v[field_variable] = "variable",
+}
