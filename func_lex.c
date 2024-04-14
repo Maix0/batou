@@ -1,5 +1,6 @@
-static bool ts_lex(TSLexer *lexer, TSStateId state) {
+#include  <stdbool.h>
 
+static bool ts_lex(TSLexer *lexer, TSStateId state) {
   bool result = false;
   bool skip = false;
   bool eof = false;
