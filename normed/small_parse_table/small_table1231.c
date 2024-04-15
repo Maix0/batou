@@ -1,0 +1,115 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   funcs1231.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/14 19:17:54 by maiboyer          #+#    #+#             */
+/*   Updated: 2024/04/14 19:18:20 by maiboyer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "funcs.h"
+
+void	init_small_table6155(t_small_table *v)
+{
+	v->arr[92324] = anon_sym_AMP_AMP;
+	v->arr[92325] = anon_sym_PIPE;
+	v->arr[92326] = anon_sym_AMP;
+	v->arr[92327] = anon_sym_LT;
+	v->arr[92328] = anon_sym_GT;
+	v->arr[92329] = anon_sym_LT_LT;
+	v->arr[92330] = anon_sym_GT_GT;
+	v->arr[92331] = anon_sym_SEMI_SEMI;
+	v->arr[92332] = anon_sym_PIPE_AMP;
+	v->arr[92333] = anon_sym_AMP_GT;
+	v->arr[92334] = anon_sym_AMP_GT_GT;
+	v->arr[92335] = anon_sym_LT_AMP;
+	v->arr[92336] = anon_sym_GT_AMP;
+	v->arr[92337] = anon_sym_GT_PIPE;
+	v->arr[92338] = anon_sym_LT_AMP_DASH;
+	init_small_table6156(v);
+}
+
+void	init_small_table6156(t_small_table *v)
+{
+	v->arr[92339] = anon_sym_GT_AMP_DASH;
+	v->arr[92340] = anon_sym_LT_LT_DASH;
+	v->arr[92341] = anon_sym_DOLLAR_LPAREN_LPAREN;
+	v->arr[92342] = anon_sym_DOLLAR_LBRACK;
+	v->arr[92343] = anon_sym_DOLLAR;
+	v->arr[92344] = sym__special_character;
+	v->arr[92345] = anon_sym_DQUOTE;
+	v->arr[92346] = sym_raw_string;
+	v->arr[92347] = sym_ansi_c_string;
+	v->arr[92348] = aux_sym_number_token1;
+	v->arr[92349] = aux_sym_number_token2;
+	v->arr[92350] = anon_sym_DOLLAR_LBRACE;
+	v->arr[92351] = anon_sym_DOLLAR_LPAREN;
+	v->arr[92352] = anon_sym_BQUOTE;
+	v->arr[92353] = anon_sym_DOLLAR_BQUOTE;
+	init_small_table6157(v);
+}
+
+void	init_small_table6157(t_small_table *v)
+{
+	v->arr[92354] = anon_sym_LT_LPAREN;
+	v->arr[92355] = anon_sym_GT_LPAREN;
+	v->arr[92356] = aux_sym__simple_variable_name_token1;
+	v->arr[92357] = sym_word;
+	v->arr[92359] = 6;
+	v->arr[92359] = 3;
+	v->arr[92360] = 1;
+	v->arr[92361] = sym_comment;
+	v->arr[92362] = 5844;
+	v->arr[92363] = 1;
+	v->arr[92364] = aux_sym_concatenation_token1;
+	v->arr[92365] = 5846;
+	v->arr[92366] = 1;
+	v->arr[92367] = sym__concat;
+	v->arr[92368] = 1914;
+	init_small_table6158(v);
+}
+
+void	init_small_table6158(t_small_table *v)
+{
+	v->arr[92369] = 1;
+	v->arr[92370] = aux_sym_concatenation_repeat1;
+	v->arr[92371] = 5478;
+	v->arr[92372] = 4;
+	v->arr[92373] = sym_file_descriptor;
+	v->arr[92374] = sym_test_operator;
+	v->arr[92375] = sym__brace_start;
+	v->arr[92376] = aux_sym_heredoc_redirect_token1;
+	v->arr[92377] = 5476;
+	v->arr[92378] = 37;
+	v->arr[92379] = anon_sym_LPAREN_LPAREN;
+	v->arr[92380] = anon_sym_SEMI;
+	v->arr[92381] = anon_sym_PIPE_PIPE;
+	v->arr[92382] = anon_sym_AMP_AMP;
+	v->arr[92383] = anon_sym_PIPE;
+	init_small_table6159(v);
+}
+
+void	init_small_table6159(t_small_table *v)
+{
+	v->arr[92384] = anon_sym_AMP;
+	v->arr[92385] = anon_sym_LT;
+	v->arr[92386] = anon_sym_GT;
+	v->arr[92387] = anon_sym_LT_LT;
+	v->arr[92388] = anon_sym_GT_GT;
+	v->arr[92389] = anon_sym_SEMI_SEMI;
+	v->arr[92390] = anon_sym_PIPE_AMP;
+	v->arr[92391] = anon_sym_AMP_GT;
+	v->arr[92392] = anon_sym_AMP_GT_GT;
+	v->arr[92393] = anon_sym_LT_AMP;
+	v->arr[92394] = anon_sym_GT_AMP;
+	v->arr[92395] = anon_sym_GT_PIPE;
+	v->arr[92396] = anon_sym_LT_AMP_DASH;
+	v->arr[92397] = anon_sym_GT_AMP_DASH;
+	v->arr[92398] = anon_sym_LT_LT_DASH;
+	init_small_table6160(v);
+}
+
+// file funcs1231.c
