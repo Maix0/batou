@@ -71,7 +71,7 @@ fn create_file(
     writeln!(&mut f, "void\tinit_thingy{count}(__TYPE__ *v)")?;
     writeln!(&mut f, "{{")?;
 
-    let mut  lines = 0;
+    let mut lines = 0;
     for s in iter {
         if s.chars().fold(0, |s, c| {
             if c == '\t' {
@@ -86,32 +86,48 @@ fn create_file(
         }) < 80
         {
             writeln!(&mut f, "{s}")?;
-            lines +=1;
+            lines += 1;
         } else {
-            let (idx, _) = s.char_indices().fold((0, 0), |(idx, len), (cidx, c)| {
-                if len > 80 {
-                    (idx, 99999)
-                } else {
-                    let newlen = if c == '\t' {
-                        let mut next = 4 - len % 4;
-                        if next == 0 {
-                            next = 4
-                        };
-                        len + next
-                    } else {
-                        len + 1
+            let mut s = s.as_str();
+            while s.chars().fold(0, |s, c| {
+                if c == '\t' {
+                    let mut next = 4 - s % 4;
+                    if next == 0 {
+                        next = 4
                     };
-                    if newlen > 80 {
-                        (idx, 999999)
-                    } else {
-                        (cidx, newlen)
-                    }
+                    s + next
+                } else {
+                    s + 1
                 }
-            });
-            let split = s[..=idx].rfind(&[' ', '\t']).unwrap_or(s.len());
-            writeln!(&mut f, "{} \\", &s[..split]).unwrap();
-            writeln!(&mut f, "\t{}", &s[(split+1)..]).unwrap();
-            lines += 2;
+            }) >= 75
+            {
+                let (idx, _) = s.char_indices().fold((0, 0), |(idx, len), (cidx, c)| {
+                    if len > 80 {
+                        (idx, 99999)
+                    } else {
+                        let newlen = if c == '\t' {
+                            let mut next = 4 - len % 4;
+                            if next == 0 {
+                                next = 4
+                            };
+                            len + next
+                        } else {
+                            len + 1
+                        };
+                        if newlen > 80 {
+                            (idx, 999999)
+                        } else {
+                            (cidx, newlen)
+                        }
+                    }
+                });
+                let split = s[..=idx].rfind(&[' ', '\t']).unwrap_or(s.len());
+                writeln!(&mut f, "{} \\", &s[..split]).unwrap();
+                s = &s[(split + 1)..];
+                lines += 1;
+            }
+            writeln!(&mut f, "\t{}", &s).unwrap();
+            lines += 1;
         }
         if lines >= 22 {
             break;
