@@ -13,10 +13,11 @@
 #ifndef FUNCS_H
 # define FUNCS_H
 
-# include "../header/symbols.h"
+# include "../headers/symbols.h"
+# include <stdint.h>
 
 typedef struct s_small_table {
-	uint16_t	arr[];
+	uint16_t	arr[324395];
 }	t_small_table;
 
 void	init_small_table0(t_small_table *v);

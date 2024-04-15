@@ -6,7 +6,7 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 17:18:51 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/14 17:28:20 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:04:13 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ void	init_symbol_names3(t_symbol_names *v)
 	v->arr[anon_sym_RBRACE] = "}";
 	v->arr[anon_sym_PIPE_AMP] = "|&";
 	v->arr[anon_sym_BANG] = "!";
-	v->arr[anon_sym_LBRACK] = "v[";
+	v->arr[anon_sym_LBRACK] = "[";
 	v->arr[anon_sym_RBRACK] = "]";
-	v->arr[anon_sym_LBRACK_LBRACK] = "v[v[";
+	v->arr[anon_sym_LBRACK_LBRACK] = "[[";
 	v->arr[anon_sym_RBRACK_RBRACK] = "]]";
 	init_symbol_names4(v);
 }
