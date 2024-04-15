@@ -11,7 +11,17 @@
 /* ************************************************************************** */
 
 #ifndef EXTERNAL_H
-#define EXTERNAL_H
+# define EXTERNAL_H
+
+# include "parser.h" 
+
+void			*tree_sitter_bash_external_scanner_create(void);
+void			tree_sitter_bash_external_scanner_destroy(void *ctx);
+bool			tree_sitter_bash_external_scanner_scan(void *ctx, \
+	t_lexer *lexer, const bool *out);
+unsigned int	tree_sitter_bash_external_scanner_serialize(void *ctx, char *s);
+void			tree_sitter_bash_external_scanner_deserialize(void *ctx, \
+	const char *s, unsigned int val);
 
 enum					e_external_symbol_identifiers
 {

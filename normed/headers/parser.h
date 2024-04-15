@@ -17,8 +17,6 @@
 # include <stdint.h>
 # include <stdlib.h>
 
-# define ts_builtin_sym_error ((t_symbol)-1)
-# define ts_builtin_sym_end 0
 # define TREE_SITTER_SERIALIZATION_BUFFER_SIZE 1024
 
 typedef uint16_t						t_state_id;
@@ -52,7 +50,8 @@ typedef struct s_lexer
 	void								(*advance)(struct s_lexer *, bool);
 	void								(*mark_end)(struct s_lexer *);
 	uint32_t							(*get_column)(struct s_lexer *);
-	bool								(*is_at_included_range_start)(const struct s_lexer *);
+	bool								(*is_at_included_range_start) \
+	(const struct s_lexer *);
 	bool								(*eof)(const struct s_lexer *);
 }										t_lexer;
 
@@ -115,8 +114,8 @@ typedef struct s_char_range
 typedef bool							(*t_external_scanner_scan)(void *ctx,
 								t_lexer *lexer, const bool *symbol_whitelist);
 
-typedef void							(*t_external_scanner_deserialize)(void *ctx,
-								const char *s, unsigned num);
+typedef void							(*t_external_scanner_deserialize) \
+(void *ctx, const char *s, unsigned num);
 
 struct									s_external_scanner
 {
@@ -150,8 +149,8 @@ typedef struct s_language
 	const uint16_t						*small_parse_table;
 	const uint32_t						*small_parse_table_map;
 	const t_parse_action_entry			*parse_actions;
-	const char *const *symbol_names;
-	const char *const *field_names;
+	const char *const					*symbol_names;
+	const char *const					*field_names;
 	const t_field_map_slice				*field_map_slices;
 	const t_field_map_entry				*field_map_entries;
 	const t_symbol_metadata				*symbol_metadata;
