@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_779(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_779(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym_concatenation_token1;
@@ -20,7 +20,7 @@ enum e_lex_ret	ts_lex_func_779(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_780(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_780(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_DOLLAR;
@@ -28,7 +28,7 @@ enum e_lex_ret	ts_lex_func_780(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_781(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_781(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_DOLLAR;
@@ -46,7 +46,7 @@ enum e_lex_ret	ts_lex_func_781(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_782(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_782(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_DOLLAR;
@@ -62,7 +62,7 @@ enum e_lex_ret	ts_lex_func_782(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_783(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_783(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_DOLLAR;

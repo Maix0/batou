@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_599(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_599(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_AMP;
@@ -20,7 +20,7 @@ enum e_lex_ret	ts_lex_func_599(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_600(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_600(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_AMP;
@@ -32,7 +32,7 @@ enum e_lex_ret	ts_lex_func_600(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_601(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_601(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_AMP;
@@ -46,7 +46,7 @@ enum e_lex_ret	ts_lex_func_601(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_602(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_602(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_AMP;
@@ -58,7 +58,7 @@ enum e_lex_ret	ts_lex_func_602(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_603(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_603(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_EQ_EQ;

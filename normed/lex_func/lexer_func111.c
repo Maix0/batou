@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_554(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_554(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_SEMI;
@@ -24,7 +24,7 @@ enum e_lex_ret	ts_lex_func_554(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_555(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_555(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_SEMI;
@@ -34,7 +34,7 @@ enum e_lex_ret	ts_lex_func_555(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_556(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_556(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_COMMA;
@@ -42,7 +42,7 @@ enum e_lex_ret	ts_lex_func_556(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_557(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_557(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_COMMA;
@@ -56,7 +56,7 @@ enum e_lex_ret	ts_lex_func_557(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_558(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_558(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_COMMA;

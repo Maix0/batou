@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_574(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_574(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_SLASH_EQ;
@@ -20,7 +20,7 @@ enum e_lex_ret	ts_lex_func_574(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_575(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_575(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_SLASH_EQ;
@@ -32,7 +32,7 @@ enum e_lex_ret	ts_lex_func_575(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_576(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_576(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_PERCENT_EQ;
@@ -40,7 +40,7 @@ enum e_lex_ret	ts_lex_func_576(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_577(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_577(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_PERCENT_EQ;
@@ -52,7 +52,7 @@ enum e_lex_ret	ts_lex_func_577(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_578(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_578(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_STAR_STAR_EQ;

@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_834(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_834(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_COLON_PLUS;
@@ -20,7 +20,7 @@ enum e_lex_ret	ts_lex_func_834(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_835(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_835(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_COLON_PLUS;
@@ -32,7 +32,7 @@ enum e_lex_ret	ts_lex_func_835(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_836(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_836(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_QMARK2;
@@ -40,7 +40,7 @@ enum e_lex_ret	ts_lex_func_836(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_837(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_837(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_QMARK2;
@@ -52,7 +52,7 @@ enum e_lex_ret	ts_lex_func_837(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_838(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_838(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_COLON_QMARK;

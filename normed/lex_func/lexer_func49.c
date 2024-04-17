@@ -12,9 +12,9 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_244(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_244(t_lexer	*lexer, t_lex_state	*s)
 {
-	if (ts_lex_advence_map_244(lexer, s))
+	if (lex_advence_map_244(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -29,9 +29,9 @@ enum e_lex_ret	ts_lex_func_244(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_245(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_245(t_lexer	*lexer, t_lex_state	*s)
 {
-	if (ts_lex_advence_map_245(lexer, s))
+	if (lex_advence_map_245(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -43,9 +43,9 @@ enum e_lex_ret	ts_lex_func_245(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_246(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_246(t_lexer	*lexer, t_lex_state	*s)
 {
-	if (ts_lex_advence_map_246(lexer, s))
+	if (lex_advence_map_246(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -57,9 +57,9 @@ enum e_lex_ret	ts_lex_func_246(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_247(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_247(t_lexer	*lexer, t_lex_state	*s)
 {
-	if (ts_lex_advence_map_247(lexer, s))
+	if (lex_advence_map_247(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -75,9 +75,9 @@ enum e_lex_ret	ts_lex_func_247(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_248(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_248(t_lexer	*lexer, t_lex_state	*s)
 {
-	if (ts_lex_advence_map_248(lexer, s))
+	if (lex_advence_map_248(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')

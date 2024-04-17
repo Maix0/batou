@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_854(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_854(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_DOLLAR_LPAREN;
@@ -22,7 +22,7 @@ enum e_lex_ret	ts_lex_func_854(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_855(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_855(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_BQUOTE;
@@ -30,7 +30,7 @@ enum e_lex_ret	ts_lex_func_855(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_856(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_856(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_BQUOTE;
@@ -43,7 +43,7 @@ enum e_lex_ret	ts_lex_func_856(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_857(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_857(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_DOLLAR_BQUOTE;
@@ -51,7 +51,7 @@ enum e_lex_ret	ts_lex_func_857(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_858(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_858(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_LT_LPAREN;

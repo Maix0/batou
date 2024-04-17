@@ -12,12 +12,12 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_894(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_894(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__multiline_variable_name_token1;
 	lexer->mark_end(lexer);
-	if (ts_lex_advence_map_894(lexer, s))
+	if (lex_advence_map_894(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -34,12 +34,12 @@ enum e_lex_ret	ts_lex_func_894(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_895(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_895(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__multiline_variable_name_token1;
 	lexer->mark_end(lexer);
-	if (ts_lex_advence_map_895(lexer, s))
+	if (lex_advence_map_895(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -51,12 +51,12 @@ enum e_lex_ret	ts_lex_func_895(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_896(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_896(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__multiline_variable_name_token1;
 	lexer->mark_end(lexer);
-	if (ts_lex_advence_map_896(lexer, s))
+	if (lex_advence_map_896(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -74,12 +74,12 @@ enum e_lex_ret	ts_lex_func_896(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_897(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_897(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__multiline_variable_name_token1;
 	lexer->mark_end(lexer);
-	if (ts_lex_advence_map_897(lexer, s))
+	if (lex_advence_map_897(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -91,12 +91,12 @@ enum e_lex_ret	ts_lex_func_897(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_898(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_898(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__multiline_variable_name_token1;
 	lexer->mark_end(lexer);
-	if (ts_lex_advence_map_898(lexer, s))
+	if (lex_advence_map_898(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')

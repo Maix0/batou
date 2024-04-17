@@ -12,21 +12,21 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_keywords_func_73(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_73(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == 't')
 		return (lex_advance(83, s));
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_74(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_74(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == 'i')
 		return (lex_advance(84, s));
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_75(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_75(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_local;
@@ -34,14 +34,14 @@ enum e_lex_ret	ts_lex_keywords_func_75(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_76(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_76(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == 'n')
 		return (lex_advance(85, s));
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_77(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_77(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == 't')
 		return (lex_advance(86, s));

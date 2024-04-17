@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_774(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_774(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_DOLLAR_LBRACK;
@@ -20,7 +20,7 @@ enum e_lex_ret	ts_lex_func_774(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_775(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_775(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym_brace_expression_token1;
@@ -30,7 +30,7 @@ enum e_lex_ret	ts_lex_func_775(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_776(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_776(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_DOT_DOT;
@@ -38,7 +38,7 @@ enum e_lex_ret	ts_lex_func_776(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_777(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_777(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_DOT_DOT;
@@ -50,7 +50,7 @@ enum e_lex_ret	ts_lex_func_777(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_778(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_778(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_RBRACE2;

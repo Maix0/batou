@@ -12,14 +12,14 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_keywords_func_78(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_78(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == 'e')
 		return (lex_advance(87, s));
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_79(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_79(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_unset;
@@ -29,7 +29,7 @@ enum e_lex_ret	ts_lex_keywords_func_79(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_80(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_80(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_until;
@@ -37,7 +37,7 @@ enum e_lex_ret	ts_lex_keywords_func_80(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_81(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_81(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_while;
@@ -45,7 +45,7 @@ enum e_lex_ret	ts_lex_keywords_func_81(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_82(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_82(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == 'e')
 		return (lex_advance(89, s));

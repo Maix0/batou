@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_739(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_739(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym_heredoc_redirect_token1;
@@ -24,7 +24,7 @@ enum e_lex_ret	ts_lex_func_739(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_740(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_740(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym_heredoc_redirect_token1;
@@ -36,7 +36,7 @@ enum e_lex_ret	ts_lex_func_740(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_741(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_741(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym_heredoc_redirect_token1;
@@ -48,7 +48,7 @@ enum e_lex_ret	ts_lex_func_741(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_742(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_742(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym_heredoc_redirect_token1;
@@ -60,7 +60,7 @@ enum e_lex_ret	ts_lex_func_742(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_743(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_743(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym_heredoc_redirect_token1;

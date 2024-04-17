@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_839(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_839(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_COLON_QMARK;
@@ -24,7 +24,7 @@ enum e_lex_ret	ts_lex_func_839(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_840(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_840(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_PERCENT_PERCENT;
@@ -32,7 +32,7 @@ enum e_lex_ret	ts_lex_func_840(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_841(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_841(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_PERCENT_PERCENT;
@@ -44,7 +44,7 @@ enum e_lex_ret	ts_lex_func_841(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_842(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_842(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__expansion_regex_token1;
@@ -55,7 +55,7 @@ enum e_lex_ret	ts_lex_func_842(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_843(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_843(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_SLASH_SLASH;

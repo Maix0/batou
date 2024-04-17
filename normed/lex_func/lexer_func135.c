@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_674(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_674(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_LBRACK;
@@ -22,7 +22,7 @@ enum e_lex_ret	ts_lex_func_674(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_675(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_675(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_RBRACK;
@@ -30,7 +30,7 @@ enum e_lex_ret	ts_lex_func_675(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_676(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_676(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_LBRACK_LBRACK;
@@ -38,7 +38,7 @@ enum e_lex_ret	ts_lex_func_676(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_677(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_677(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_RBRACK_RBRACK;
@@ -46,7 +46,7 @@ enum e_lex_ret	ts_lex_func_677(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_678(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_678(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_EQ_TILDE;

@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_654(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_654(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_LPAREN;
@@ -22,7 +22,7 @@ enum e_lex_ret	ts_lex_func_654(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_655(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_655(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_RPAREN;
@@ -30,7 +30,7 @@ enum e_lex_ret	ts_lex_func_655(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_656(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_656(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__c_word_token1;
@@ -43,7 +43,7 @@ enum e_lex_ret	ts_lex_func_656(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_657(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_657(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_esac;
@@ -51,7 +51,7 @@ enum e_lex_ret	ts_lex_func_657(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_658(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_658(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_esac;

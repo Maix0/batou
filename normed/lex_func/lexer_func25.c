@@ -12,35 +12,35 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_124(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_124(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == '\n')
 		return (lex_skip(484, s));
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_125(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_125(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == '\n')
 		return (lex_skip(486, s));
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_126(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_126(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == '\n')
 		return (lex_skip(475, s));
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_127(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_127(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == '\n')
 		return (lex_advance(907, s));
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_128(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_128(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->lookahead == '\n')
 		return (lex_advance(907, s));

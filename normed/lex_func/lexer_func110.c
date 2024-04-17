@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_549(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_549(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_in;
@@ -24,7 +24,7 @@ enum e_lex_ret	ts_lex_func_549(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_550(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_550(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_in;
@@ -37,7 +37,7 @@ enum e_lex_ret	ts_lex_func_550(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_551(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_551(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_LPAREN_LPAREN;
@@ -45,7 +45,7 @@ enum e_lex_ret	ts_lex_func_551(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_552(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_552(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_RPAREN_RPAREN;
@@ -53,7 +53,7 @@ enum e_lex_ret	ts_lex_func_552(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_553(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_553(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_SEMI;

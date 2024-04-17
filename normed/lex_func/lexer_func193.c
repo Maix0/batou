@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_keywords_func_3(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_3(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_K;
@@ -20,7 +20,7 @@ enum e_lex_ret	ts_lex_keywords_func_3(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_4(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_4(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_L;
@@ -28,7 +28,7 @@ enum e_lex_ret	ts_lex_keywords_func_4(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_5(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_5(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_P;
@@ -36,7 +36,7 @@ enum e_lex_ret	ts_lex_keywords_func_5(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_6(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_6(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_Q;
@@ -44,7 +44,7 @@ enum e_lex_ret	ts_lex_keywords_func_6(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_keywords_func_7(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_keywords_func_7(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = anon_sym_U;

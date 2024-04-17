@@ -12,11 +12,11 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_534(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_534(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->eof)
 		return (lex_advance(547, s));
-	if (ts_lex_advence_map_534(lexer, s))
+	if (lex_advence_map_534(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -28,11 +28,11 @@ enum e_lex_ret	ts_lex_func_534(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_535(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_535(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->eof)
 		return (lex_advance(547, s));
-	if (ts_lex_advence_map_535(lexer, s))
+	if (lex_advence_map_535(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -48,11 +48,11 @@ enum e_lex_ret	ts_lex_func_535(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_536(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_536(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->eof)
 		return (lex_advance(547, s));
-	if (ts_lex_advence_map_536(lexer, s))
+	if (lex_advence_map_536(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -68,11 +68,11 @@ enum e_lex_ret	ts_lex_func_536(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_537(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_537(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->eof)
 		return (lex_advance(547, s));
-	if (ts_lex_advence_map_537(lexer, s))
+	if (lex_advence_map_537(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')
@@ -84,11 +84,11 @@ enum e_lex_ret	ts_lex_func_537(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_538(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_538(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (s->eof)
 		return (lex_advance(547, s));
-	if (ts_lex_advence_map_538(lexer, s))
+	if (lex_advence_map_538(lexer, s))
 		return (s->lex_ret);
 	if (('\t' <= s->lookahead && s->lookahead <= '\r') || \
 	s->lookahead == ' ')

@@ -12,7 +12,7 @@
 
 #include "./lexer_funcs.h"
 
-enum e_lex_ret	ts_lex_func_864(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_864(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__simple_variable_name_token1;
@@ -31,7 +31,7 @@ enum e_lex_ret	ts_lex_func_864(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_865(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_865(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__simple_variable_name_token1;
@@ -50,7 +50,7 @@ enum e_lex_ret	ts_lex_func_865(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_866(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_866(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__simple_variable_name_token1;
@@ -69,7 +69,7 @@ enum e_lex_ret	ts_lex_func_866(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_867(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_867(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__simple_variable_name_token1;
@@ -87,7 +87,7 @@ enum e_lex_ret	ts_lex_func_867(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-enum e_lex_ret	ts_lex_func_868(t_lexer	*lexer, t_lex_state	*s)
+enum e_lex_ret	lex_func_868(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = aux_sym__simple_variable_name_token1;
