@@ -16,6 +16,8 @@
 # include <stdbool.h>
 # include <stdint.h>
 
+
+
 enum							e_lex_ret
 {
 	LEX_STOP = 0,
@@ -63,6 +65,18 @@ static inline enum e_lex_ret	lex_adance(t_state_id state, t_lex_state *s)
 //{
 //
 //}
+
+typedef enum e_lex_ret	*t_lex_n_funcs(t_lexer	*lexer, t_lex_state	*s);
+
+typedef struct	s_lex_normal_funcs {
+	t_lex_n_funcs	arr[1000];
+}	t_lex_normal_funcs;
+
+typedef enum e_lex_ret	*t_lex_k_funcs(t_lexer	*lexer, t_lex_state	*s);
+
+typedef struct	s_lex_keyword_funcs {
+	t_lex_k_funcs	arr[100];
+}	t_lex_keyword_funcs;
 
 static inline bool	lex_advance_map(uint32_t *map, uint32_t map_size,
 		t_lex_state *s)
