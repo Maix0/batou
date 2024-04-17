@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-static bool	ts_lex(t_lexer	*lexer, t_state_id	state)
+bool	ts_lex(t_lexer	*lexer, t_state_id	state)
 {
 	t_lex_state	lex_state;
 
@@ -13850,7 +13850,7 @@ static inline bool	ts_lex_advence_map_939(t_lexer	*lexer, t_lex_state	*s)
 	return (lex_advance_map(map, sizeof(map) / sizeof(*map), s));
 }
 
-static bool	ts_lex_keywords(t_lexer	*lexer, t_state_id	state)
+bool	ts_lex_keywords(t_lexer	*lexer, t_state_id	state)
 {
 	t_lex_state	lex_state;
 
