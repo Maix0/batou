@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_funcs.h:+:      :+:    :+:   */
+/*   lexer_funcs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:17:54 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/14 19:18:20 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:01:34 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_FUNCS_H
 # define LEXER_FUNCS_H
 
-# include "../../headers/parser.h"
-# include "../../headers/lex.h"
+# include "../headers/parser.h"
+# include "../headers/lex.h"
 # include "./inlined.h"
 
 bool			lex(t_lexer	*lexer, t_state_id	state);
@@ -978,6 +978,7 @@ enum e_lex_ret	lex_func_956(t_lexer	*lexer, t_lex_state	*s);
 enum e_lex_ret	lex_func_957(t_lexer	*lexer, t_lex_state	*s);
 enum e_lex_ret	lex_func_958(t_lexer	*lexer, t_lex_state	*s);
 enum e_lex_ret	lex_func_default(t_lexer	*lexer, t_lex_state	*s);
+
 bool			lex_keywords(t_lexer	*lexer, t_state_id	state);
 enum e_lex_ret	lex_keywords_func_0(t_lexer	*lexer, t_lex_state	*s);
 enum e_lex_ret	lex_keywords_func_1(t_lexer	*lexer, t_lex_state	*s);

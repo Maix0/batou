@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/19 15:09:23 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/19 17:13:18 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ BONUS_FLAGS		=
 NAME			=	test
 LIB_NAME		?=
 TARGET			=	$(NAME)
-CC			=	clang
+CC				=	clang
 CFLAGS			=	-Wall -Wextra -Werror -g2 -lbsd -L$(BUILD_DIR) -Wno-unused-command-line-argument -MMD -Wno-unused-parameter -Wno-unused-variable
 BONUS_FILES		=
 LIBS_NAME		=
@@ -112,7 +112,7 @@ fclean: clean
 	)
 	@printf $(COL_WHITE)Clearing\ Output\ $(COL_GRAY)%-28s$(COL_RESET)\  \
 		\($(LIB_NAME)$(NAME)\)
-	@rm -f $(BUILD_DIR)$(NAME)
+	@rm -f $(NAME)
 	@printf $(COL_GREEN)done$(COL_RESET)\\n
 
 re: fclean all

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_func0.c:+:      :+:    :+:   */
+/*   lexer_func0.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:17:54 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/14 19:18:20 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:59:08 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ bool	lex(t_lexer	*lexer, t_state_id	state)
 
 	lex_state = (t_lex_state){};
 	lex_state.lex_ret = LEX_START;
-	START_LEXER();
-	eof = lexer->eof(lexer);
+	lex_state.eof = lexer->eof(lexer);
 	while (lex_state.lex_ret != LEX_STOP)
 	{
 		if (lex_state.lex_ret & LEX_NEXT_STATE)

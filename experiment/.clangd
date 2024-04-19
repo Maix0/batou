@@ -1,4 +1,4 @@
 CompileFlags: # Tweak the parse settings
   Add:
     - "-I/usr/include/"
-    - "-I/home/maiboyer/Documents/perso/tree-sitter/cli/tree-sitter-bash/src/split/experiment/include"
+    - "-I/home/maiboyer/Documents/perso/batou/experiment/include"

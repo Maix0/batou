@@ -12,5 +12,4 @@ ts/stack
 ts/subtree
 ts/tree
 ts/tree_cursor
-ts/wasm/stdlib
 ts/wasm_store
