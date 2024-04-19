@@ -13,6 +13,8 @@
 #ifndef LEXER_FUNCS_H
 # define LEXER_FUNCS_H
 
+# include "../../headers/parser.h"
+# include "../../headers/lex.h"
 bool			ts_lex(t_lexer	*lexer, t_state_id	state);
 enum e_lex_ret	ts_lex_func_0(t_lexer	*lexer, t_lex_state	*s);
 enum e_lex_ret	ts_lex_func_1(t_lexer	*lexer, t_lex_state	*s);

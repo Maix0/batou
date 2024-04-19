@@ -68,6 +68,8 @@ fn main() {
         let guard = format!("advanced_map{idx}_h").to_uppercase();
         writeln!(&mut file, "#ifndef {guard}",).unwrap();
         writeln!(&mut file, "# define {guard}\n",).unwrap();
+        writeln!(&mut file, "# include \"../../headers/parser.h\"",).unwrap();
+        writeln!(&mut file, "# include \"../../headers/lex.h\"",).unwrap();
         for (_sig, func) in funcs {
             writeln!(&mut file, "{func}\n").unwrap();
         }
@@ -133,6 +135,8 @@ fn main() {
         let guard = format!("lexer_funcs_h").to_uppercase();
         writeln!(&mut file, "#ifndef {guard}",).unwrap();
         writeln!(&mut file, "# define {guard}\n",).unwrap();
+        writeln!(&mut file, "# include \"../../headers/parser.h\"",).unwrap();
+        writeln!(&mut file, "# include \"../../headers/lex.h\"",).unwrap();
         let div_len = out_sig.iter().fold(0, |s, current| s.max(current.1.len()));
         let div = {
             let mut s = String::new();

@@ -1,0 +1,5 @@
+CompileFlags: # Tweak the parse settings
+  Add:
+    - "-I/usr/include/"
+    - "-I/home/maiboyer/Documents/perso/tree-sitter/cli/tree-sitter-bash/src/split/lib/include"
+    - "-I/home/maiboyer/Documents/perso/tree-sitter/cli/tree-sitter-bash/src/split/lib/src"

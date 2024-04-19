@@ -1,0 +1,16 @@
+app/main
+grammar/parser
+grammar/scanner
+ts/alloc
+ts/get_changed_ranges
+ts/language
+ts/lexer
+ts/node
+ts/parser
+ts/query
+ts/stack
+ts/subtree
+ts/tree
+ts/tree_cursor
+ts/wasm/stdlib
+ts/wasm_store

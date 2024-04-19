@@ -13,6 +13,8 @@
 #ifndef ADVANCED_MAP31_H
 # define ADVANCED_MAP31_H
 
+# include "../../headers/parser.h"
+# include "../../headers/lex.h"
 static inline bool	ts_lex_advence_map_487(t_lexer	*lexer, t_lex_state	*s)
 {
 	static uint32_t	map = {'#', 862, '&', 489, '<', 612, '>', 618, '\\', 384, ']', 675, '`', 510, '|', 593, '[', 786, '{', 786, '}', 786, };
