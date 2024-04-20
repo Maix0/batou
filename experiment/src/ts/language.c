@@ -1,19 +1,12 @@
 #include "./language.h"
-#include "./wasm_store.h"
 #include "tree_sitter/api.h"
 #include <string.h>
 
 const TSLanguage *ts_language_copy(const TSLanguage *self) {
-  if (self && ts_language_is_wasm(self)) {
-    ts_wasm_language_retain(self);
-  }
   return self;
 }
 
 void ts_language_delete(const TSLanguage *self) {
-  if (self && ts_language_is_wasm(self)) {
-    ts_wasm_language_release(self);
-  }
 }
 
 uint32_t ts_language_symbol_count(const TSLanguage *self) {
@@ -177,13 +170,13 @@ TSFieldId ts_language_field_id_for_name(
 
 TSLookaheadIterator *ts_lookahead_iterator_new(const TSLanguage *self, TSStateId state) {
   if (state >= self->state_count) return NULL;
-  LookaheadIterator *iterator = ts_malloc(sizeof(LookaheadIterator));
+  LookaheadIterator *iterator = malloc(sizeof(LookaheadIterator));
   *iterator = ts_language_lookaheads(self, state);
   return (TSLookaheadIterator *)iterator;
 }
 
 void ts_lookahead_iterator_delete(TSLookaheadIterator *self) {
-  ts_free(self);
+  free(self);
 }
 
 bool ts_lookahead_iterator_reset_state(TSLookaheadIterator * self, TSStateId state) {

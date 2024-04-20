@@ -2,7 +2,7 @@
 
 #include "tree_sitter/api.h"
 #include "./array.h"
-#include "./get_changed_ranges.h"
+
 #include "./length.h"
 #include "./subtree.h"
 #include "./tree_cursor.h"
@@ -12,10 +12,10 @@ TSTree *ts_tree_new(
   Subtree root, const TSLanguage *language,
   const TSRange *included_ranges, unsigned included_range_count
 ) {
-  TSTree *result = ts_malloc(sizeof(TSTree));
+  TSTree *result = malloc(sizeof(TSTree));
   result->root = root;
   result->language = ts_language_copy(language);
-  result->included_ranges = ts_calloc(included_range_count, sizeof(TSRange));
+  result->included_ranges = calloc(included_range_count, sizeof(TSRange));
   memcpy(result->included_ranges, included_ranges, included_range_count * sizeof(TSRange));
   result->included_range_count = included_range_count;
   return result;
@@ -33,8 +33,8 @@ void ts_tree_delete(TSTree *self) {
   ts_subtree_release(&pool, self->root);
   ts_subtree_pool_delete(&pool);
   ts_language_delete(self->language);
-  ts_free(self->included_ranges);
-  ts_free(self);
+  free(self->included_ranges);
+  free(self);
 }
 
 TSNode ts_tree_root_node(const TSTree *self) {
@@ -96,34 +96,9 @@ void ts_tree_edit(TSTree *self, const TSInputEdit *edit) {
 
 TSRange *ts_tree_included_ranges(const TSTree *self, uint32_t *length) {
   *length = self->included_range_count;
-  TSRange *ranges = ts_calloc(self->included_range_count, sizeof(TSRange));
+  TSRange *ranges = calloc(self->included_range_count, sizeof(TSRange));
   memcpy(ranges, self->included_ranges, self->included_range_count * sizeof(TSRange));
   return ranges;
-}
-
-TSRange *ts_tree_get_changed_ranges(const TSTree *old_tree, const TSTree *new_tree, uint32_t *length) {
-  TreeCursor cursor1 = {NULL, array_new(), 0};
-  TreeCursor cursor2 = {NULL, array_new(), 0};
-  ts_tree_cursor_init(&cursor1, ts_tree_root_node(old_tree));
-  ts_tree_cursor_init(&cursor2, ts_tree_root_node(new_tree));
-
-  TSRangeArray included_range_differences = array_new();
-  ts_range_array_get_changed_ranges(
-    old_tree->included_ranges, old_tree->included_range_count,
-    new_tree->included_ranges, new_tree->included_range_count,
-    &included_range_differences
-  );
-
-  TSRange *result;
-  *length = ts_subtree_get_changed_ranges(
-    &old_tree->root, &new_tree->root, &cursor1, &cursor2,
-    old_tree->language, &included_range_differences, &result
-  );
-
-  array_delete(&included_range_differences);
-  array_delete(&cursor1.stack);
-  array_delete(&cursor2.stack);
-  return result;
 }
 
 #ifdef _WIN32

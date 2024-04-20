@@ -17,32 +17,32 @@ extern void *(*ts_current_calloc)(size_t, size_t);
 extern void *(*ts_current_realloc)(void *, size_t);
 extern void (*ts_current_free)(void *);
 
-#ifndef ts_malloc
-#define ts_malloc  ts_current_malloc
+#ifndef malloc
+#define malloc  ts_current_malloc
 #endif
-#ifndef ts_calloc
-#define ts_calloc  ts_current_calloc
+#ifndef calloc
+#define calloc  ts_current_calloc
 #endif
-#ifndef ts_realloc
-#define ts_realloc ts_current_realloc
+#ifndef realloc
+#define realloc ts_current_realloc
 #endif
-#ifndef ts_free
-#define ts_free    ts_current_free
+#ifndef free
+#define free    ts_current_free
 #endif
 
 #else
 
-#ifndef ts_malloc
-#define ts_malloc  malloc
+#ifndef malloc
+#define malloc  malloc
 #endif
-#ifndef ts_calloc
-#define ts_calloc  calloc
+#ifndef calloc
+#define calloc  calloc
 #endif
-#ifndef ts_realloc
-#define ts_realloc realloc
+#ifndef realloc
+#define realloc realloc
 #endif
-#ifndef ts_free
-#define ts_free    free
+#ifndef free
+#define free    free
 #endif
 
 #endif

@@ -21,9 +21,11 @@
       in {
         devShell = pkgs.mkShell {
           packages = [
+            pkgs.libbsd
             pkgs.clang
             pkgs.gnumake
             pkgs.rust-bin.stable.latest.default
+            pkgs.valgrind
           ];
         };
       }

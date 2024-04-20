@@ -1,4 +1,4 @@
-#include "./alloc.h"
+
 #include "./language.h"
 #include "./subtree.h"
 #include "./array.h"
@@ -112,7 +112,7 @@ recur:
   if (pool->size < MAX_NODE_POOL_SIZE) {
     array_push(pool, self);
   } else {
-    ts_free(self);
+    free(self);
   }
 
   if (first_predecessor) {
@@ -144,7 +144,7 @@ static StackNode *stack_node_new(
 ) {
   StackNode *node = pool->size > 0
     ? array_pop(pool)
-    : ts_malloc(sizeof(StackNode));
+    : malloc(sizeof(StackNode));
   *node = (StackNode) {
     .ref_count = 1,
     .link_count = 0,
@@ -277,7 +277,7 @@ static void stack_head_delete(
     }
     if (self->summary) {
       array_delete(self->summary);
-      ts_free(self->summary);
+      free(self->summary);
     }
     stack_node_release(self->node, pool, subtree_pool);
   }
@@ -419,7 +419,7 @@ static StackSliceArray stack__iter(
 }
 
 Stack *ts_stack_new(SubtreePool *subtree_pool) {
-  Stack *self = ts_calloc(1, sizeof(Stack));
+  Stack *self = calloc(1, sizeof(Stack));
 
   array_init(&self->heads);
   array_init(&self->slices);
@@ -449,11 +449,11 @@ void ts_stack_delete(Stack *self) {
   array_clear(&self->heads);
   if (self->node_pool.contents) {
     for (uint32_t i = 0; i < self->node_pool.size; i++)
-      ts_free(self->node_pool.contents[i]);
+      free(self->node_pool.contents[i]);
     array_delete(&self->node_pool);
   }
   array_delete(&self->heads);
-  ts_free(self);
+  free(self);
 }
 
 uint32_t ts_stack_version_count(const Stack *self) {
@@ -611,7 +611,7 @@ forceinline StackAction summarize_stack_callback(void *payload, const StackItera
 
 void ts_stack_record_summary(Stack *self, StackVersion version, unsigned max_depth) {
   SummarizeStackSession session = {
-    .summary = ts_malloc(sizeof(StackSummary)),
+    .summary = malloc(sizeof(StackSummary)),
     .max_depth = max_depth
   };
   array_init(session.summary);
@@ -619,7 +619,7 @@ void ts_stack_record_summary(Stack *self, StackVersion version, unsigned max_dep
   StackHead *head = &self->heads.contents[version];
   if (head->summary) {
     array_delete(head->summary);
-    ts_free(head->summary);
+    free(head->summary);
   }
   head->summary = session.summary;
 }

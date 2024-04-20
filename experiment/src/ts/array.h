@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#include "./alloc.h"
+
 
 #include <assert.h>
 #include <stdbool.h>
@@ -161,7 +161,7 @@ typedef Array(void) Array;
 /// This is not what you're looking for, see `array_delete`.
 static inline void _array__delete(Array *self) {
   if (self->contents) {
-    ts_free(self->contents);
+    free(self->contents);
     self->contents = NULL;
     self->size = 0;
     self->capacity = 0;
@@ -182,9 +182,9 @@ static inline void _array__erase(Array *self, size_t element_size,
 static inline void _array__reserve(Array *self, size_t element_size, uint32_t new_capacity) {
   if (new_capacity > self->capacity) {
     if (self->contents) {
-      self->contents = ts_realloc(self->contents, new_capacity * element_size);
+      self->contents = realloc(self->contents, new_capacity * element_size);
     } else {
-      self->contents = ts_malloc(new_capacity * element_size);
+      self->contents = malloc(new_capacity * element_size);
     }
     self->capacity = new_capacity;
   }
