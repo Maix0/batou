@@ -1,0 +1,1353 @@
+digraph callgraph {
+	_array__assign -> _array__reserve;
+	_array__assign -> memcpy;
+	_array__assign [shape=record,label="{_array__assign}"];
+
+	_array__delete [shape=record,label="{_array__delete}"];
+	_array__erase -> memmove;
+	_array__erase [shape=record,label="{_array__erase}"];
+	_array__grow -> _array__reserve;
+	_array__grow [shape=record,label="{_array__grow}"];
+	_array__reserve -> malloc;
+	_array__reserve -> realloc;
+	_array__reserve [shape=record,label="{_array__reserve}"];
+	_array__splice -> _array__reserve;
+	_array__splice -> memcpy;
+	_array__splice -> memmove;
+	_array__splice -> memset;
+	_array__splice [shape=record,label="{_array__splice}"];
+	_array__swap [shape=record,label="{_array__swap}"];
+	advance [shape=record,label="{advance}"];
+	advance_word -> _array__grow;
+	advance_word -> advance;
+	advance_word -> iswspace;
+	advance_word [shape=record,label="{advance_word}"];
+	build_childs -> build_node;
+	build_childs -> calloc;
+	build_childs -> ts_node_named_child;
+	build_childs [shape=record,label="{build_childs}"];
+	build_node -> build_childs;
+	build_node -> ts_node_end_byte;
+	build_node -> ts_node_named_child_count;
+	build_node -> ts_node_start_byte;
+	build_node -> ts_node_symbol;
+	build_node -> ts_node_type;
+	build_node [shape=record,label="{build_node}"];
+	calloc [shape=record,label="{calloc}"];
+// 
+// 
+// 
+// 
+// 
+	fputs [shape=record,label="{fputs}"];
+// 
+// 
+	in_error_recovery [shape=record,label="{in_error_recovery}"];
+	iswalnum [shape=record,label="{iswalnum}"];
+	iswalpha [shape=record,label="{iswalpha}"];
+	iswdigit [shape=record,label="{iswdigit}"];
+	iswspace [shape=record,label="{iswspace}"];
+	length_add -> point_add;
+	length_add [shape=record,label="{length_add}"];
+// 
+// 
+	length_is_undefined [shape=record,label="{length_is_undefined}"];
+// 
+// 
+// 
+	length_sub -> point_sub;
+	length_sub [shape=record,label="{length_sub}"];
+	length_zero [shape=record,label="{length_zero}"];
+	main -> build_node;
+	main -> print_node_data;
+	main -> tree_sitter_bash;
+	main -> ts_parser_delete;
+	main -> ts_parser_new;
+	main -> ts_parser_parse_string;
+	main -> ts_parser_set_language;
+	main -> ts_tree_delete;
+	main -> ts_tree_root_node;
+	main [shape=record,label="{main}",color="gray"];
+	malloc [shape=record,label="{malloc}"];
+	memcmp [shape=record,label="{memcmp}"];
+	memcpy [shape=record,label="{memcpy}"];
+	memmove [shape=record,label="{memmove}"];
+	memset [shape=record,label="{memset}"];
+	node_getstr -> calloc;
+	node_getstr -> strlcpy;
+	node_getstr [shape=record,label="{node_getstr}"];
+	point__new [shape=record,label="{point__new}"];
+	point_add -> point__new;
+	point_add [shape=record,label="{point_add}"];
+// 
+// 
+// 
+	point_sub -> point__new;
+	point_sub [shape=record,label="{point_sub}"];
+// 
+// 
+	print_node_data -> node_getstr;
+	print_node_data -> print_node_data;
+	print_node_data [shape=record,label="{print_node_data}"];
+	realloc [shape=record,label="{realloc}"];
+// 
+// 
+// 
+// 
+// 
+// 
+	reusable_node_advance -> _array__grow;
+	reusable_node_advance -> ts_subtree_child_count;
+	reusable_node_advance -> ts_subtree_has_external_tokens;
+	reusable_node_advance -> ts_subtree_last_external_token;
+	reusable_node_advance -> ts_subtree_total_bytes;
+	reusable_node_advance [shape=record,label="{reusable_node_advance}"];
+	reusable_node_advance_past_leaf -> reusable_node_advance;
+	reusable_node_advance_past_leaf -> reusable_node_descend;
+	reusable_node_advance_past_leaf [shape=record,label="{reusable_node_advance_past_leaf}"];
+	reusable_node_byte_offset [shape=record,label="{reusable_node_byte_offset}"];
+	reusable_node_clear [shape=record,label="{reusable_node_clear}"];
+	reusable_node_delete -> _array__delete;
+	reusable_node_delete [shape=record,label="{reusable_node_delete}"];
+	reusable_node_descend -> _array__grow;
+	reusable_node_descend -> ts_subtree_child_count;
+	reusable_node_descend [shape=record,label="{reusable_node_descend}"];
+	reusable_node_new [shape=record,label="{reusable_node_new}"];
+// 
+// 
+// 
+// 
+	reusable_node_tree [shape=record,label="{reusable_node_tree}"];
+	scan -> _array__delete;
+	scan -> _array__grow;
+	scan -> advance;
+	scan -> in_error_recovery;
+	scan -> iswalnum;
+	scan -> iswalpha;
+	scan -> iswdigit;
+	scan -> iswspace;
+	scan -> scan_bare_dollar;
+	scan -> scan_heredoc_content;
+	scan -> scan_heredoc_end_identifier;
+	scan -> scan_heredoc_start;
+	scan -> skip;
+	scan [shape=record,label="{scan}"];
+	scan_bare_dollar -> advance;
+	scan_bare_dollar -> iswspace;
+	scan_bare_dollar -> skip;
+	scan_bare_dollar [shape=record,label="{scan_bare_dollar}"];
+	scan_heredoc_content -> advance;
+	scan_heredoc_content -> iswalpha;
+	scan_heredoc_content -> iswspace;
+// 
+	scan_heredoc_content -> scan_heredoc_end_identifier;
+	scan_heredoc_content -> skip;
+	scan_heredoc_content [shape=record,label="{scan_heredoc_content}"];
+	scan_heredoc_end_identifier -> _array__grow;
+	scan_heredoc_end_identifier -> advance;
+// 
+	scan_heredoc_end_identifier -> strcmp;
+	scan_heredoc_end_identifier [shape=record,label="{scan_heredoc_end_identifier}"];
+	scan_heredoc_start -> advance_word;
+	scan_heredoc_start -> iswspace;
+// 
+	scan_heredoc_start -> skip;
+	scan_heredoc_start [shape=record,label="{scan_heredoc_start}"];
+// 
+// 
+	skip [shape=record,label="{skip}"];
+	stack__iter -> _array__erase;
+	stack__iter -> _array__grow;
+	stack__iter -> _array__reserve;
+	stack__iter -> ts_stack__add_slice;
+	stack__iter -> ts_subtree_alloc_size;
+	stack__iter -> ts_subtree_array_copy;
+	stack__iter -> ts_subtree_array_delete;
+	stack__iter -> ts_subtree_array_reverse;
+	stack__iter -> ts_subtree_extra;
+	stack__iter -> ts_subtree_retain;
+	stack__iter [shape=record,label="{stack__iter}"];
+	stack__subtree_is_equivalent -> ts_subtree_child_count;
+	stack__subtree_is_equivalent -> ts_subtree_error_cost;
+	stack__subtree_is_equivalent -> ts_subtree_external_scanner_state_eq;
+	stack__subtree_is_equivalent -> ts_subtree_extra;
+	stack__subtree_is_equivalent -> ts_subtree_padding;
+	stack__subtree_is_equivalent -> ts_subtree_size;
+	stack__subtree_is_equivalent -> ts_subtree_symbol;
+	stack__subtree_is_equivalent [shape=record,label="{stack__subtree_is_equivalent}"];
+	stack__subtree_node_count -> ts_subtree_symbol;
+	stack__subtree_node_count -> ts_subtree_visible;
+	stack__subtree_node_count -> ts_subtree_visible_descendant_count;
+	stack__subtree_node_count [shape=record,label="{stack__subtree_node_count}"];
+	stack_head_delete -> _array__delete;
+	stack_head_delete -> stack_node_release;
+	stack_head_delete -> ts_subtree_release;
+	stack_head_delete [shape=record,label="{stack_head_delete}"];
+	stack_node_add_link -> stack__subtree_is_equivalent;
+	stack_node_add_link -> stack__subtree_node_count;
+	stack_node_add_link -> stack_node_add_link;
+	stack_node_add_link -> stack_node_retain;
+	stack_node_add_link -> ts_subtree_dynamic_precedence;
+	stack_node_add_link -> ts_subtree_release;
+	stack_node_add_link -> ts_subtree_retain;
+	stack_node_add_link [shape=record,label="{stack_node_add_link}"];
+	stack_node_new -> length_add;
+	stack_node_new -> length_zero;
+	stack_node_new -> malloc;
+	stack_node_new -> stack__subtree_node_count;
+	stack_node_new -> ts_subtree_dynamic_precedence;
+	stack_node_new -> ts_subtree_error_cost;
+	stack_node_new -> ts_subtree_total_size;
+	stack_node_new [shape=record,label="{stack_node_new}"];
+	stack_node_release -> _array__grow;
+	stack_node_release -> stack_node_release;
+	stack_node_release -> ts_subtree_release;
+	stack_node_release [shape=record,label="{stack_node_release}"];
+	stack_node_retain [shape=record,label="{stack_node_retain}"];
+	strcmp [shape=record,label="{strcmp}"];
+// 
+// 
+// 
+// 
+// 
+	strlcpy [shape=record,label="{strlcpy}"];
+// 
+// 
+// 
+	tree_sitter_bash [shape=record,label="{tree_sitter_bash}"];
+// 
+// 
+// 
+// 
+// 
+// 
+	tree_sitter_bash_external_scanner_scan -> scan;
+	tree_sitter_bash_external_scanner_scan [shape=record,label="{tree_sitter_bash_external_scanner_scan}",color="yellow"];
+// 
+// 
+	ts_external_scanner_state_copy -> malloc;
+	ts_external_scanner_state_copy -> memcpy;
+	ts_external_scanner_state_copy [shape=record,label="{ts_external_scanner_state_copy}"];
+	ts_external_scanner_state_data [shape=record,label="{ts_external_scanner_state_data}"];
+	ts_external_scanner_state_delete [shape=record,label="{ts_external_scanner_state_delete}"];
+	ts_external_scanner_state_eq -> memcmp;
+	ts_external_scanner_state_eq -> ts_external_scanner_state_data;
+	ts_external_scanner_state_eq [shape=record,label="{ts_external_scanner_state_eq}"];
+	ts_external_scanner_state_init -> malloc;
+	ts_external_scanner_state_init -> memcpy;
+	ts_external_scanner_state_init [shape=record,label="{ts_external_scanner_state_init}"];
+	ts_language_actions -> ts_language_table_entry;
+	ts_language_actions [shape=record,label="{ts_language_actions}"];
+// 
+	ts_language_alias_sequence [shape=record,label="{ts_language_alias_sequence}"];
+	ts_language_copy [shape=record,label="{ts_language_copy}"];
+	ts_language_delete [shape=record,label="{ts_language_delete}"];
+	ts_language_enabled_external_tokens [shape=record,label="{ts_language_enabled_external_tokens}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_language_has_actions -> ts_language_lookup;
+	ts_language_has_actions [shape=record,label="{ts_language_has_actions}"];
+	ts_language_has_reduce_action -> ts_language_table_entry;
+	ts_language_has_reduce_action [shape=record,label="{ts_language_has_reduce_action}"];
+// 
+	ts_language_lookup [shape=record,label="{ts_language_lookup}"];
+	ts_language_next_state -> ts_language_actions;
+	ts_language_next_state -> ts_language_lookup;
+	ts_language_next_state [shape=record,label="{ts_language_next_state}"];
+	ts_language_public_symbol [shape=record,label="{ts_language_public_symbol}"];
+	ts_language_symbol_count [shape=record,label="{ts_language_symbol_count}"];
+// 
+// 
+// 
+// 
+	ts_language_symbol_metadata [shape=record,label="{ts_language_symbol_metadata}"];
+	ts_language_symbol_name -> ts_language_symbol_count;
+	ts_language_symbol_name [shape=record,label="{ts_language_symbol_name}"];
+// 
+// 
+	ts_language_table_entry -> ts_language_lookup;
+	ts_language_table_entry [shape=record,label="{ts_language_table_entry}"];
+	ts_language_write_symbol_as_dot_string -> fputc;
+	ts_language_write_symbol_as_dot_string -> fputs;
+	ts_language_write_symbol_as_dot_string -> ts_language_symbol_name;
+	ts_language_write_symbol_as_dot_string [shape=record,label="{ts_language_write_symbol_as_dot_string}"];
+	ts_lexer__advance -> ts_lexer__do_advance;
+	ts_lexer__advance [shape=record,label="{ts_lexer__advance}"];
+	ts_lexer__clear_chunk [shape=record,label="{ts_lexer__clear_chunk}"];
+	ts_lexer__do_advance -> ts_lexer__clear_chunk;
+	ts_lexer__do_advance -> ts_lexer__get_chunk;
+	ts_lexer__do_advance -> ts_lexer__get_lookahead;
+	ts_lexer__do_advance [shape=record,label="{ts_lexer__do_advance}"];
+	ts_lexer__eof [shape=record,label="{ts_lexer__eof}"];
+	ts_lexer__get_chunk [shape=record,label="{ts_lexer__get_chunk}"];
+// 
+// 
+// 
+// 
+// 
+	ts_lexer__get_lookahead -> ts_lexer__get_chunk;
+	ts_lexer__get_lookahead [shape=record,label="{ts_lexer__get_lookahead}"];
+	ts_lexer__mark_end -> ts_lexer__eof;
+	ts_lexer__mark_end [shape=record,label="{ts_lexer__mark_end}"];
+// 
+// 
+
+	ts_lexer_delete [shape=record,label="{ts_lexer_delete}"];
+	ts_lexer_finish -> length_is_undefined;
+	ts_lexer_finish -> ts_lexer__mark_end;
+	ts_lexer_finish [shape=record,label="{ts_lexer_finish}"];
+	ts_lexer_goto -> ts_lexer__clear_chunk;
+	ts_lexer_goto [shape=record,label="{ts_lexer_goto}"];
+	ts_lexer_init -> ts_lexer_set_included_ranges;
+	ts_lexer_init [shape=record,label="{ts_lexer_init}"];
+	ts_lexer_mark_end -> ts_lexer__mark_end;
+	ts_lexer_mark_end [shape=record,label="{ts_lexer_mark_end}"];
+// 
+// 
+	ts_lexer_set_included_ranges -> memcpy;
+	ts_lexer_set_included_ranges -> realloc;
+	ts_lexer_set_included_ranges -> ts_lexer_goto;
+	ts_lexer_set_included_ranges [shape=record,label="{ts_lexer_set_included_ranges}"];
+	ts_lexer_set_input -> ts_lexer__clear_chunk;
+	ts_lexer_set_input -> ts_lexer_goto;
+	ts_lexer_set_input [shape=record,label="{ts_lexer_set_input}"];
+	ts_lexer_start -> ts_lexer__advance;
+	ts_lexer_start -> ts_lexer__eof;
+	ts_lexer_start -> ts_lexer__get_chunk;
+	ts_lexer_start -> ts_lexer__get_lookahead;
+	ts_lexer_start [shape=record,label="{ts_lexer_start}"];
+// 
+// 
+
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_node__alias [shape=record,label="{ts_node__alias}"];
+	ts_node__child -> ts_node__is_relevant;
+	ts_node__child -> ts_node__null;
+	ts_node__child -> ts_node__relevant_child_count;
+// 
+	ts_node__child -> ts_node_iterate_children;
+	ts_node__child [shape=record,label="{ts_node__child}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_node__is_relevant -> ts_language_symbol_metadata;
+	ts_node__is_relevant -> ts_node__alias;
+	ts_node__is_relevant -> ts_node__subtree;
+	ts_node__is_relevant -> ts_subtree_named;
+	ts_node__is_relevant -> ts_subtree_visible;
+	ts_node__is_relevant [shape=record,label="{ts_node__is_relevant}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_node__null -> length_zero;
+	ts_node__null -> ts_node_new;
+	ts_node__null [shape=record,label="{ts_node__null}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_node__relevant_child_count -> ts_node__subtree;
+	ts_node__relevant_child_count -> ts_subtree_child_count;
+	ts_node__relevant_child_count [shape=record,label="{ts_node__relevant_child_count}"];
+	ts_node__subtree [shape=record,label="{ts_node__subtree}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_node_end_byte -> ts_node__subtree;
+	ts_node_end_byte -> ts_node_start_byte;
+	ts_node_end_byte -> ts_subtree_size;
+	ts_node_end_byte [shape=record,label="{ts_node_end_byte}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_node_iterate_children -> length_zero;
+	ts_node_iterate_children -> ts_language_alias_sequence;
+	ts_node_iterate_children -> ts_node__subtree;
+	ts_node_iterate_children -> ts_node_start_byte;
+	ts_node_iterate_children -> ts_node_start_point;
+	ts_node_iterate_children -> ts_subtree_child_count;
+	ts_node_iterate_children [shape=record,label="{ts_node_iterate_children}"];
+	ts_node_named_child -> ts_node__child;
+	ts_node_named_child [shape=record,label="{ts_node_named_child}"];
+	ts_node_named_child_count -> ts_node__subtree;
+	ts_node_named_child_count -> ts_subtree_child_count;
+	ts_node_named_child_count [shape=record,label="{ts_node_named_child_count}"];
+// 
+// 
+// 
+// 
+	ts_node_new [shape=record,label="{ts_node_new}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_node_start_byte [shape=record,label="{ts_node_start_byte}"];
+	ts_node_start_point [shape=record,label="{ts_node_start_point}"];
+// 
+// 
+// 
+// 
+// 
+	ts_node_symbol -> ts_language_public_symbol;
+	ts_node_symbol -> ts_node__alias;
+	ts_node_symbol -> ts_node__subtree;
+	ts_node_symbol -> ts_subtree_symbol;
+	ts_node_symbol [shape=record,label="{ts_node_symbol}"];
+	ts_node_type -> ts_language_symbol_name;
+	ts_node_type -> ts_node__alias;
+	ts_node_type -> ts_node__subtree;
+	ts_node_type -> ts_subtree_symbol;
+	ts_node_type [shape=record,label="{ts_node_type}"];
+	ts_parser__accept -> _array__splice;
+	ts_parser__accept -> ts_parser__select_tree;
+	ts_parser__accept -> ts_stack_halt;
+	ts_parser__accept -> ts_stack_pop_all;
+	ts_parser__accept -> ts_stack_push;
+	ts_parser__accept -> ts_stack_remove_version;
+	ts_parser__accept -> ts_subtree_child_count;
+	ts_parser__accept -> ts_subtree_extra;
+	ts_parser__accept -> ts_subtree_from_mut;
+	ts_parser__accept -> ts_subtree_is_eof;
+	ts_parser__accept -> ts_subtree_new_node;
+	ts_parser__accept -> ts_subtree_release;
+	ts_parser__accept -> ts_subtree_retain;
+	ts_parser__accept -> ts_subtree_symbol;
+	ts_parser__accept [shape=record,label="{ts_parser__accept}"];
+	ts_parser__advance -> fputs;
+	ts_parser__advance -> reusable_node_advance;
+	ts_parser__advance -> ts_language_next_state;
+	ts_parser__advance -> ts_language_symbol_name;
+	ts_parser__advance -> ts_language_table_entry;
+	ts_parser__advance -> ts_parser__accept;
+	ts_parser__advance -> ts_parser__breakdown_lookahead;
+	ts_parser__advance -> ts_parser__breakdown_top_of_stack;
+	ts_parser__advance -> ts_parser__get_cached_token;
+	ts_parser__advance -> ts_parser__lex;
+	ts_parser__advance -> ts_parser__log;
+	ts_parser__advance -> ts_parser__recover;
+	ts_parser__advance -> ts_parser__reduce;
+	ts_parser__advance -> ts_parser__reuse_node;
+	ts_parser__advance -> ts_parser__set_cached_token;
+	ts_parser__advance -> ts_parser__shift;
+	ts_parser__advance -> ts_stack_halt;
+	ts_parser__advance -> ts_stack_last_external_token;
+	ts_parser__advance -> ts_stack_pause;
+	ts_parser__advance -> ts_stack_position;
+	ts_parser__advance -> ts_stack_print_dot_graph;
+	ts_parser__advance -> ts_stack_renumber_version;
+	ts_parser__advance -> ts_stack_state;
+	ts_parser__advance -> ts_subtree_child_count;
+	ts_parser__advance -> ts_subtree_from_mut;
+	ts_parser__advance -> ts_subtree_is_keyword;
+	ts_parser__advance -> ts_subtree_leaf_symbol;
+	ts_parser__advance -> ts_subtree_make_mut;
+	ts_parser__advance -> ts_subtree_release;
+	ts_parser__advance -> ts_subtree_set_symbol;
+	ts_parser__advance -> ts_subtree_symbol;
+	ts_parser__advance [shape=record,label="{ts_parser__advance}"];
+	ts_parser__better_version_exists -> ts_parser__compare_versions;
+	ts_parser__better_version_exists -> ts_parser__version_status;
+	ts_parser__better_version_exists -> ts_stack_can_merge;
+	ts_parser__better_version_exists -> ts_stack_dynamic_precedence;
+	ts_parser__better_version_exists -> ts_stack_is_active;
+	ts_parser__better_version_exists -> ts_stack_node_count_since_error;
+	ts_parser__better_version_exists -> ts_stack_position;
+	ts_parser__better_version_exists -> ts_stack_version_count;
+	ts_parser__better_version_exists -> ts_subtree_error_cost;
+	ts_parser__better_version_exists [shape=record,label="{ts_parser__better_version_exists}"];
+	ts_parser__breakdown_lookahead -> reusable_node_descend;
+	ts_parser__breakdown_lookahead -> reusable_node_tree;
+	ts_parser__breakdown_lookahead -> ts_language_symbol_name;
+	ts_parser__breakdown_lookahead -> ts_parser__log;
+	ts_parser__breakdown_lookahead -> ts_subtree_child_count;
+	ts_parser__breakdown_lookahead -> ts_subtree_parse_state;
+	ts_parser__breakdown_lookahead -> ts_subtree_release;
+	ts_parser__breakdown_lookahead -> ts_subtree_retain;
+	ts_parser__breakdown_lookahead -> ts_subtree_symbol;
+	ts_parser__breakdown_lookahead [shape=record,label="{ts_parser__breakdown_lookahead}"];
+	ts_parser__breakdown_top_of_stack -> _array__delete;
+	ts_parser__breakdown_top_of_stack -> fputs;
+	ts_parser__breakdown_top_of_stack -> ts_language_next_state;
+	ts_parser__breakdown_top_of_stack -> ts_language_symbol_name;
+	ts_parser__breakdown_top_of_stack -> ts_parser__log;
+	ts_parser__breakdown_top_of_stack -> ts_stack_pop_pending;
+	ts_parser__breakdown_top_of_stack -> ts_stack_print_dot_graph;
+	ts_parser__breakdown_top_of_stack -> ts_stack_push;
+	ts_parser__breakdown_top_of_stack -> ts_stack_state;
+	ts_parser__breakdown_top_of_stack -> ts_subtree_child_count;
+	ts_parser__breakdown_top_of_stack -> ts_subtree_extra;
+	ts_parser__breakdown_top_of_stack -> ts_subtree_is_error;
+	ts_parser__breakdown_top_of_stack -> ts_subtree_release;
+	ts_parser__breakdown_top_of_stack -> ts_subtree_retain;
+	ts_parser__breakdown_top_of_stack -> ts_subtree_symbol;
+	ts_parser__breakdown_top_of_stack [shape=record,label="{ts_parser__breakdown_top_of_stack}"];
+	ts_parser__call_keyword_lex_fn [shape=record,label="{ts_parser__call_keyword_lex_fn}"];
+	ts_parser__call_main_lex_fn [shape=record,label="{ts_parser__call_main_lex_fn}"];
+	ts_parser__can_reuse_first_leaf -> memcmp;
+	ts_parser__can_reuse_first_leaf -> ts_subtree_is_keyword;
+	ts_parser__can_reuse_first_leaf -> ts_subtree_leaf_parse_state;
+	ts_parser__can_reuse_first_leaf -> ts_subtree_leaf_symbol;
+	ts_parser__can_reuse_first_leaf -> ts_subtree_parse_state;
+	ts_parser__can_reuse_first_leaf -> ts_subtree_size;
+	ts_parser__can_reuse_first_leaf [shape=record,label="{ts_parser__can_reuse_first_leaf}"];
+	ts_parser__compare_versions [shape=record,label="{ts_parser__compare_versions}"];
+	ts_parser__condense_stack -> fputs;
+	ts_parser__condense_stack -> ts_parser__compare_versions;
+	ts_parser__condense_stack -> ts_parser__handle_error;
+	ts_parser__condense_stack -> ts_parser__log;
+	ts_parser__condense_stack -> ts_parser__version_status;
+	ts_parser__condense_stack -> ts_stack_error_cost;
+	ts_parser__condense_stack -> ts_stack_is_halted;
+	ts_parser__condense_stack -> ts_stack_is_paused;
+	ts_parser__condense_stack -> ts_stack_merge;
+	ts_parser__condense_stack -> ts_stack_print_dot_graph;
+	ts_parser__condense_stack -> ts_stack_remove_version;
+	ts_parser__condense_stack -> ts_stack_resume;
+	ts_parser__condense_stack -> ts_stack_swap_versions;
+	ts_parser__condense_stack -> ts_stack_version_count;
+	ts_parser__condense_stack [shape=record,label="{ts_parser__condense_stack}"];
+	ts_parser__do_all_potential_reductions -> ts_language_table_entry;
+	ts_parser__do_all_potential_reductions -> ts_parser__reduce;
+	ts_parser__do_all_potential_reductions -> ts_reduce_action_set_add;
+	ts_parser__do_all_potential_reductions -> ts_stack_merge;
+	ts_parser__do_all_potential_reductions -> ts_stack_remove_version;
+	ts_parser__do_all_potential_reductions -> ts_stack_renumber_version;
+	ts_parser__do_all_potential_reductions -> ts_stack_state;
+	ts_parser__do_all_potential_reductions -> ts_stack_version_count;
+	ts_parser__do_all_potential_reductions [shape=record,label="{ts_parser__do_all_potential_reductions}"];
+	ts_parser__external_scanner_create [shape=record,label="{ts_parser__external_scanner_create}"];
+// 
+// 
+	ts_parser__external_scanner_scan -> ts_language_enabled_external_tokens;
+	ts_parser__external_scanner_scan [shape=record,label="{ts_parser__external_scanner_scan}"];
+// 
+	ts_parser__get_cached_token -> ts_language_table_entry;
+	ts_parser__get_cached_token -> ts_parser__can_reuse_first_leaf;
+	ts_parser__get_cached_token -> ts_subtree_external_scanner_state_eq;
+	ts_parser__get_cached_token -> ts_subtree_retain;
+	ts_parser__get_cached_token -> ts_subtree_symbol;
+	ts_parser__get_cached_token [shape=record,label="{ts_parser__get_cached_token}"];
+	ts_parser__handle_error -> fputs;
+	ts_parser__handle_error -> length_sub;
+	ts_parser__handle_error -> ts_language_has_reduce_action;
+	ts_parser__handle_error -> ts_language_next_state;
+	ts_parser__handle_error -> ts_language_symbol_name;
+	ts_parser__handle_error -> ts_lexer_mark_end;
+// 
+	ts_parser__handle_error -> ts_parser__breakdown_lookahead;
+	ts_parser__handle_error -> ts_parser__do_all_potential_reductions;
+	ts_parser__handle_error -> ts_parser__log;
+	ts_parser__handle_error -> ts_parser__recover;
+	ts_parser__handle_error -> ts_stack_copy_version;
+	ts_parser__handle_error -> ts_stack_merge;
+	ts_parser__handle_error -> ts_stack_position;
+	ts_parser__handle_error -> ts_stack_print_dot_graph;
+	ts_parser__handle_error -> ts_stack_push;
+	ts_parser__handle_error -> ts_stack_record_summary;
+	ts_parser__handle_error -> ts_stack_state;
+	ts_parser__handle_error -> ts_stack_version_count;
+	ts_parser__handle_error -> ts_subtree_child_count;
+	ts_parser__handle_error -> ts_subtree_leaf_symbol;
+	ts_parser__handle_error -> ts_subtree_lookahead_bytes;
+	ts_parser__handle_error -> ts_subtree_new_missing_leaf;
+	ts_parser__handle_error -> ts_subtree_total_bytes;
+	ts_parser__handle_error [shape=record,label="{ts_parser__handle_error}"];
+	ts_parser__lex -> length_sub;
+	ts_parser__lex -> length_zero;
+	ts_parser__lex -> ts_external_scanner_state_eq;
+	ts_parser__lex -> ts_external_scanner_state_init;
+	ts_parser__lex -> ts_language_has_actions;
+	ts_parser__lex -> ts_language_symbol_name;
+	ts_parser__lex -> ts_lexer_finish;
+// 
+	ts_parser__lex -> ts_lexer_start;
+	ts_parser__lex -> ts_parser__call_keyword_lex_fn;
+	ts_parser__lex -> ts_parser__call_main_lex_fn;
+// 
+	ts_parser__lex -> ts_parser__external_scanner_scan;
+// 
+	ts_parser__lex -> ts_parser__log;
+	ts_parser__lex -> ts_stack_has_advanced_since_error;
+	ts_parser__lex -> ts_stack_last_external_token;
+	ts_parser__lex -> ts_stack_position;
+	ts_parser__lex -> ts_subtree_external_scanner_state;
+	ts_parser__lex -> ts_subtree_new_error;
+	ts_parser__lex -> ts_subtree_new_leaf;
+	ts_parser__lex -> ts_subtree_symbol;
+	ts_parser__lex -> ts_subtree_to_mut_unsafe;
+	ts_parser__lex -> ts_subtree_total_size;
+	ts_parser__lex [shape=record,label="{ts_parser__lex}"];
+	ts_parser__log -> fputc;
+	ts_parser__log [shape=record,label="{ts_parser__log}"];
+	ts_parser__recover -> _array__grow;
+	ts_parser__recover -> _array__reserve;
+	ts_parser__recover -> fputs;
+	ts_parser__recover -> ts_language_actions;
+	ts_parser__recover -> ts_language_has_actions;
+	ts_parser__recover -> ts_language_symbol_name;
+	ts_parser__recover -> ts_parser__accept;
+	ts_parser__recover -> ts_parser__better_version_exists;
+	ts_parser__recover -> ts_parser__log;
+	ts_parser__recover -> ts_parser__recover_to_state;
+	ts_parser__recover -> ts_stack_error_cost;
+	ts_parser__recover -> ts_stack_get_summary;
+	ts_parser__recover -> ts_stack_halt;
+	ts_parser__recover -> ts_stack_is_active;
+	ts_parser__recover -> ts_stack_node_count_since_error;
+	ts_parser__recover -> ts_stack_pop_count;
+	ts_parser__recover -> ts_stack_position;
+	ts_parser__recover -> ts_stack_print_dot_graph;
+	ts_parser__recover -> ts_stack_push;
+	ts_parser__recover -> ts_stack_remove_version;
+	ts_parser__recover -> ts_stack_renumber_version;
+	ts_parser__recover -> ts_stack_set_last_external_token;
+	ts_parser__recover -> ts_stack_state;
+	ts_parser__recover -> ts_stack_version_count;
+	ts_parser__recover -> ts_subtree_array_delete;
+	ts_parser__recover -> ts_subtree_from_mut;
+	ts_parser__recover -> ts_subtree_has_external_scanner_state_change;
+	ts_parser__recover -> ts_subtree_has_external_tokens;
+	ts_parser__recover -> ts_subtree_is_eof;
+	ts_parser__recover -> ts_subtree_is_error;
+	ts_parser__recover -> ts_subtree_last_external_token;
+	ts_parser__recover -> ts_subtree_make_mut;
+	ts_parser__recover -> ts_subtree_new_error_node;
+	ts_parser__recover -> ts_subtree_new_node;
+	ts_parser__recover -> ts_subtree_release;
+	ts_parser__recover -> ts_subtree_set_extra;
+	ts_parser__recover -> ts_subtree_symbol;
+	ts_parser__recover -> ts_subtree_total_bytes;
+	ts_parser__recover -> ts_subtree_total_size;
+	ts_parser__recover [shape=record,label="{ts_parser__recover}"];
+	ts_parser__recover_to_state -> _array__delete;
+	ts_parser__recover_to_state -> _array__erase;
+	ts_parser__recover_to_state -> _array__splice;
+	ts_parser__recover_to_state -> ts_stack_halt;
+	ts_parser__recover_to_state -> ts_stack_pop_count;
+	ts_parser__recover_to_state -> ts_stack_pop_error;
+	ts_parser__recover_to_state -> ts_stack_push;
+	ts_parser__recover_to_state -> ts_stack_state;
+	ts_parser__recover_to_state -> ts_subtree_array_delete;
+	ts_parser__recover_to_state -> ts_subtree_array_remove_trailing_extras;
+	ts_parser__recover_to_state -> ts_subtree_child_count;
+	ts_parser__recover_to_state -> ts_subtree_new_error_node;
+	ts_parser__recover_to_state -> ts_subtree_retain;
+	ts_parser__recover_to_state [shape=record,label="{ts_parser__recover_to_state}"];
+	ts_parser__reduce -> _array__swap;
+	ts_parser__reduce -> ts_language_next_state;
+	ts_parser__reduce -> ts_parser__select_children;
+	ts_parser__reduce -> ts_stack_merge;
+	ts_parser__reduce -> ts_stack_pop_count;
+	ts_parser__reduce -> ts_stack_push;
+	ts_parser__reduce -> ts_stack_remove_version;
+	ts_parser__reduce -> ts_stack_state;
+	ts_parser__reduce -> ts_stack_version_count;
+	ts_parser__reduce -> ts_subtree_array_clear;
+	ts_parser__reduce -> ts_subtree_array_delete;
+	ts_parser__reduce -> ts_subtree_array_remove_trailing_extras;
+	ts_parser__reduce -> ts_subtree_from_mut;
+	ts_parser__reduce -> ts_subtree_new_node;
+	ts_parser__reduce -> ts_subtree_release;
+	ts_parser__reduce [shape=record,label="{ts_parser__reduce}"];
+	ts_parser__reuse_node -> reusable_node_advance;
+	ts_parser__reuse_node -> reusable_node_advance_past_leaf;
+	ts_parser__reuse_node -> reusable_node_byte_offset;
+	ts_parser__reuse_node -> reusable_node_descend;
+	ts_parser__reuse_node -> reusable_node_tree;
+	ts_parser__reuse_node -> ts_language_symbol_name;
+	ts_parser__reuse_node -> ts_language_table_entry;
+	ts_parser__reuse_node -> ts_parser__breakdown_top_of_stack;
+	ts_parser__reuse_node -> ts_parser__can_reuse_first_leaf;
+	ts_parser__reuse_node -> ts_parser__log;
+	ts_parser__reuse_node -> ts_stack_state;
+	ts_parser__reuse_node -> ts_subtree_external_scanner_state_eq;
+	ts_parser__reuse_node -> ts_subtree_has_changes;
+	ts_parser__reuse_node -> ts_subtree_is_eof;
+	ts_parser__reuse_node -> ts_subtree_is_error;
+	ts_parser__reuse_node -> ts_subtree_is_fragile;
+	ts_parser__reuse_node -> ts_subtree_leaf_symbol;
+	ts_parser__reuse_node -> ts_subtree_missing;
+	ts_parser__reuse_node -> ts_subtree_retain;
+	ts_parser__reuse_node -> ts_subtree_symbol;
+	ts_parser__reuse_node -> ts_subtree_total_bytes;
+	ts_parser__reuse_node [shape=record,label="{ts_parser__reuse_node}"];
+	ts_parser__select_children -> _array__assign;
+	ts_parser__select_children -> ts_parser__select_tree;
+	ts_parser__select_children -> ts_subtree_from_mut;
+	ts_parser__select_children -> ts_subtree_new_node;
+	ts_parser__select_children -> ts_subtree_symbol;
+	ts_parser__select_children [shape=record,label="{ts_parser__select_children}"];
+	ts_parser__select_tree -> ts_language_symbol_name;
+	ts_parser__select_tree -> ts_parser__log;
+	ts_parser__select_tree -> ts_subtree_compare;
+	ts_parser__select_tree -> ts_subtree_dynamic_precedence;
+	ts_parser__select_tree -> ts_subtree_error_cost;
+	ts_parser__select_tree -> ts_subtree_symbol;
+	ts_parser__select_tree [shape=record,label="{ts_parser__select_tree}"];
+	ts_parser__set_cached_token -> ts_subtree_release;
+	ts_parser__set_cached_token -> ts_subtree_retain;
+	ts_parser__set_cached_token [shape=record,label="{ts_parser__set_cached_token}"];
+	ts_parser__shift -> ts_stack_push;
+	ts_parser__shift -> ts_stack_set_last_external_token;
+	ts_parser__shift -> ts_subtree_child_count;
+	ts_parser__shift -> ts_subtree_extra;
+	ts_parser__shift -> ts_subtree_from_mut;
+	ts_parser__shift -> ts_subtree_has_external_tokens;
+	ts_parser__shift -> ts_subtree_last_external_token;
+	ts_parser__shift -> ts_subtree_make_mut;
+	ts_parser__shift -> ts_subtree_set_extra;
+	ts_parser__shift [shape=record,label="{ts_parser__shift}"];
+	ts_parser__version_status -> ts_stack_dynamic_precedence;
+	ts_parser__version_status -> ts_stack_error_cost;
+	ts_parser__version_status -> ts_stack_is_paused;
+	ts_parser__version_status -> ts_stack_node_count_since_error;
+	ts_parser__version_status -> ts_stack_state;
+	ts_parser__version_status [shape=record,label="{ts_parser__version_status}"];
+	ts_parser_delete -> _array__delete;
+
+	ts_parser_delete -> reusable_node_delete;
+	ts_parser_delete -> ts_lexer_delete;
+	ts_parser_delete -> ts_parser__set_cached_token;
+	ts_parser_delete -> ts_parser_set_language;
+	ts_parser_delete -> ts_stack_delete;
+	ts_parser_delete -> ts_subtree_pool_delete;
+	ts_parser_delete -> ts_subtree_release;
+	ts_parser_delete [shape=record,label="{ts_parser_delete}"];
+	ts_parser_has_outstanding_parse -> ts_stack_node_count_since_error;
+	ts_parser_has_outstanding_parse -> ts_stack_state;
+	ts_parser_has_outstanding_parse [shape=record,label="{ts_parser_has_outstanding_parse}"];
+	ts_parser_new -> _array__reserve;
+	ts_parser_new -> calloc;
+	ts_parser_new -> reusable_node_new;
+	ts_parser_new -> ts_lexer_init;
+	ts_parser_new -> ts_parser__set_cached_token;
+	ts_parser_new -> ts_stack_new;
+	ts_parser_new -> ts_subtree_pool_new;
+	ts_parser_new [shape=record,label="{ts_parser_new}"];
+	ts_parser_parse -> fputs;
+	ts_parser_parse -> reusable_node_clear;
+	ts_parser_parse -> ts_lexer_set_input;
+	ts_parser_parse -> ts_parser__advance;
+	ts_parser_parse -> ts_parser__condense_stack;
+	ts_parser_parse -> ts_parser__external_scanner_create;
+	ts_parser_parse -> ts_parser__log;
+	ts_parser_parse -> ts_parser_has_outstanding_parse;
+// 
+	ts_parser_parse -> ts_stack_clear;
+	ts_parser_parse -> ts_stack_is_active;
+	ts_parser_parse -> ts_stack_position;
+	ts_parser_parse -> ts_stack_print_dot_graph;
+	ts_parser_parse -> ts_stack_state;
+	ts_parser_parse -> ts_stack_version_count;
+	ts_parser_parse -> ts_subtree_balance;
+	ts_parser_parse -> ts_subtree_error_cost;
+	ts_parser_parse -> ts_subtree_print_dot_graph;
+	ts_parser_parse -> ts_tree_new;
+	ts_parser_parse [shape=record,label="{ts_parser_parse}"];
+	ts_parser_parse_string -> ts_parser_parse_string_encoding;
+	ts_parser_parse_string [shape=record,label="{ts_parser_parse_string}",color="cyan"];
+	ts_parser_parse_string_encoding -> ts_parser_parse;
+	ts_parser_parse_string_encoding [shape=record,label="{ts_parser_parse_string_encoding}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_parser_set_language -> ts_language_copy;
+	ts_parser_set_language -> ts_language_delete;
+// 
+	ts_parser_set_language [shape=record,label="{ts_parser_set_language}"];
+	ts_reduce_action_set_add -> _array__grow;
+	ts_reduce_action_set_add [shape=record,label="{ts_reduce_action_set_add}"];
+	ts_stack__add_slice -> _array__grow;
+	ts_stack__add_slice -> _array__splice;
+	ts_stack__add_slice -> ts_stack__add_version;
+	ts_stack__add_slice [shape=record,label="{ts_stack__add_slice}"];
+	ts_stack__add_version -> _array__grow;
+	ts_stack__add_version -> stack_node_retain;
+	ts_stack__add_version -> ts_subtree_retain;
+	ts_stack__add_version [shape=record,label="{ts_stack__add_version}"];
+	ts_stack_can_merge -> ts_subtree_external_scanner_state_eq;
+	ts_stack_can_merge [shape=record,label="{ts_stack_can_merge}"];
+	ts_stack_clear -> _array__grow;
+	ts_stack_clear -> stack_head_delete;
+	ts_stack_clear -> stack_node_retain;
+	ts_stack_clear [shape=record,label="{ts_stack_clear}"];
+	ts_stack_copy_version -> _array__grow;
+	ts_stack_copy_version -> stack_node_retain;
+	ts_stack_copy_version -> ts_subtree_retain;
+	ts_stack_copy_version [shape=record,label="{ts_stack_copy_version}"];
+	ts_stack_delete -> _array__delete;
+
+	ts_stack_delete -> stack_head_delete;
+	ts_stack_delete -> stack_node_release;
+	ts_stack_delete [shape=record,label="{ts_stack_delete}"];
+	ts_stack_dynamic_precedence [shape=record,label="{ts_stack_dynamic_precedence}"];
+	ts_stack_error_cost [shape=record,label="{ts_stack_error_cost}"];
+	ts_stack_get_summary [shape=record,label="{ts_stack_get_summary}"];
+	ts_stack_halt [shape=record,label="{ts_stack_halt}"];
+	ts_stack_has_advanced_since_error -> ts_subtree_error_cost;
+	ts_stack_has_advanced_since_error -> ts_subtree_total_bytes;
+	ts_stack_has_advanced_since_error [shape=record,label="{ts_stack_has_advanced_since_error}"];
+	ts_stack_is_active [shape=record,label="{ts_stack_is_active}"];
+	ts_stack_is_halted [shape=record,label="{ts_stack_is_halted}"];
+	ts_stack_is_paused [shape=record,label="{ts_stack_is_paused}"];
+	ts_stack_last_external_token [shape=record,label="{ts_stack_last_external_token}"];
+	ts_stack_merge -> stack_node_add_link;
+	ts_stack_merge -> ts_stack_can_merge;
+	ts_stack_merge -> ts_stack_remove_version;
+	ts_stack_merge [shape=record,label="{ts_stack_merge}"];
+	ts_stack_new -> _array__reserve;
+	ts_stack_new -> calloc;
+	ts_stack_new -> stack_node_new;
+	ts_stack_new -> ts_stack_clear;
+	ts_stack_new [shape=record,label="{ts_stack_new}"];
+	ts_stack_node_count_since_error [shape=record,label="{ts_stack_node_count_since_error}"];
+	ts_stack_pause [shape=record,label="{ts_stack_pause}"];
+	ts_stack_pop_all -> stack__iter;
+	ts_stack_pop_all [shape=record,label="{ts_stack_pop_all}"];
+	ts_stack_pop_count -> stack__iter;
+	ts_stack_pop_count [shape=record,label="{ts_stack_pop_count}"];
+	ts_stack_pop_error -> stack__iter;
+	ts_stack_pop_error -> ts_stack_renumber_version;
+	ts_stack_pop_error -> ts_subtree_is_error;
+	ts_stack_pop_error [shape=record,label="{ts_stack_pop_error}"];
+	ts_stack_pop_pending -> stack__iter;
+	ts_stack_pop_pending -> ts_stack_renumber_version;
+	ts_stack_pop_pending [shape=record,label="{ts_stack_pop_pending}"];
+	ts_stack_position [shape=record,label="{ts_stack_position}"];
+	ts_stack_print_dot_graph -> _array__delete;
+	ts_stack_print_dot_graph -> _array__grow;
+	ts_stack_print_dot_graph -> _array__reserve;
+	ts_stack_print_dot_graph -> ts_external_scanner_state_data;
+	ts_stack_print_dot_graph -> ts_language_write_symbol_as_dot_string;
+	ts_stack_print_dot_graph -> ts_stack_error_cost;
+	ts_stack_print_dot_graph -> ts_stack_node_count_since_error;
+	ts_stack_print_dot_graph -> ts_subtree_dynamic_precedence;
+	ts_stack_print_dot_graph -> ts_subtree_error_cost;
+	ts_stack_print_dot_graph -> ts_subtree_extra;
+	ts_stack_print_dot_graph -> ts_subtree_named;
+	ts_stack_print_dot_graph -> ts_subtree_symbol;
+	ts_stack_print_dot_graph -> ts_subtree_visible;
+	ts_stack_print_dot_graph [shape=record,label="{ts_stack_print_dot_graph}"];
+	ts_stack_push -> stack_node_new;
+	ts_stack_push [shape=record,label="{ts_stack_push}"];
+	ts_stack_record_summary -> _array__delete;
+
+	ts_stack_record_summary -> malloc;
+	ts_stack_record_summary -> stack__iter;
+	ts_stack_record_summary [shape=record,label="{ts_stack_record_summary}"];
+	ts_stack_remove_version -> _array__erase;
+	ts_stack_remove_version -> stack_head_delete;
+	ts_stack_remove_version [shape=record,label="{ts_stack_remove_version}"];
+	ts_stack_renumber_version -> _array__erase;
+	ts_stack_renumber_version -> stack_head_delete;
+	ts_stack_renumber_version [shape=record,label="{ts_stack_renumber_version}"];
+	ts_stack_resume [shape=record,label="{ts_stack_resume}"];
+	ts_stack_set_last_external_token -> ts_subtree_release;
+	ts_stack_set_last_external_token -> ts_subtree_retain;
+	ts_stack_set_last_external_token [shape=record,label="{ts_stack_set_last_external_token}"];
+	ts_stack_state [shape=record,label="{ts_stack_state}"];
+	ts_stack_swap_versions [shape=record,label="{ts_stack_swap_versions}"];
+	ts_stack_version_count [shape=record,label="{ts_stack_version_count}"];
+	ts_subtree__compress -> _array__grow;
+	ts_subtree__compress -> ts_subtree_from_mut;
+	ts_subtree__compress -> ts_subtree_summarize_children;
+	ts_subtree__compress -> ts_subtree_to_mut_unsafe;
+	ts_subtree__compress [shape=record,label="{ts_subtree__compress}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_subtree_alloc_size [shape=record,label="{ts_subtree_alloc_size}"];
+	ts_subtree_array_clear -> ts_subtree_release;
+	ts_subtree_array_clear [shape=record,label="{ts_subtree_array_clear}"];
+	ts_subtree_array_copy -> calloc;
+	ts_subtree_array_copy -> memcpy;
+	ts_subtree_array_copy -> ts_subtree_retain;
+	ts_subtree_array_copy [shape=record,label="{ts_subtree_array_copy}"];
+	ts_subtree_array_delete -> _array__delete;
+	ts_subtree_array_delete -> ts_subtree_array_clear;
+	ts_subtree_array_delete [shape=record,label="{ts_subtree_array_delete}"];
+	ts_subtree_array_remove_trailing_extras -> _array__grow;
+	ts_subtree_array_remove_trailing_extras -> ts_subtree_array_reverse;
+	ts_subtree_array_remove_trailing_extras -> ts_subtree_extra;
+	ts_subtree_array_remove_trailing_extras [shape=record,label="{ts_subtree_array_remove_trailing_extras}"];
+	ts_subtree_array_reverse [shape=record,label="{ts_subtree_array_reverse}"];
+	ts_subtree_balance -> _array__grow;
+	ts_subtree_balance -> ts_subtree__compress;
+	ts_subtree_balance -> ts_subtree_child_count;
+	ts_subtree_balance -> ts_subtree_repeat_depth;
+	ts_subtree_balance -> ts_subtree_to_mut_unsafe;
+	ts_subtree_balance [shape=record,label="{ts_subtree_balance}"];
+	ts_subtree_can_inline [shape=record,label="{ts_subtree_can_inline}"];
+	ts_subtree_child_count [shape=record,label="{ts_subtree_child_count}"];
+	ts_subtree_clone -> malloc;
+	ts_subtree_clone -> memcpy;
+	ts_subtree_clone -> ts_external_scanner_state_copy;
+	ts_subtree_clone -> ts_subtree_alloc_size;
+	ts_subtree_clone -> ts_subtree_retain;
+	ts_subtree_clone [shape=record,label="{ts_subtree_clone}"];
+	ts_subtree_compare -> _array__grow;
+	ts_subtree_compare -> ts_subtree_child_count;
+	ts_subtree_compare -> ts_subtree_from_mut;
+	ts_subtree_compare -> ts_subtree_symbol;
+	ts_subtree_compare -> ts_subtree_to_mut_unsafe;
+	ts_subtree_compare [shape=record,label="{ts_subtree_compare}"];
+	ts_subtree_depends_on_column [shape=record,label="{ts_subtree_depends_on_column}"];
+	ts_subtree_dynamic_precedence [shape=record,label="{ts_subtree_dynamic_precedence}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_subtree_error_cost -> ts_subtree_missing;
+	ts_subtree_error_cost [shape=record,label="{ts_subtree_error_cost}"];
+	ts_subtree_external_scanner_state [shape=record,label="{ts_subtree_external_scanner_state}"];
+	ts_subtree_external_scanner_state_eq -> ts_external_scanner_state_data;
+	ts_subtree_external_scanner_state_eq -> ts_external_scanner_state_eq;
+	ts_subtree_external_scanner_state_eq -> ts_subtree_external_scanner_state;
+	ts_subtree_external_scanner_state_eq [shape=record,label="{ts_subtree_external_scanner_state_eq}"];
+	ts_subtree_extra [shape=record,label="{ts_subtree_extra}"];
+	ts_subtree_fragile_left [shape=record,label="{ts_subtree_fragile_left}"];
+	ts_subtree_fragile_right [shape=record,label="{ts_subtree_fragile_right}"];
+	ts_subtree_from_mut [shape=record,label="{ts_subtree_from_mut}"];
+	ts_subtree_has_changes [shape=record,label="{ts_subtree_has_changes}"];
+	ts_subtree_has_external_scanner_state_change [shape=record,label="{ts_subtree_has_external_scanner_state_change}"];
+	ts_subtree_has_external_tokens [shape=record,label="{ts_subtree_has_external_tokens}"];
+// 
+// 
+// 
+// 
+	ts_subtree_is_eof -> ts_subtree_symbol;
+	ts_subtree_is_eof [shape=record,label="{ts_subtree_is_eof}"];
+	ts_subtree_is_error -> ts_subtree_symbol;
+	ts_subtree_is_error [shape=record,label="{ts_subtree_is_error}"];
+	ts_subtree_is_fragile [shape=record,label="{ts_subtree_is_fragile}"];
+	ts_subtree_is_keyword [shape=record,label="{ts_subtree_is_keyword}"];
+	ts_subtree_last_external_token -> ts_subtree_has_external_tokens;
+	ts_subtree_last_external_token [shape=record,label="{ts_subtree_last_external_token}"];
+	ts_subtree_leaf_parse_state [shape=record,label="{ts_subtree_leaf_parse_state}"];
+	ts_subtree_leaf_symbol [shape=record,label="{ts_subtree_leaf_symbol}"];
+	ts_subtree_lookahead_bytes [shape=record,label="{ts_subtree_lookahead_bytes}"];
+	ts_subtree_make_mut -> ts_subtree_clone;
+	ts_subtree_make_mut -> ts_subtree_release;
+	ts_subtree_make_mut -> ts_subtree_to_mut_unsafe;
+	ts_subtree_make_mut [shape=record,label="{ts_subtree_make_mut}"];
+	ts_subtree_missing [shape=record,label="{ts_subtree_missing}"];
+	ts_subtree_named [shape=record,label="{ts_subtree_named}"];
+	ts_subtree_new_error -> ts_subtree_new_leaf;
+	ts_subtree_new_error [shape=record,label="{ts_subtree_new_error}"];
+	ts_subtree_new_error_node -> ts_subtree_from_mut;
+	ts_subtree_new_error_node -> ts_subtree_new_node;
+	ts_subtree_new_error_node [shape=record,label="{ts_subtree_new_error_node}"];
+	ts_subtree_new_leaf -> ts_language_symbol_metadata;
+	ts_subtree_new_leaf -> ts_subtree_can_inline;
+	ts_subtree_new_leaf -> ts_subtree_pool_allocate;
+	ts_subtree_new_leaf [shape=record,label="{ts_subtree_new_leaf}"];
+	ts_subtree_new_missing_leaf -> length_zero;
+	ts_subtree_new_missing_leaf -> ts_subtree_new_leaf;
+	ts_subtree_new_missing_leaf [shape=record,label="{ts_subtree_new_missing_leaf}"];
+	ts_subtree_new_node -> realloc;
+	ts_subtree_new_node -> ts_language_symbol_metadata;
+	ts_subtree_new_node -> ts_subtree_alloc_size;
+	ts_subtree_new_node -> ts_subtree_summarize_children;
+	ts_subtree_new_node [shape=record,label="{ts_subtree_new_node}"];
+	ts_subtree_padding [shape=record,label="{ts_subtree_padding}"];
+	ts_subtree_parse_state [shape=record,label="{ts_subtree_parse_state}"];
+	ts_subtree_pool_allocate -> malloc;
+	ts_subtree_pool_allocate [shape=record,label="{ts_subtree_pool_allocate}"];
+	ts_subtree_pool_delete -> _array__delete;
+
+	ts_subtree_pool_delete [shape=record,label="{ts_subtree_pool_delete}"];
+	ts_subtree_pool_free -> _array__grow;
+
+	ts_subtree_pool_free [shape=record,label="{ts_subtree_pool_free}"];
+	ts_subtree_pool_new -> _array__reserve;
+	ts_subtree_pool_new [shape=record,label="{ts_subtree_pool_new}"];
+// 
+// 
+	ts_subtree_release -> _array__grow;
+
+	ts_subtree_release -> ts_external_scanner_state_delete;
+	ts_subtree_release -> ts_subtree_pool_free;
+	ts_subtree_release -> ts_subtree_to_mut_unsafe;
+	ts_subtree_release [shape=record,label="{ts_subtree_release}"];
+	ts_subtree_repeat_depth [shape=record,label="{ts_subtree_repeat_depth}"];
+	ts_subtree_retain [shape=record,label="{ts_subtree_retain}"];
+	ts_subtree_set_extra [shape=record,label="{ts_subtree_set_extra}"];
+// 
+	ts_subtree_set_symbol -> ts_language_symbol_metadata;
+	ts_subtree_set_symbol [shape=record,label="{ts_subtree_set_symbol}"];
+	ts_subtree_size [shape=record,label="{ts_subtree_size}"];
+// 
+// 
+// 
+	ts_subtree_summarize_children -> length_add;
+	ts_subtree_summarize_children -> ts_language_alias_sequence;
+	ts_subtree_summarize_children -> ts_language_symbol_metadata;
+	ts_subtree_summarize_children -> ts_subtree_child_count;
+	ts_subtree_summarize_children -> ts_subtree_depends_on_column;
+	ts_subtree_summarize_children -> ts_subtree_dynamic_precedence;
+	ts_subtree_summarize_children -> ts_subtree_error_cost;
+	ts_subtree_summarize_children -> ts_subtree_extra;
+	ts_subtree_summarize_children -> ts_subtree_fragile_left;
+	ts_subtree_summarize_children -> ts_subtree_fragile_right;
+	ts_subtree_summarize_children -> ts_subtree_has_external_scanner_state_change;
+	ts_subtree_summarize_children -> ts_subtree_has_external_tokens;
+	ts_subtree_summarize_children -> ts_subtree_is_error;
+	ts_subtree_summarize_children -> ts_subtree_leaf_parse_state;
+	ts_subtree_summarize_children -> ts_subtree_leaf_symbol;
+	ts_subtree_summarize_children -> ts_subtree_lookahead_bytes;
+	ts_subtree_summarize_children -> ts_subtree_named;
+	ts_subtree_summarize_children -> ts_subtree_padding;
+	ts_subtree_summarize_children -> ts_subtree_repeat_depth;
+	ts_subtree_summarize_children -> ts_subtree_size;
+	ts_subtree_summarize_children -> ts_subtree_symbol;
+	ts_subtree_summarize_children -> ts_subtree_total_size;
+	ts_subtree_summarize_children -> ts_subtree_visible;
+	ts_subtree_summarize_children -> ts_subtree_visible_descendant_count;
+	ts_subtree_summarize_children [shape=record,label="{ts_subtree_summarize_children}"];
+	ts_subtree_symbol [shape=record,label="{ts_subtree_symbol}"];
+	ts_subtree_to_mut_unsafe [shape=record,label="{ts_subtree_to_mut_unsafe}"];
+	ts_subtree_total_bytes -> ts_subtree_total_size;
+	ts_subtree_total_bytes [shape=record,label="{ts_subtree_total_bytes}"];
+	ts_subtree_total_size -> length_add;
+	ts_subtree_total_size -> ts_subtree_padding;
+	ts_subtree_total_size -> ts_subtree_size;
+	ts_subtree_total_size [shape=record,label="{ts_subtree_total_size}"];
+	ts_subtree_visible [shape=record,label="{ts_subtree_visible}"];
+// 
+// 
+	ts_subtree_visible_descendant_count [shape=record,label="{ts_subtree_visible_descendant_count}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+
+	ts_tree_delete -> ts_language_delete;
+	ts_tree_delete -> ts_subtree_pool_delete;
+	ts_tree_delete -> ts_subtree_pool_new;
+	ts_tree_delete -> ts_subtree_release;
+	ts_tree_delete [shape=record,label="{ts_tree_delete}"];
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+	ts_tree_new -> calloc;
+	ts_tree_new -> malloc;
+	ts_tree_new -> memcpy;
+	ts_tree_new -> ts_language_copy;
+	ts_tree_new [shape=record,label="{ts_tree_new}"];
+	ts_tree_root_node -> ts_node_new;
+	ts_tree_root_node -> ts_subtree_padding;
+	ts_tree_root_node [shape=record,label="{ts_tree_root_node}"];
+// 
+// 
+// 
+// 
+}
