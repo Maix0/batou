@@ -37,34 +37,14 @@ bool	lex_keywords(t_lexer	*lexer, t_state_id	state)
 	return (lex_state.result);
 }
 
+bool	lex_keywords_func_0_inner(t_lexer	*lexer, t_lex_state	*s);
+
 enum e_lex_ret	lex_keywords_func_0(t_lexer	*lexer, t_lex_state	*s)
 {
-	if (s->lookahead == 'A')
-		return (lex_advance(1, s));
-	if (s->lookahead == 'E')
-		return (lex_advance(2, s));
-	if (s->lookahead == 'K')
-		return (lex_advance(3, s));
-	if (s->lookahead == 'L')
-		return (lex_advance(4, s));
-	if (s->lookahead == 'P')
-		return (lex_advance(5, s));
-	if (s->lookahead == 'Q')
-		return (lex_advance(6, s));
-	if (s->lookahead == 'U')
-		return (lex_advance(7, s));
-	if (s->lookahead == '\\')
-		return (lex_skip(8, s));
-	if (s->lookahead == 'a')
-		return (lex_advance(9, s));
-	if (s->lookahead == 'c')
-		return (lex_advance(10, s));
-	if (s->lookahead == 'd')
-		return (lex_advance(11, s));
-	if (s->lookahead == 'e')
-		return (lex_advance(12, s));
+	if (lex_keywords_func_0_inner(lexer, s))
+		return (s->lex_ret);
 	if (s->lookahead == 'f')
-		return (lex_advance(13, s));
+		return (s->lex_ret = lex_advance(13, s), true);
 	if (s->lookahead == 'i')
 		return (lex_advance(14, s));
 	if (s->lookahead == 'k')

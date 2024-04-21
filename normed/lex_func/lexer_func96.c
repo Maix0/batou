@@ -97,26 +97,12 @@ enum e_lex_ret	lex_func_482(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
+bool	lex_func_483_inner(t_lexer	*lexer, t_lex_state	*s);
+
 enum e_lex_ret	lex_func_483(t_lexer	*lexer, t_lex_state	*s)
 {
-	if (s->lookahead == '#')
-		return (lex_advance(862, s));
-	if (s->lookahead == '$')
-		return (lex_advance(515, s));
-	if (s->lookahead == '&')
-		return (lex_advance(489, s));
-	if (s->lookahead == '-')
-		return (lex_advance(504, s));
-	if (s->lookahead == '0')
-		return (lex_advance(808, s));
-	if (s->lookahead == '<')
-		return (lex_advance(613, s));
-	if (s->lookahead == '>')
-		return (lex_advance(618, s));
-	if (s->lookahead == '\\')
-		return (lex_skip(385, s));
-	if (s->lookahead == ']')
-		return (lex_advance(675, s));
+	if (lex_func_483_inner(lexer, s))
+		return (s->lex_ret);
 	if (s->lookahead == '`')
 		return (lex_advance(510, s));
 	if (s->lookahead == '|')

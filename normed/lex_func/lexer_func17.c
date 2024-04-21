@@ -53,23 +53,12 @@ enum e_lex_ret	lex_func_85(t_lexer	*lexer, t_lex_state	*s)
 		return (lex_advance(879, s));
 	return (LEX_STOP);
 }
+bool	lex_func_86_inner(t_lexer *lexer, t_lex_state *s);
 
 enum e_lex_ret	lex_func_86(t_lexer	*lexer, t_lex_state	*s)
 {
-	if (s->lookahead == '\n')
-		return (lex_advance(690, s));
-	if (s->lookahead == '#')
-		return (lex_advance(862, s));
-	if (s->lookahead == '&')
-		return (lex_advance(602, s));
-	if (s->lookahead == ';')
-		return (lex_advance(554, s));
-	if (s->lookahead == '<')
-		return (lex_advance(612, s));
-	if (s->lookahead == '>')
-		return (lex_advance(618, s));
-	if (s->lookahead == '\\')
-		return (lex_skip(379, s));
+	if (lex_func_86_inner(lexer, s))
+		return (s->lex_ret);
 	if (s->lookahead == '`')
 		return (lex_advance(510, s));
 	if (s->lookahead == 'e')
@@ -85,22 +74,12 @@ enum e_lex_ret	lex_func_86(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
+bool	lex_func_87_inner(t_lexer *lexer, t_lex_state *s);
+
 enum e_lex_ret	lex_func_87(t_lexer	*lexer, t_lex_state	*s)
 {
-	if (s->lookahead == '\n')
-		return (lex_advance(690, s));
-	if (s->lookahead == '#')
-		return (lex_advance(862, s));
-	if (s->lookahead == '&')
-		return (lex_advance(602, s));
-	if (s->lookahead == ';')
-		return (lex_advance(554, s));
-	if (s->lookahead == '<')
-		return (lex_advance(613, s));
-	if (s->lookahead == '>')
-		return (lex_advance(618, s));
-	if (s->lookahead == '\\')
-		return (lex_skip(380, s));
+	if (lex_func_87_inner(lexer, s))
+		return (s->lex_ret);
 	if (s->lookahead == '`')
 		return (lex_advance(510, s));
 	if (s->lookahead == 'e')
