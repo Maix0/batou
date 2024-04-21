@@ -40,7 +40,6 @@ void	lex_modes511(t_lex_modes *v)
 	v->arr[7668] = (t_lex_mode){.lex_state = 433};
 	v->arr[7669] = (t_lex_mode){.lex_state = 433};
 	v->arr[7670] = (t_lex_mode){.lex_state = 433, .external_lex_state = 114};
-	lex_modes512(v);
 }
 
 // file funcs102.c

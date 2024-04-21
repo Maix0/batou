@@ -6,7 +6,7 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:49:43 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/19 19:02:29 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:08:23 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # include <stdbool.h>
 # include <stdint.h>
 # include "./parser.h"
+# include "./symbols.h"
+# include "./field.h"
 
-
-enum							e_lex_ret
+enum e_lex_ret
 {
 	LEX_STOP = 0,
 	LEX_START = 1 << 0,
@@ -62,13 +63,15 @@ static inline enum e_lex_ret	lex_advance(t_state_id state, t_lex_state *s)
 
 typedef enum e_lex_ret	t_lex_n_funcs(t_lexer	*lexer, t_lex_state	*s);
 
-typedef struct	s_lex_normal_funcs {
+typedef struct s_lex_normal_funcs
+{
 	t_lex_n_funcs	*arr[1000];
 }	t_lex_normal_funcs;
 
 typedef enum e_lex_ret	t_lex_k_funcs(t_lexer	*lexer, t_lex_state	*s);
 
-typedef struct	s_lex_keyword_funcs {
+typedef struct s_lex_keyword_funcs
+{
 	t_lex_k_funcs	*arr[100];
 }	t_lex_keyword_funcs;
 
@@ -91,9 +94,9 @@ static inline bool	lex_advance_map(uint32_t *map, uint32_t map_size,
 	return (false);
 }
 
-enum e_lex_ret lex_func_choose(t_lexer *lexer, t_state_id state_id, \
-							   t_lex_state s);
-enum e_lex_ret lex_keywords_func_choose(t_lexer *lexer, t_state_id state_id, \
-										t_lex_state s);
+enum e_lex_ret	lex_func_choose(t_lexer *lexer, t_state_id state_id, \
+	t_lex_state *s);
+enum e_lex_ret	lex_keywords_func_choose(t_lexer *lexer, t_state_id state_id, \
+	t_lex_state *s);
 
 #endif /* LEX_H */

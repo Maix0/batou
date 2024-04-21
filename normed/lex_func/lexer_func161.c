@@ -29,7 +29,7 @@ enum e_lex_ret	lex_func_804(t_lexer	*lexer, t_lex_state	*s)
 	s->lookahead == '_' || \
 	('a' <= s->lookahead && s->lookahead <= 'z'))
 		return (lex_advance(868, s));
-	if ((!s->eof && set_contains(sym_word_character_set_1, 11, s->lookahead)))
+	if ((!s->eof && set_contains(sym_word_character_set_1(), 11, s->lookahead)))
 		return (lex_advance(958, s));
 	return (LEX_STOP);
 }
@@ -45,7 +45,7 @@ enum e_lex_ret	lex_func_805(t_lexer	*lexer, t_lex_state	*s)
 		return (lex_advance(518, s));
 	if (('0' <= s->lookahead && s->lookahead <= '9'))
 		return (lex_advance(805, s));
-	if ((!s->eof && set_contains(sym_word_character_set_1, 11, s->lookahead)))
+	if ((!s->eof && set_contains(sym_word_character_set_1(), 11, s->lookahead)))
 		return (lex_advance(958, s));
 	return (LEX_STOP);
 }
@@ -65,7 +65,7 @@ enum e_lex_ret	lex_func_806(t_lexer	*lexer, t_lex_state	*s)
 	s->lookahead == '_' || \
 	('a' <= s->lookahead && s->lookahead <= 'z'))
 		return (lex_advance(868, s));
-	if ((!s->eof && set_contains(sym_word_character_set_1, 11, s->lookahead)))
+	if ((!s->eof && set_contains(sym_word_character_set_1(), 11, s->lookahead)))
 		return (lex_advance(958, s));
 	return (LEX_STOP);
 }
@@ -85,7 +85,7 @@ enum e_lex_ret	lex_func_807(t_lexer	*lexer, t_lex_state	*s)
 	s->lookahead == '_' || \
 	('a' <= s->lookahead && s->lookahead <= 'z'))
 		return (lex_advance(873, s));
-	if ((!s->eof && set_contains(sym_word_character_set_1, 11, s->lookahead)))
+	if ((!s->eof && set_contains(sym_word_character_set_1(), 11, s->lookahead)))
 		return (lex_advance(958, s));
 	return (LEX_STOP);
 }

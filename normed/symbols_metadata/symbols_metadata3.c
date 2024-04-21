@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   funcs3.c                                           :+:      :+:    :+:   */
+/*   symbols_metadata3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:17:54 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/14 19:18:20 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:39:42 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	init_sym_metadata18(t_symbols_metadata *v)
 	0};
 	v->arr[aux_sym__concatenation_in_expansion_repeat1] = (t_sm){.visible = 0, \
 	.named = 0};
-	init_sym_metadata19(v);
 }
 
 // file funcs3.c

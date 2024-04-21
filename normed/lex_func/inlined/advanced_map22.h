@@ -18,7 +18,7 @@
 
 static inline bool	lex_advence_map_437(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 655, \
+	static uint32_t	map[] = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 655, \
 		'*', 639, '+', 631, '-', 634, '/', 645, '<', 615, '=', 562, '>', 620, \
 			'?', 760, '[', 673, };
 
@@ -27,7 +27,7 @@ static inline bool	lex_advence_map_437(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_438(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 655, \
+	static uint32_t	map[] = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 655, \
 		'*', 639, '+', 631, '-', 634, '/', 645, '<', 615, '=', 562, '>', 620, \
 			'?', 760, };
 
@@ -36,7 +36,7 @@ static inline bool	lex_advence_map_438(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_439(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 655, \
+	static uint32_t	map[] = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 655, \
 		'*', 639, '+', 631, '-', 634, '/', 645, '<', 615, '=', 562, '>', 620, \
 			'?', 760, };
 
@@ -45,7 +45,7 @@ static inline bool	lex_advence_map_439(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_440(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 499, \
+	static uint32_t	map[] = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 499, \
 		'*', 639, '+', 631, ',', 556, '-', 634, '/', 645, ':', 762, '<', 615, \
 			'=', 562, '>', 620, '?', 760, };
 
@@ -54,7 +54,7 @@ static inline bool	lex_advence_map_440(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_441(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 499, \
+	static uint32_t	map[] = {'!', 506, '#', 862, '%', 650, '&', 600, ')', 499, \
 		'*', 639, '+', 631, ',', 556, '-', 635, '/', 645, '<', 615, '=', 561, \
 			'>', 620, };
 

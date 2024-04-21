@@ -6,7 +6,7 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:42:58 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/14 16:58:45 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:12:32 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ typedef struct s_lexer
 
 typedef enum e_parse_action_type
 {
-	TSParseActionTypeShift,
-	TSParseActionTypeReduce,
-	TSParseActionTypeAccept,
-	TSParseActionTypeRecover,
+	ACT_TY_SHIFT,
+	ACT_TY_REDUCE,
+	ACT_TY_ACCEPT,
+	ACT_TY_RECOVER,
 }										t_parse_action_type;
 
 struct									s_parse_action_shift
@@ -117,7 +117,7 @@ typedef bool							(*t_external_scanner_scan)(void *ctx,
 typedef void							(*t_external_scanner_deserialize) \
 (void *ctx, const char *s, unsigned num);
 
-struct									s_external_scanner
+typedef struct s_external_scanner
 {
 	const bool							*states;
 	const t_symbol						*symbol_map;
@@ -126,7 +126,7 @@ struct									s_external_scanner
 	t_external_scanner_scan				scan;
 	unsigned							(*serialize)(void *ctx, char *s);
 	t_external_scanner_deserialize		deserialize;
-};
+}										t_external_scanner;
 
 typedef bool							(*t_lang_lex_fn)(t_lexer *lexer,
 								t_state_id state_id);
@@ -165,34 +165,9 @@ typedef struct s_language
 	const t_state_id					*primary_state_ids;
 }										t_language;
 
-static inline bool	set_contains(t_char_range *ranges, uint32_t len,
-		int32_t lookahead)
-{
-	uint32_t		index;
-	uint32_t		size;
-	uint32_t		half_size;
-	uint32_t		mid_index;
-	t_char_range	*range;
-
-	index = 0;
-	size = len - index;
-	while (size > 1)
-	{
-		half_size = size / 2;
-		mid_index = index + half_size;
-		range = &ranges[mid_index];
-		if (lookahead >= range->start && lookahead <= range->end)
-		{
-			return (true);
-		}
-		else if (lookahead > range->end)
-		{
-			index = mid_index;
-		}
-		size -= half_size;
-	}
-	range = &ranges[index];
-	return (lookahead >= range->start && lookahead <= range->end);
-}
+bool			set_contains(t_char_range *ranges, uint32_t len, \
+				int32_t lookahead);
+t_char_range	*sym__comment_word_character_set_1(void);
+t_char_range	*sym_word_character_set_1(void);
 
 #endif

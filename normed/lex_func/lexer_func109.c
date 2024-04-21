@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_func109.c:+:      :+:    :+:   */
+/*   lexer_func109.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:17:54 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/14 19:18:20 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:52:17 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ enum e_lex_ret	lex_func_546(t_lexer	*lexer, t_lex_state	*s)
 enum e_lex_ret	lex_func_547(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
-	lexer->result_symbol = ts_builtin_sym_end;
+	lexer->result_symbol = 0;
 	lexer->mark_end(lexer);
 	return (LEX_STOP);
 }

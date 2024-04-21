@@ -35,7 +35,7 @@ enum e_lex_ret	lex_func_595(t_lexer	*lexer, t_lex_state	*s)
 		return (lex_advance(518, s));
 	if (s->lookahead == '^')
 		return (lex_advance(852, s));
-	if ((!s->eof && set_contains(sym__comment_word_character_set_1, \
+	if ((!s->eof && set_contains(sym__comment_word_character_set_1(), \
 	12, s->lookahead)))
 		return (lex_advance(958, s));
 	return (LEX_STOP);
@@ -50,7 +50,7 @@ enum e_lex_ret	lex_func_596(t_lexer	*lexer, t_lex_state	*s)
 		return (lex_advance(584, s));
 	if (s->lookahead == '\\')
 		return (lex_advance(518, s));
-	if ((!s->eof && set_contains(sym__comment_word_character_set_1, \
+	if ((!s->eof && set_contains(sym__comment_word_character_set_1(), \
 	12, s->lookahead)))
 		return (lex_advance(958, s));
 	return (LEX_STOP);

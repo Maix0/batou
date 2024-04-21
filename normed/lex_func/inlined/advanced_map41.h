@@ -18,7 +18,7 @@
 
 static inline bool	lex_advence_map_911(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 738, '!', 672, '"', 788, '#', 816, '$', 781, \
+	static uint32_t	map[] = {'\n', 738, '!', 672, '"', 788, '#', 816, '$', 781, \
 		'&', 602, '\'', 491, '(', 494, '*', 640, '-', 636, '0', 943, ';', 555, \
 			'<', 610, '>', 617, '?', 761, '@', 942, '\\', 207, '_', 947, '`', \
 			855, '|', 593, };
@@ -28,7 +28,7 @@ static inline bool	lex_advence_map_911(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_912(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 740, '!', 672, '"', 788, '#', 816, '$', 781, \
+	static uint32_t	map[] = {'\n', 740, '!', 672, '"', 788, '#', 816, '$', 781, \
 		'&', 489, '\'', 491, '(', 494, '*', 640, '-', 636, '0', 943, '<', 609, \
 			'=', 952, '>', 617, '?', 761, '@', 942, '\\', 168, '_', 947, '`', \
 			855, '|', 593, };
@@ -38,7 +38,7 @@ static inline bool	lex_advence_map_912(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_913(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 742, '!', 672, '"', 788, '#', 816, '$', 781, \
+	static uint32_t	map[] = {'\n', 742, '!', 672, '"', 788, '#', 816, '$', 781, \
 		'&', 489, '\'', 491, '(', 494, '*', 640, '-', 636, '0', 943, '<', 609, \
 			'>', 617, '?', 761, '@', 942, '\\', 58, '_', 947, '`', 855, '|', \
 			593, };
@@ -48,7 +48,7 @@ static inline bool	lex_advence_map_913(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_914(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 744, '!', 672, '"', 788, '#', 816, '$', 781, \
+	static uint32_t	map[] = {'\n', 744, '!', 672, '"', 788, '#', 816, '$', 781, \
 		'&', 489, '\'', 491, '(', 494, '*', 640, '-', 636, '0', 943, '<', 610, \
 			'>', 617, '?', 761, '@', 942, '\\', 233, '_', 947, '`', 855, '|', \
 			593, };
@@ -58,7 +58,7 @@ static inline bool	lex_advence_map_914(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_915(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 746, '!', 672, '"', 788, '#', 816, '$', 781, \
+	static uint32_t	map[] = {'\n', 746, '!', 672, '"', 788, '#', 816, '$', 781, \
 		'&', 489, '\'', 491, '(', 494, '*', 640, '-', 636, '0', 943, '<', 608, \
 			'>', 617, '?', 761, '@', 942, '\\', 176, '_', 947, '`', 855, '|', \
 			516, };

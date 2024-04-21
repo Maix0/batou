@@ -18,7 +18,7 @@
 
 static inline bool	lex_advence_map_457(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'"', 788, '#', 862, '$', 781, '&', 508, '\'', 491, \
+	static uint32_t	map[] = {'"', 788, '#', 862, '$', 781, '&', 508, '\'', 491, \
 		'(', 654, '-', 950, '0', 803, '<', 608, '>', 617, '[', 674, '\\', 330, \
 			'`', 855, ']', 786, '{', 786, '}', 786, };
 
@@ -27,7 +27,7 @@ static inline bool	lex_advence_map_457(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_458(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'"', 788, '#', 862, '$', 781, '&', 508, '\'', 491, \
+	static uint32_t	map[] = {'"', 788, '#', 862, '$', 781, '&', 508, '\'', 491, \
 		'(', 494, ')', 655, '-', 950, '0', 803, '<', 608, '>', 617, '\\', 340, \
 			'`', 855, '|', 590, '[', 786, ']', 786, '{', 786, '}', 786, };
 
@@ -36,7 +36,7 @@ static inline bool	lex_advence_map_458(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_459(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'"', 788, '#', 862, '$', 781, '&', 508, '\'', 491, \
+	static uint32_t	map[] = {'"', 788, '#', 862, '$', 781, '&', 508, '\'', 491, \
 		'(', 494, ')', 655, '-', 950, '0', 803, '<', 608, '>', 617, '\\', 371, \
 			'`', 856, '|', 590, '[', 786, ']', 786, '{', 786, '}', 786, };
 
@@ -45,7 +45,7 @@ static inline bool	lex_advence_map_459(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_460(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'"', 788, '#', 862, '$', 781, '&', 489, '\'', 491, \
+	static uint32_t	map[] = {'"', 788, '#', 862, '$', 781, '&', 489, '\'', 491, \
 		'(', 654, ')', 655, '-', 950, '0', 803, '<', 609, '>', 617, '\\', 338, \
 			'`', 855, '|', 593, '[', 786, ']', 786, '{', 786, '}', 786, };
 
@@ -54,7 +54,7 @@ static inline bool	lex_advence_map_460(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_461(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'"', 788, '#', 862, '$', 781, '&', 489, '\'', 491, \
+	static uint32_t	map[] = {'"', 788, '#', 862, '$', 781, '&', 489, '\'', 491, \
 		'(', 654, '-', 950, '0', 803, '<', 609, '=', 952, '>', 617, '\\', 329, \
 			'`', 855, '|', 593, '[', 786, ']', 786, '{', 786, '}', 786, };
 

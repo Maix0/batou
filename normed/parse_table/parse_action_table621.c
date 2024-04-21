@@ -45,7 +45,6 @@ void	init_parse_table3106(t_parse_table *v)
 	v->arr[527][sym_variable_name] = 217;
 	v->arr[527][sym_test_operator] = 219;
 	v->arr[527][sym__brace_start] = 221;
-	init_parse_table3107(v);
 }
 
 // file funcs621.c

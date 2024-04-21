@@ -6,18 +6,11 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 17:18:51 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/15 13:04:13 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:44:07 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/symbols.h"
-
-t_symbol_names	*get_symbols_names(void)
-{
-	static t_symbol_names	symbols_names;
-
-	return (&symbols_names);
-}
 
 void			init_symbol_names(t_symbol_names *v);
 void			init_symbol_names2(t_symbol_names *v);

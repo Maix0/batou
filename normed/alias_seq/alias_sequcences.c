@@ -6,19 +6,11 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:24:31 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/14 17:02:09 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:09:06 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "alias_seq.h"
-
-t_alias_seq	*get_alias_seq(void)
-{
-	static t_alias_seq	alias_seq;
-
-	alias_seq = {};
-	return (&alias_seq);
-}
 
 static inline void	init_alias_seq2(t_alias_seq *v)
 {

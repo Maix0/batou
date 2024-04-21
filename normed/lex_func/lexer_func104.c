@@ -20,7 +20,7 @@ bool	lex_func_522_inner(t_lexer	*lexer, t_lex_state	*s);
 enum e_lex_ret	lex_func_519(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (lex_func_519_inner(lexer, s))
-		return (s->let_ret);
+		return (s->lex_ret);
 	if (s->lookahead == ';')
 		return (lex_advance(555, s));
 	if (s->lookahead == '<')
@@ -45,7 +45,7 @@ enum e_lex_ret	lex_func_519(t_lexer	*lexer, t_lex_state	*s)
 enum e_lex_ret	lex_func_520(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (lex_func_520_inner(lexer, s))
-		return (s->let_ret);
+		return (s->lex_ret);
 	if (s->lookahead == '>')
 		return (lex_advance(618, s));
 	if (s->lookahead == '\\')
@@ -66,7 +66,7 @@ enum e_lex_ret	lex_func_520(t_lexer	*lexer, t_lex_state	*s)
 enum e_lex_ret	lex_func_521(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (lex_func_521_inner(lexer, s))
-		return (s->let_ret);
+		return (s->lex_ret);
 	if (s->lookahead == '>')
 		return (lex_advance(618, s));
 	if (s->lookahead == '\\')
@@ -87,7 +87,7 @@ enum e_lex_ret	lex_func_521(t_lexer	*lexer, t_lex_state	*s)
 enum e_lex_ret	lex_func_522(t_lexer	*lexer, t_lex_state	*s)
 {
 	if (lex_func_522_inner(lexer, s))
-		return (s->let_ret);
+		return (s->lex_ret);
 	if (s->lookahead == '>')
 		return (lex_advance(618, s));
 	if (s->lookahead == '\\')

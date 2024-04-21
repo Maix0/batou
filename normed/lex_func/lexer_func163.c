@@ -24,7 +24,7 @@ enum e_lex_ret	lex_func_814(t_lexer	*lexer, t_lex_state	*s)
 	s->lookahead == '_' || \
 	('a' <= s->lookahead && s->lookahead <= 'z'))
 		return (lex_advance(812, s));
-	if ((!s->eof && set_contains(sym__comment_word_character_set_1, \
+	if ((!s->eof && set_contains(sym__comment_word_character_set_1(), \
 	12, s->lookahead)))
 		return (lex_advance(958, s));
 	return (LEX_STOP);

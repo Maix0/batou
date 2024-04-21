@@ -17,14 +17,14 @@ enum e_lex_ret	lex_func_default(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
+//TODO START_LEXER!!!!!!
 bool	lex_keywords(t_lexer	*lexer, t_state_id	state)
 {
 	t_lex_state	lex_state;
 
 	lex_state = (t_lex_state){};
 	lex_state.lex_ret = LEX_START;
-	START_LEXER();
-	eof = lexer->eof(lexer);
+	lex_state.eof = lexer->eof(lexer);
 	while (lex_state.lex_ret != LEX_STOP)
 	{
 		if (lex_state.lex_ret & LEX_NEXT_STATE)

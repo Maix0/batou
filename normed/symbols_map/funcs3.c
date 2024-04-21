@@ -6,7 +6,7 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:17:54 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/15 14:38:35 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:39:31 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	init_symbols_map18(t_symbols_map *v)
 	v->arr[aux_sym__expansion_regex_repeat1] = aux_sym__expansion_regex_repeat1;
 	v->arr[aux_sym__concatenation_in_expansion_repeat1] = \
 	aux_sym__concatenation_in_expansion_repeat1;
-	init_symbols_map19(v);
 }
 
 // file funcs3.c

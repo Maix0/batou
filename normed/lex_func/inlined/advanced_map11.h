@@ -18,7 +18,7 @@
 
 static inline bool	lex_advence_map_282(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 740, '!', 672, '"', 788, '#', 816, '$', 781, \
+	static uint32_t	map[] = {'\n', 740, '!', 672, '"', 788, '#', 816, '$', 781, \
 		'&', 489, '\'', 491, '(', 494, '*', 640, '-', 636, '0', 943, '<', 609, \
 		'=', 952, '>', 617, '?', 761, '@', 942, '\\', 168, '_', 947, '`', \
 		855, '|', 593, '[', 786, ']', 786, '{', 786, '}', 786, };
@@ -28,7 +28,7 @@ static inline bool	lex_advence_map_282(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_283(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 741, '"', 788, '#', 862, '$', 781, '&', 602, \
+	static uint32_t	map[] = {'\n', 741, '"', 788, '#', 862, '$', 781, '&', 602, \
 		'\'', 491, '(', 494, '-', 950, '0', 804, ';', 554, '<', 610, '>', 617, \
 		'\\', 341, '`', 856, 'e', 866, '|', 593, '[', 786, ']', 786, '{', \
 		786, '}', 786, };
@@ -38,7 +38,7 @@ static inline bool	lex_advence_map_283(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_284(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 742, '!', 672, '"', 788, '#', 816, '$', 781, \
+	static uint32_t	map[] = {'\n', 742, '!', 672, '"', 788, '#', 816, '$', 781, \
 		'&', 489, '\'', 491, '(', 494, '*', 640, '-', 636, '0', 943, '<', 609, \
 		'>', 617, '?', 761, '@', 942, '\\', 58, '_', 947, '`', 855, '|', 593, \
 		'[', 786, ']', 786, '{', 786, '}', 786, };
@@ -48,7 +48,7 @@ static inline bool	lex_advence_map_284(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_285(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 743, '"', 788, '#', 862, '$', 781, '&', 602, \
+	static uint32_t	map[] = {'\n', 743, '"', 788, '#', 862, '$', 781, '&', 602, \
 		'\'', 491, '(', 494, '-', 950, '0', 803, ';', 554, '<', 609, '>', 617, \
 		'\\', 343, '`', 856, 'e', 956, '|', 593, '[', 786, ']', 786, '{', \
 		786, '}', 786, };
@@ -58,7 +58,7 @@ static inline bool	lex_advence_map_285(t_lexer	*lexer, t_lex_state	*s)
 
 static inline bool	lex_advence_map_286(t_lexer	*lexer, t_lex_state	*s)
 {
-	static uint32_t	map = {'\n', 744, '!', 672, '"', 788, '#', 816, '$', 781, \
+	static uint32_t	map[] = {'\n', 744, '!', 672, '"', 788, '#', 816, '$', 781, \
 		'&', \
 		489, '\'', 491, '(', 494, '*', 640, '-', 636, '0', 943, '<', 610, '>', \
 		617, '?', 761, '@', 942, '\\', 233, '_', 947, '`', 855, '|', 593, '[', \

@@ -6,7 +6,7 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:17:54 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/14 19:18:20 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:39:18 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define FUNCS_H
 
 # include "../headers/parser.h"
+# include "../headers/symbols.h"
 
 typedef struct s_symbols_map {
-	t_symbol	arr[];
+	t_symbol	arr[1];
 }	t_symbols_map;
 
 void	init_symbols_map0(t_symbols_map *v);
