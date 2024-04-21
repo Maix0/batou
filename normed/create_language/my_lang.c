@@ -6,11 +6,12 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 20:34:20 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/21 21:41:10 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/21 22:32:05 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/parser.h"
+#include "../headers/symbols.h"
 #include "tree_sitter/api.h"
 
 const uint16_t				*get_parse_table(void);

@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/21 21:27:33 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/21 22:42:56 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,14 @@ GENERIC_DIR		=	output/src
 GENERIC_INCLUDE		=	output/include
 
 BONUS_FLAGS		=
-NAME			=	test
+NAME			=	parser.a
 LIB_NAME		?=
 TARGET			=	$(NAME)
 CC				=	clang
 CFLAGS			=	-Wall -Wextra -Werror -g2 -lbsd -L$(BUILD_DIR) -Wno-unused-command-line-argument -MMD -Wno-unused-parameter -Wno-unused-variable
 BONUS_FILES		=
 LIBS_NAME		=
-SUBJECT_URL		=	'https://cdn.intra.42.fr/pdf/pdf/105445/en.subject.pdf'
+SUBJECT_URL		=	
 
 GENERIC_FILES		=	$(shell cat generic_files.list)
 SRC_FILES		=	$(shell cat source_files.list)
@@ -65,22 +65,11 @@ COL_RESET		=	\\e[0m
 
 all: $(NAME)
 
-$(NAME): $(OBJ) libs_build
+$(NAME): $(OBJ)
 	@printf \\n$(COL_GRAY)Building\ Output\ $(COL_WHITE)$(COL_BOLD)%-28s$(COL_RESET)\  \
 		$(NAME)
-	@$(CC) $(INCLUDES) $(OBJ) $(CFLAGS) $(BONUS_FLAGS) -o $(NAME)
-	@#ar rcs $(BUILD_DIR)/$(NAME) $(OBJ)
+	@ar rcs $(BUILD_DIR)/$(NAME) $(OBJ)
 	@printf $(COL_GREEN)done$(COL_RESET)\\n
-
-libs_build:
-	@- $(foreach LIB,$(LIBS),\
-		mkdir -p $(BUILD_DIR); \
-		printf \\n; \
-		printf $(COL_GRAY)Building\ library\ $(COL_RESET); \
-		printf $(COL_WHITE)$(COL_BOLD)%-25s$(COL_RESET)\\n $(LIB); \
-		make LIB_NAME=$(LIB)/ BUILD_DIR=$(realpath $(BUILD_DIR)) -C $(LIB) --no-print-directory all; \
-		printf \\n; \
-	)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
