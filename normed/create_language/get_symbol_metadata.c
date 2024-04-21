@@ -12,10 +12,10 @@
 
 #include "../symbols_metadata/funcs.h"
 
-const t_symbol_metadata *get_symbol_metadata(void)
+const t_symbol_metadata	*get_symbol_metadata(void)
 {
-	static t_symbols_metadata table = {};
-	static bool				  init = false;
+	static t_symbols_metadata	table = {};
+	static bool					init = false;
 
 	if (!init)
 	{

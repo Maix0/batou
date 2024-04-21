@@ -13,7 +13,7 @@
 #include "../headers/field.h"
 #include "../headers/parser.h"
 
-static void init_field_names(t_field_names *v)
+static void	init_field_names(t_field_names *v)
 {
 	v->arr[0] = 0;
 	v->arr[field_alternative] = "alternative";
@@ -37,10 +37,10 @@ static void init_field_names(t_field_names *v)
 	v->arr[field_variable] = "variable";
 }
 
-const char *const *get_field_names(void)
+const char *const	*get_field_names(void)
 {
-	static t_field_names table = {};
-	static bool			 init = false;
+	static t_field_names	table = {};
+	static bool				init = false;
 
 	if (!init)
 	{

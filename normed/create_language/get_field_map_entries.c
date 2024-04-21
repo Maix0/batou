@@ -12,10 +12,10 @@
 
 #include "../field_map_entries/funcs.h"
 
-const t_field_map_entry *get_field_map_entries(void)
+const t_field_map_entry	*get_field_map_entries(void)
 {
-	static t_fmap_entries table = {};
-	static bool			  init = false;
+	static t_fmap_entries	table = {};
+	static bool				init = false;
 
 	if (!init)
 	{

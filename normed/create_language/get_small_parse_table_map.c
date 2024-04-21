@@ -13,10 +13,10 @@
 #include "../headers/parser.h"
 #include "../small_parse_table_map/funcs.h"
 
-const uint32_t *get_small_parse_table_map(void)
+const uint32_t	*get_small_parse_table_map(void)
 {
-	static t_small_table_map table = {};
-	static bool				 init = false;
+	static t_small_table_map	table = {};
+	static bool					init = false;
 
 	if (!init)
 	{

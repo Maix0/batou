@@ -12,10 +12,10 @@
 
 #include "../symbols_map/funcs.h"
 
-const t_symbol *get_symbol_map(void)
+const t_symbol	*get_symbol_map(void)
 {
-	static t_symbols_map table = {};
-	static bool				  init = false;
+	static t_symbols_map	table = {};
+	static bool				init = false;
 
 	if (!init)
 	{

@@ -12,13 +12,13 @@
 
 #include "../headers/parser.h"
 
-bool set_contains(t_char_range *ranges, uint32_t len, int32_t lookahead)
+bool	set_contains(t_char_range *ranges, uint32_t len, int32_t lookahead)
 {
-	uint32_t	  index;
-	uint32_t	  size;
-	uint32_t	  half_size;
-	uint32_t	  mid_index;
-	t_char_range *range;
+	uint32_t		index;
+	uint32_t		size;
+	uint32_t		half_size;
+	uint32_t		mid_index;
+	t_char_range	*range;
 
 	index = 0;
 	size = len - index;

@@ -12,10 +12,10 @@
 
 #include "../field_map_slices/funcs.h"
 
-const t_field_map_slice *get_field_map_slices(void)
+const t_field_map_slice	*get_field_map_slices(void)
 {
-	static t_fmap_slices table = {};
-	static bool			 init = false;
+	static t_fmap_slices	table = {};
+	static bool				init = false;
 
 	if (!init)
 	{

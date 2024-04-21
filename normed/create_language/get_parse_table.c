@@ -12,12 +12,12 @@
 
 #include "../parse_table/funcs.h"
 
-const uint16_t *get_parse_table(void);
+const uint16_t	*get_parse_table(void);
 
-const uint16_t *get_parse_table(void)
+const uint16_t	*get_parse_table(void)
 {
-	static t_parse_table table = {};
-	static bool			 init = false;
+	static t_parse_table	table = {};
+	static bool				init = false;
 
 	if (!init)
 	{

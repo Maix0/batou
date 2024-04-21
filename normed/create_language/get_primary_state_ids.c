@@ -13,10 +13,10 @@
 #include "../headers/parser.h"
 #include "../primary_state_id/funcs.h"
 
-const t_state_id		   *get_primary_state_ids(void)
+const t_state_id	*get_primary_state_ids(void)
 {
 	static t_state_ids	table = {};
-	static bool			init;
+	static bool			init = false;
 
 	if (!init)
 	{

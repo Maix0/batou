@@ -13,10 +13,10 @@
 #include "../headers/parser.h"
 #include "../parse_actions/funcs.h"
 
-const t_parse_action_entry *get_parse_actions(void)
+const t_parse_action_entry	*get_parse_actions(void)
 {
-	static t_parse_action_entries table = {};
-	static bool			  init = false;
+	static t_parse_action_entries	table = {};
+	static bool						init = false;
 
 	if (!init)
 	{

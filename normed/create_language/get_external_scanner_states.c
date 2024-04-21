@@ -12,10 +12,10 @@
 
 #include "../external_states/funcs.h"
 
-const bool *get_external_scanner_states(void)
+const bool	*get_external_scanner_states(void)
 {
-	static t_external_scanner_states table = {};
-	static bool						 init = false;
+	static t_external_scanner_states	table = {};
+	static bool							init = false;
 
 	if (!init)
 	{

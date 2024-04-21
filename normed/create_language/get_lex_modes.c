@@ -12,10 +12,10 @@
 
 #include "../lex_mode/funcs.h"
 
-const t_lex_mode *get_lex_modes(void)
+const t_lex_mode	*get_lex_modes(void)
 {
-	static t_lex_modes table = {};
-	static bool				  init = false;
+	static t_lex_modes	table = {};
+	static bool			init = false;
 
 	if (!init)
 	{

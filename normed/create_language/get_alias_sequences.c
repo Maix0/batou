@@ -12,10 +12,10 @@
 
 #include "../alias_seq/alias_seq.h"
 
-const t_symbol *get_alias_sequences(void)
+const t_symbol	*get_alias_sequences(void)
 {
-	static t_alias_seq table = {};
-	static bool				  init = false;
+	static t_alias_seq	table = {};
+	static bool			init = false;
 
 	if (!init)
 	{
