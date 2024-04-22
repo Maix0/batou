@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/21 22:42:56 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/22 01:54:02 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBS_NAME		=
 SUBJECT_URL		=	
 
 GENERIC_FILES		=	$(shell cat generic_files.list)
-SRC_FILES		=	$(shell cat source_files.list)
+SRC_FILES		=	$(shell cat src.list)
 
 BONUS			=	$(addsuffix .c,$(addprefix $(SRC_DIR)/,$(BONUS_FILES)))
 SRC			=	$(addsuffix .c,$(addprefix $(SRC_DIR)/,$(SRC_FILES))) \
