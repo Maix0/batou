@@ -1,6 +1,6 @@
 use indexmap::IndexMap;
 
-const DATA: &str = include_str!("../../source_files.list");
+const DATA: &str = include_str!("../../normed/source_files.list");
 
 fn main() {
     let mut category = IndexMap::new();
