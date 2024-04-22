@@ -43,6 +43,7 @@ fn main() -> Result<()> {
 
     Ok(())
 }
+
 fn small_parse_table_map(
     serde_mod::Output {
         small_parse_table_map,
@@ -61,6 +62,20 @@ fn small_parse_table_map(
     }
     Ok(out)
 }
+
+fn small_parse_table(
+    serde_mod::Output {
+        small_parse_table, ..
+    }: &serde_mod::Output,
+) -> Result<Vec<String>> {
+    let mut out = Vec::new();
+    for (i, (u, v)) in small_parse_table {
+        let s = format!("v->a[{}] = {v};", i);
+        out.push(s);
+    }
+    Ok(out)
+}
+
 fn parse_actions(
     serde_mod::Output { parse_actions, .. }: &serde_mod::Output,
 ) -> Result<Vec<String>> {
