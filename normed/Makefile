@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/22 01:54:02 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/22 15:30:16 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ GENERIC_DIR		=	output/src
 GENERIC_INCLUDE		=	output/include
 
 BONUS_FLAGS		=
-NAME			=	parser.a
+NAME			=	parser
 LIB_NAME		?=
 TARGET			=	$(NAME)
 CC				=	clang
@@ -68,7 +68,8 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@printf \\n$(COL_GRAY)Building\ Output\ $(COL_WHITE)$(COL_BOLD)%-28s$(COL_RESET)\  \
 		$(NAME)
-	@ar rcs $(BUILD_DIR)/$(NAME) $(OBJ)
+	@#ar rcs $(BUILD_DIR)/$(NAME) $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@printf $(COL_GREEN)done$(COL_RESET)\\n
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
@@ -120,6 +121,6 @@ fuck_raphael:
 
 generate_filelist:
 	@/usr/bin/env zsh -c "tree -iFf --noreport output | rg '^output/src/(.*)\.c\$$' --replace '\$$1' | sort -u" > ./generic_files.list
-	@/usr/bin/env zsh -c "tree -iFf --noreport src | rg '^src/(.*)\.c\$$' --replace '\$$1' | sort -u" > ./source_files.list
+	@/usr/bin/env zsh -c "tree -iFf --noreport . | rg '^./(.*)\.c\$$' --replace '\$$1' | sort -u" > ./source_files.list
 
 -include $(DEPS)

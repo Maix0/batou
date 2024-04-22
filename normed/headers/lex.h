@@ -6,7 +6,7 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:49:43 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/21 21:08:23 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:36:03 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,7 @@ enum e_lex_ret	lex_func_choose(t_lexer *lexer, t_state_id state_id, \
 	t_lex_state *s);
 enum e_lex_ret	lex_keywords_func_choose(t_lexer *lexer, t_state_id state_id, \
 	t_lex_state *s);
+
+typedef enum e_lex_ret	(*t_lex_func)(t_state_id state, t_lex_state *s);
 
 #endif /* LEX_H */

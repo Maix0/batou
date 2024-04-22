@@ -29,6 +29,17 @@
 ./external_states/funcs6
 ./external_states/funcs7
 ./external_states/funcs8
+./lex_func_array/lex_func_array0
+./lex_func_array/lex_keywords_func_array0
+./lex_func_array/lex_func_array1
+./lex_func_array/lex_func_array2
+./lex_func_array/lex_func_array3
+./lex_func_array/lex_func_array4
+./lex_func_array/lex_func_array5
+./lex_func_array/lex_func_array6
+./lex_func_array/lex_func_array7
+./lex_func_array/lex_func_array8
+./lex_func_array/lex_func_array9
 ./create_language/get_alias_sequences
 ./create_language/get_external_scanner_states
 ./create_language/get_external_scanner_symbol_map
@@ -38,8 +49,8 @@
 ./create_language/get_lex_modes
 ./create_language/get_non_terminal_alias_map
 ./create_language/get_parse_actions
-./create_language/get_primary_state_ids
 ./create_language/get_parse_table
+./create_language/get_primary_state_ids
 ./create_language/get_small_parse_table
 ./create_language/get_small_parse_table_map
 ./create_language/get_symbol_map
