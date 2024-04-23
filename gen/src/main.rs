@@ -2,7 +2,7 @@
 mod serde_mod;
 
 use color_eyre::{eyre::eyre, Result};
-use serde_mod::{Entry, LexMode, Production, SymbolMetadata};
+use serde_mod::{Condition, Entry, LexMode, Production, SymbolMetadata};
 
 use crate::serde_mod::MyParseAction;
 
@@ -127,20 +127,20 @@ fn main() -> Result<()> {
     // external_scanner_symbol_map(&data)?.print_lines();
     // external_scanner_symbol_identifiers(&data)?.print_lines();
     // lex_modes(&data)?.print_lines();
-    // char_set(&data)?.print_lines(); // TODO!
-    // lex_state(&data)?.print_lines(); // TODO!
-    // field_map_entries(&data)?.print_lines();
-    // field_map_slices(&data)?.print_lines();
-    // primary_state_ids(&data)?.print_lines();
-    // non_terminal_alias_map(&data)?.print_lines();
-    // alias_sequences(&data)?.print_lines();
-    // symbol_metadata(&data)?.print_lines();
-    // field_names(&data)?.print_lines();
-    // field_identifiers(&data)?.print_lines();
-    // unique_symbols_map(&data)?.print_lines();
-    // symbols_names(&data)?.print_lines();
-    // symbols(&data)?.print_lines();
-    // values(&data)?.print_lines();
+    // char_set(&data)?.print_lines();
+    lex_state(&data)?.print_lines(); // TODO!
+                                     // field_map_entries(&data)?.print_lines();
+                                     // field_map_slices(&data)?.print_lines();
+                                     // primary_state_ids(&data)?.print_lines();
+                                     // non_terminal_alias_map(&data)?.print_lines();
+                                     // alias_sequences(&data)?.print_lines();
+                                     // symbol_metadata(&data)?.print_lines();
+                                     // field_names(&data)?.print_lines();
+                                     // field_identifiers(&data)?.print_lines();
+                                     // unique_symbols_map(&data)?.print_lines();
+                                     // symbols_names(&data)?.print_lines();
+                                     // symbols(&data)?.print_lines();
+                                     // values(&data)?.print_lines();
 
     Ok(())
 }
@@ -310,14 +310,135 @@ fn field_map_entries(
     Ok(out)
 }
 
+fn add_conditions(f: &mut impl std::fmt::Write, cond: &[Condition]) -> Result<()> {
+    write!(f, "(")?;
+    for elem in cond {
+        match elem {
+            Condition::Or => {
+                write!(f, " || ")?;
+            }
+            Condition::And => {
+                write!(f, " && ")?;
+            }
+            Condition::Eof => {
+                write!(f, "s->eof")?;
+            }
+            Condition::NotEof => {
+                write!(f, "!s->eof")?;
+            }
+            Condition::LookaheadEq(chr) => {
+                write!(f, "s->lookahead == {}", escape_char(*chr))?;
+            }
+            Condition::LookaheadNe(chr) => {
+                write!(f, "s->lookahead != {}", escape_char(*chr))?;
+            }
+            Condition::LookaheadGt(chr) => {
+                write!(f, "s->lookahead > {}", escape_char(*chr))?;
+            }
+            Condition::LookaheadGe(chr) => {
+                write!(f, "s->lookahead >= {}", escape_char(*chr))?;
+            }
+            Condition::LookaheadLt(chr) => {
+                write!(f, "s->lookahead < {}", escape_char(*chr))?;
+            }
+            Condition::LookaheadLe(chr) => {
+                write!(f, "s->lookahead <= {}", escape_char(*chr))?;
+            }
+            Condition::SetContains(name, count) => {
+                write!(f, "set_contains({name}, {count}, s->lookahead)")?;
+            }
+            Condition::Group(conds) => {
+                add_conditions(f, conds)?;
+            }
+        }
+    }
+    write!(f, ")")?;
+    Ok(())
+}
+
 fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<Vec<String>> {
+    use std::fmt::Write;
+    let mut advance_map = Vec::new();
+
     let mut out = Vec::new();
-    //
+
     for (lex_func_name, state_and_condition_action) in lex_state {
-        let func_name_base = format!("lex_{lex_func_name}");
-        for (state, action) in state_and_condition_action {
-            // format!("{func_name_base}{state}"); // func_name
-            todo!("Generate functions for the lex state!");
+        let base = format!(
+            "lex_{}",
+            lex_func_name
+                .strip_prefix("ts_lex_")
+                .unwrap_or(lex_func_name.as_str())
+        );
+        {
+            let mut func = String::new();
+            writeln!(&mut func, "// MAIN\n")?;
+            writeln!(
+                &mut func,
+                "bool\t{base}_main(t_lexer *t, t_state_id state)\n{{"
+            )?;
+            writeln!(&mut func, "\tt_state_id\ts;\n")?;
+            writeln!(
+                &mut func,
+                "\ts = (t_state_id){{.result = false, .skip = false, .eof = false}};"
+            )?;
+            writeln!(&mut func, "\ts.state = state;")?;
+            // ==START
+            writeln!(&mut func, "\ts.skip = false;")?;
+            writeln!(&mut func, "\ts.lookahead = lexer->lookahead;")?;
+            writeln!(&mut func, "\ts.eof = lexer->eof(lexer);")?;
+            // ==START
+            writeln!(&mut func, "\twhile ({base}_call(lexer, &s))")?;
+            writeln!(&mut func, "\t{{")?;
+            writeln!(&mut func, "\t\tlexer->advance(lexer, s.skip);")?;
+            writeln!(&mut func, "\t\ts.skip = false;")?;
+            writeln!(&mut func, "\t\ts.lookahead = lexer->lookahead;")?;
+            writeln!(&mut func, "\t\ts.eof = lexer->eof(lexer);")?;
+            writeln!(&mut func, "\t}}")?;
+            writeln!(&mut func, "\treturn (s.result);")?;
+            writeln!(&mut func, "}}")?;
+            out.push(func);
+        }
+        for (&state, actions) in state_and_condition_action {
+            let mut f = String::new();
+            writeln!(&mut f, "// STATE {state}\n")?;
+            writeln!(
+                &mut f,
+                "bool\t{base}_s{state}(t_lexer *lexer, t_lexer_state *s)\n{{"
+            )?;
+            let mut end_state = false;
+            for serde_mod::ActionCondition { action, condition } in actions {
+                if let serde_mod::Action::AdvanceMap(map) = action {
+                    assert_eq!(condition.len(), 0);
+                    advance_map.push((state, map, base.clone()));
+                    writeln!(&mut f, "\tif ({base}_map{state}(lexer, s))")?;
+                } else if !condition.is_empty() {
+                    write!(&mut f, "\tif ")?;
+                    add_conditions(&mut f, condition)?;
+                    writeln!(&mut f);
+                }
+                let ident = &"\t\t\t\t\t\t\t"[..(!condition.is_empty() as usize + 1)];
+                match action {
+                    serde_mod::Action::AcceptToken(sym) => {
+                        writeln!(&mut f, "{ident}accept_token({sym}, lexer, s);")
+                    }
+                    serde_mod::Action::AdvanceMap(map) => writeln!(&mut f, "\t\treturn (true);"),
+                    serde_mod::Action::Advance(sym) => {
+                        writeln!(&mut f, "{ident}return (advance({sym}, lexer, s));")
+                    }
+                    serde_mod::Action::Skip(sym) => {
+                        writeln!(&mut f, "{ident}return (skip({sym}, lexer, s));")
+                    }
+                    serde_mod::Action::EndState => {
+                        end_state = true;
+                        writeln!(&mut f, "{ident}return (end_state());")
+                    }
+                }?;
+            }
+            if !end_state {
+                writeln!(&mut f, "\treturn (true);")?;
+            }
+            writeln!(&mut f, "}}")?;
+            out.push(f);
         }
     }
     Ok(out)

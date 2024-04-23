@@ -1,0 +1,5 @@
+CompileFlags: # Tweak the parse settings
+  Add:
+    - "-I/usr/include/"
+    - "-I/home/maiboyer/Documents/perso/batou/experiment/include"
+    - "-I/home/maix/school/batou/gen/includes"

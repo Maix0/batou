@@ -9,6 +9,7 @@ extern "C" {
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include "./lexer.h"
 
 #define ts_builtin_sym_error ((t_symbol)-1)
 #define ts_builtin_sym_end 0
@@ -62,18 +63,6 @@ static inline t_symbol_metadata symbol_metadata(bool visible, bool named,
       .supertype = supertype,
   });
 }
-
-typedef struct t_lexer t_lexer;
-
-struct t_lexer {
-  int32_t lookahead;
-  t_symbol result_symbol;
-  void (*advance)(t_lexer *, bool);
-  void (*mark_end)(t_lexer *);
-  uint32_t (*get_column)(t_lexer *);
-  bool (*is_at_included_range_start)(const t_lexer *);
-  bool (*eof)(const t_lexer *);
-};
 
 typedef enum {
   ActionTypeShift,

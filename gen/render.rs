@@ -165,31 +165,32 @@ pub enum MyParseAction {
     Reduce(String, usize, i32, usize),
 }
 
+use indexmap::IndexMap;
+
 #[derive(Debug, Default, serde::Deserialize, serde::Serialize)]
 pub struct Output {
-    pub symbol_names: Vec<String>,
-    pub values: HashMap<String, String>,
-    pub symbols: HashMap<String, usize>,
-    pub symbols_names: HashMap<String, String>,
-    pub unique_symbols_map: HashMap<String, String>,
-    pub field_identifiers: HashMap<String, usize>,
-    pub field_names: HashMap<String, String>,
-    pub symbol_metadata: HashMap<String, SymbolMetadata>,
-    pub alias_sequences: HashMap<usize, HashMap<usize, String>>,
-    pub non_terminal_alias_map: HashMap<String, Vec<String>>,
-    pub primary_state_ids: HashMap<usize, usize>,
-    pub field_map_slices: HashMap<usize, Production>,
-    pub field_map_entries: HashMap<usize, Vec<Entry>>,
-    pub lex_state: HashMap<String, HashMap<usize, Vec<ActionCondition>>>,
-    pub char_set: HashMap<String, Vec<(char, char)>>,
-    pub lex_modes: HashMap<usize, LexMode>,
-    pub external_scanner_symbol_identifiers: HashMap<String, usize>,
-    pub external_scanner_symbol_map: HashMap<String, String>,
-    pub external_scanner_states: HashMap<usize, HashMap<String, bool>>,
-    pub parse_table: HashMap<usize, HashMap<String, ParseThingy>>,
-    pub small_parse_table: HashMap<usize, (usize, Vec<((ParseThingy, usize), Vec<String>)>)>,
-    pub small_parse_table_map: HashMap<usize, usize>,
-    pub parse_actions: HashMap<usize, (Vec<MyParseAction>, bool)>,
+    pub values: IndexMap<String, String>,
+    pub symbols: IndexMap<String, usize>,
+    pub symbols_names: IndexMap<String, String>,
+    pub unique_symbols_map: IndexMap<String, String>,
+    pub field_identifiers: IndexMap<String, usize>,
+    pub field_names: IndexMap<String, String>,
+    pub symbol_metadata: IndexMap<String, SymbolMetadata>,
+    pub alias_sequences: IndexMap<usize, IndexMap<usize, String>>,
+    pub non_terminal_alias_map: IndexMap<String, Vec<String>>,
+    pub primary_state_ids: IndexMap<usize, usize>,
+    pub field_map_slices: IndexMap<usize, Production>,
+    pub field_map_entries: IndexMap<usize, Vec<Entry>>,
+    pub lex_state: IndexMap<String, IndexMap<usize, Vec<ActionCondition>>>,
+    pub char_set: IndexMap<String, Vec<(char, char)>>,
+    pub lex_modes: IndexMap<usize, LexMode>,
+    pub external_scanner_symbol_identifiers: IndexMap<String, usize>,
+    pub external_scanner_symbol_map: IndexMap<String, String>,
+    pub external_scanner_states: (usize, IndexMap<usize, IndexMap<String, bool>>),
+    pub parse_table: IndexMap<usize, IndexMap<String, ParseThingy>>,
+    pub small_parse_table: IndexMap<usize, (usize, Vec<((ParseThingy, usize), Vec<String>)>)>,
+    pub small_parse_table_map: IndexMap<usize, usize>,
+    pub parse_actions: IndexMap<usize, (Vec<MyParseAction>, bool)>,
 }
 
 thread_local! {
@@ -447,29 +448,35 @@ impl Generator {
             "#define STATE_COUNT {}",
             self.parse_table.states.len()
         );
-        output
-            .values
-            .insert("STATE_COUNT".to_string(), self.parse_table.states.len().to_string());
+        output.values.insert(
+            "STATE_COUNT".to_string(),
+            self.parse_table.states.len().to_string(),
+        );
 
         add_line!(self, "#define LARGE_STATE_COUNT {}", self.large_state_count);
-        output
-            .values
-            .insert("LARGE_STATE_COUNT".to_string(), self.large_state_count.to_string());
+        output.values.insert(
+            "LARGE_STATE_COUNT".to_string(),
+            self.large_state_count.to_string(),
+        );
 
         add_line!(
             self,
             "#define SYMBOL_COUNT {}",
             self.parse_table.symbols.len()
         );
-        output
-            .values
-            .insert("SYMBOL_COUNT".to_string(), self.parse_table.symbols.len().to_string());
+        output.values.insert(
+            "SYMBOL_COUNT".to_string(),
+            self.parse_table.symbols.len().to_string(),
+        );
         add_line!(self, "#define ALIAS_COUNT {}", self.unique_aliases.len());
+        output.values.insert(
+            "ALIAS_COUNT".to_string(),
+            self.unique_aliases.len().to_string(),
+        );
+        add_line!(self, "#define TOKEN_COUNT {}", token_count);
         output
             .values
-            .insert("ALIAS_COUNT".to_string(), self.unique_aliases.len().to_string());
-        add_line!(self, "#define TOKEN_COUNT {}", token_count);
-        output.values.insert("TOKEN_COUNT".to_string(), token_count.to_string());
+            .insert("TOKEN_COUNT".to_string(), token_count.to_string());
         add_line!(
             self,
             "#define EXTERNAL_TOKEN_COUNT {}",
@@ -480,9 +487,10 @@ impl Generator {
             self.syntax_grammar.external_tokens.len().to_string(),
         );
         add_line!(self, "#define FIELD_COUNT {}", self.field_names.len());
-        output
-            .values
-            .insert("FIELD_COUNT".to_string(), self.field_names.len().to_string());
+        output.values.insert(
+            "FIELD_COUNT".to_string(),
+            self.field_names.len().to_string(),
+        );
         add_line!(
             self,
             "#define MAX_ALIAS_SEQUENCE_LENGTH {}",
@@ -907,7 +915,7 @@ impl Generator {
         indent!(self);
         for (row_index, field_pairs) in flat_field_maps.into_iter().skip(1) {
             add_line!(self, "[{row_index}] =");
-            let val = output.field_map_entries.entry(row_index).or_default();
+            let mut val = Vec::new(); //output.field_map_entries.entry(row_index).or_default();
             indent!(self);
             for (field_name, location) in field_pairs {
                 add_whitespace!(self);
@@ -922,6 +930,7 @@ impl Generator {
                     inherited: location.inherited,
                 });
             }
+            output.field_map_entries.insert(row_index, val);
             dedent!(self);
         }
 
@@ -1183,7 +1192,8 @@ impl Generator {
                 add!(self, ") ");
             }
 
-            self.add_advance_action(action, val);
+            dbg!(conditions.len());
+            self.add_advance_action(action, val, conditions);
             add!(self, "\n");
         }
 
@@ -1332,16 +1342,21 @@ impl Generator {
         add_line!(self, "");
     }
 
-    fn add_advance_action(&mut self, action: &AdvanceAction, val: &mut Vec<ActionCondition>) {
+    fn add_advance_action(
+        &mut self,
+        action: &AdvanceAction,
+        val: &mut Vec<ActionCondition>,
+        conditions: Vec<Condition>,
+    ) {
         if action.in_main_token {
             val.push(ActionCondition {
-                condition: Vec::new(),
+                condition: conditions,
                 action: Action::Advance(action.state.to_string()),
             });
             add!(self, "ADVANCE({});", action.state);
         } else {
             val.push(ActionCondition {
-                condition: Vec::new(),
+                condition: conditions,
                 action: Action::Skip(action.state.to_string()),
             });
             add!(self, "SKIP({});", action.state);
@@ -1457,6 +1472,7 @@ impl Generator {
         let output = self.output.clone();
         let mut output = output.borrow_mut();
 
+        output.external_scanner_states.0 = self.parse_table.external_lex_states.len();
         let val = &mut output.external_scanner_states.1;
         for i in 0..self.parse_table.external_lex_states.len() {
             if !self.parse_table.external_lex_states[i].is_empty() {
