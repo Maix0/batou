@@ -1457,7 +1457,7 @@ impl Generator {
         let output = self.output.clone();
         let mut output = output.borrow_mut();
 
-        let val = &mut output.external_scanner_states;
+        let val = &mut output.external_scanner_states.1;
         for i in 0..self.parse_table.external_lex_states.len() {
             if !self.parse_table.external_lex_states[i].is_empty() {
                 add_line!(self, "[{}] = {{", i);

@@ -1,6 +1,7 @@
 #ifndef TREE_SITTER_PARSER_H_
 #define TREE_SITTER_PARSER_H_
 
+#include <cstdint>
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -26,16 +27,41 @@ typedef struct {
   bool inherited;
 } t_field_map_entry;
 
+static inline t_field_map_entry
+fmap_entry(t_field_id field_id, uint8_t child_index, bool inherited) {
+  return ((t_field_map_entry){
+      .field_id = field_id,
+      .child_index = child_index,
+      .inherited = inherited,
+  });
+}
+
 typedef struct {
   uint16_t index;
   uint16_t length;
 } t_field_map_slice;
+
+static inline t_field_map_slice fmap_slice(uint16_t index, uint16_t length) {
+  return ((t_field_map_slice){
+      .index = index,
+      .length = length,
+  });
+}
 
 typedef struct {
   bool visible;
   bool named;
   bool supertype;
 } t_symbol_metadata;
+
+static inline t_symbol_metadata symbol_metadata(bool visible, bool named,
+                                                bool supertype) {
+  return ((t_symbol_metadata){
+      .visible = visible,
+      .named = named,
+      .supertype = supertype,
+  });
+}
 
 typedef struct t_lexer t_lexer;
 

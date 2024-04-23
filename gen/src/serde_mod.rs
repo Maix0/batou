@@ -78,7 +78,6 @@ pub enum MyParseAction {
 
 #[derive(Debug, Default, serde::Deserialize, serde::Serialize)]
 pub struct Output {
-    pub symbol_names: Vec<String>,
     pub values: IndexMap<String, String>,
     pub symbols: IndexMap<String, usize>,
     pub symbols_names: IndexMap<String, String>,
@@ -96,7 +95,7 @@ pub struct Output {
     pub lex_modes: IndexMap<usize, LexMode>,
     pub external_scanner_symbol_identifiers: IndexMap<String, usize>,
     pub external_scanner_symbol_map: IndexMap<String, String>,
-    pub external_scanner_states: IndexMap<usize, IndexMap<String, bool>>,
+    pub external_scanner_states: (usize, IndexMap<usize, IndexMap<String, bool>>),
     pub parse_table: IndexMap<usize, IndexMap<String, ParseThingy>>,
     pub small_parse_table: IndexMap<usize, (usize, Vec<((ParseThingy, usize), Vec<String>)>)>,
     pub small_parse_table_map: IndexMap<usize, usize>,
