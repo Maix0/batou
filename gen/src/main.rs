@@ -43,8 +43,8 @@ impl PrintLines for Vec<String> {
 //         // mut primary_state_ids,
 //         // mut field_map_slices,
 //         // mut field_map_entries,
-//         mut lex_state,
-//         mut char_set,
+//         // mut lex_state,
+//         // mut char_set,
 //         // mut lex_modes,
 //         // mut external_scanner_symbol_identifiers,
 //         // mut external_scanner_symbol_map,
@@ -129,18 +129,19 @@ fn main() -> Result<()> {
     // lex_modes(&data)?.print_lines();
     // char_set(&data)?.print_lines();
     lex_state(&data)?.print_lines(); // TODO!
-                                     // field_map_entries(&data)?.print_lines();
-                                     // field_map_slices(&data)?.print_lines();
-                                     // primary_state_ids(&data)?.print_lines();
-                                     // non_terminal_alias_map(&data)?.print_lines();
-                                     // alias_sequences(&data)?.print_lines();
-                                     // symbol_metadata(&data)?.print_lines();
-                                     // field_names(&data)?.print_lines();
-                                     // field_identifiers(&data)?.print_lines();
-                                     // unique_symbols_map(&data)?.print_lines();
-                                     // symbols_names(&data)?.print_lines();
-                                     // symbols(&data)?.print_lines();
-                                     // values(&data)?.print_lines();
+
+    // field_map_entries(&data)?.print_lines();
+    // field_map_slices(&data)?.print_lines();
+    // primary_state_ids(&data)?.print_lines();
+    // non_terminal_alias_map(&data)?.print_lines();
+    // alias_sequences(&data)?.print_lines();
+    // symbol_metadata(&data)?.print_lines();
+    // field_names(&data)?.print_lines();
+    // field_identifiers(&data)?.print_lines();
+    // unique_symbols_map(&data)?.print_lines();
+    // symbols_names(&data)?.print_lines();
+    // symbols(&data)?.print_lines();
+    // values(&data)?.print_lines();
 
     Ok(())
 }
@@ -358,11 +359,11 @@ fn add_conditions(f: &mut impl std::fmt::Write, cond: &[Condition]) -> Result<()
 
 fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<Vec<String>> {
     use std::fmt::Write;
-    let mut advance_map = Vec::new();
 
     let mut out = Vec::new();
 
     for (lex_func_name, state_and_condition_action) in lex_state {
+        let mut advance_map = Vec::new();
         let base = format!(
             "lex_{}",
             lex_func_name
@@ -371,7 +372,7 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
         );
         {
             let mut func = String::new();
-            writeln!(&mut func, "// MAIN\n")?;
+            writeln!(&mut func, "// MAIN {base}\n")?;
             writeln!(
                 &mut func,
                 "bool\t{base}_main(t_lexer *t, t_state_id state)\n{{"
@@ -400,7 +401,7 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
         }
         for (&state, actions) in state_and_condition_action {
             let mut f = String::new();
-            writeln!(&mut f, "// STATE {state}\n")?;
+            writeln!(&mut f, "// STATE {base}{state}\n")?;
             writeln!(
                 &mut f,
                 "bool\t{base}_s{state}(t_lexer *lexer, t_lexer_state *s)\n{{"
@@ -409,7 +410,7 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
             for serde_mod::ActionCondition { action, condition } in actions {
                 if let serde_mod::Action::AdvanceMap(map) = action {
                     assert_eq!(condition.len(), 0);
-                    advance_map.push((state, map, base.clone()));
+                    advance_map.push((state, map));
                     writeln!(&mut f, "\tif ({base}_map{state}(lexer, s))")?;
                 } else if !condition.is_empty() {
                     write!(&mut f, "\tif ")?;
@@ -438,6 +439,48 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
                 writeln!(&mut f, "\treturn (true);")?;
             }
             writeln!(&mut f, "}}")?;
+            out.push(f);
+        }
+        {
+            let mut f = String::new();
+            writeln!(&mut f, "// STATE {base} DEFAULT\n")?;
+            writeln!(
+                &mut f,
+                "bool\t{base}_default(t_lexer *lexer, t_lexer_state *s)\n{{"
+            )?;
+            writeln!(&mut f, "\t(void)(lexer);")?;
+            writeln!(&mut f, "\t(void)(s);")?;
+            writeln!(&mut f, "\ts->result = false;")?;
+            writeln!(&mut f, "\treturn (false);")?;
+            writeln!(&mut f, "}}")?;
+            out.push(f);
+        }
+        for (state, chars) in advance_map {
+            let mut f = String::new();
+            
+            let mut s = String::new();
+            for (chr, state) in chars {
+                write!(&mut s, "{}, {state}, ", escape_char(*chr))?;
+            }
+            s.pop();
+            s.pop();
+            writeln!(&mut f, "// INLINE {base} {state}\n")?;
+            writeln!(
+                &mut f,
+                "static inline bool\t{base}_map{state}(t_lexer *lexer, t_lexer_state *s)\n{{"
+            )?;
+            writeln!(&mut f, "\tstatic uint32_t\tmap[] = {{{s}}};\n")?;
+            writeln!(&mut f, "\treturn (advance_map_inner(map, sizeof(map) / size(*map), lexer, s))")?;
+            writeln!(&mut f, "}}")?;
+            out.push(f);
+        }
+        {
+            let mut f = String::new();
+            writeln!(
+                &mut f,
+                "// COUNT {base} {}\n",
+                state_and_condition_action.len()
+            )?;
             out.push(f);
         }
     }
