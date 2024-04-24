@@ -1,7 +1,10 @@
 #![allow(unused)]
 mod serde_mod;
 
+use std::path::Path;
+
 use color_eyre::{eyre::eyre, Result};
+use indexmap::IndexMap;
 use serde_mod::{Condition, Entry, LexMode, Production, SymbolMetadata};
 
 use crate::serde_mod::MyParseAction;
@@ -115,6 +118,655 @@ fn escape_str(s: &str) -> impl std::fmt::Display + '_ {
     CEscapedStr(s)
 }
 
+fn array_to_files(
+    folder: impl AsRef<Path>,
+    basefilename: impl AsRef<str>,
+    typename: impl AsRef<str>,
+    vec: &Vec<String>,
+    remove_dir: bool,
+) -> Result<usize> {
+    use std::io::Write;
+    let mut iterator = vec.chunks(20).enumerate().peekable();
+    let mut count = 0;
+    let mut folder = folder.as_ref().to_path_buf();
+    let func_number = vec.chunks(20).count();
+    let basefilename = basefilename.as_ref();
+    let typename = typename.as_ref();
+    if remove_dir {
+        let _ = std::fs::remove_dir_all(&folder);
+    }
+    std::fs::create_dir_all(&folder)?;
+    let mut functions_headers = Vec::new();
+    let mut tot_file = 0;
+
+    while iterator.peek().is_some() {
+        let filename = format!("{basefilename}_{count}.c");
+        let mut file = {
+            folder.push(&filename);
+            let ret = std::fs::OpenOptions::new()
+                .create(true)
+                .write(true)
+                .truncate(true)
+                .open(&folder);
+            folder.pop();
+            tot_file += 1;
+            ret?
+        };
+        writeln!(&mut file, include_str!("./42header"), filename)?;
+        writeln!(&mut file, "#include \"./{basefilename}.h\"")?;
+        writeln!(&mut file, "#include \"__HEADER__.h\"\n")?;
+        for (fcount, lines) in iterator.by_ref().take(5) {
+            writeln!(
+                &mut file,
+                "void\t{basefilename}_{fcount}({typename} *v)\n{{"
+            )?;
+            functions_headers.push(format!("void\t{basefilename}_{fcount}({typename} *v);"));
+            for line in lines {
+                let mut line = line.clone();
+                if line.len() + 4 >= 80 {
+                    if let Some(idx) = line[1..].find(|c: char| c.is_ascii_whitespace()) {
+                        line.insert_str(idx + 2, "\\\n\t");
+                    };
+                }
+                writeln!(&mut file, "\t{line}")?;
+            }
+            if fcount + 1 < func_number {
+                writeln!(&mut file, "\t{basefilename}_{}(v);", fcount + 1)?;
+            }
+            writeln!(&mut file, "}}\n")?;
+        }
+        writeln!(&mut file, "/* EOF {filename} */")?;
+        count += 1;
+    }
+    {
+        let mut filename = format!("{basefilename}.h");
+        let mut file = {
+            folder.push(&filename);
+            let ret = std::fs::OpenOptions::new()
+                .create(true)
+                .write(true)
+                .truncate(true)
+                .open(&folder);
+            folder.pop();
+            tot_file += 1;
+            ret?
+        };
+        writeln!(&mut file, include_str!("./42header"), filename)?;
+        filename.pop();
+        filename.pop();
+        filename.push_str("_H");
+        filename.make_ascii_uppercase();
+        writeln!(&mut file, "#ifndef {filename}")?;
+        writeln!(&mut file, "# define {filename}\n")?;
+        writeln!(&mut file, "# include \"../headers/symbols.h\"")?;
+        writeln!(
+            &mut file,
+            "# include \"../headers/external_scanner_symbol_identifiers.h\""
+        )?;
+        writeln!(&mut file, "# include \"../headers/field_identifiers.h\"\n")?;
+        writeln!(&mut file, "# include \"../headers/constants.h\"\n")?;
+        for sig in functions_headers {
+            writeln!(&mut file, "{sig}")?;
+        }
+        writeln!(&mut file, "\n#endif // {filename}")?;
+        count += 1;
+    }
+
+    Ok(count)
+}
+
+fn enum_to_files(
+    folder: impl AsRef<Path>,
+    basefilename: impl AsRef<str>,
+    typename: impl AsRef<str>,
+    vec: &Vec<String>,
+    remove_dir: bool,
+) -> Result<usize> {
+    use std::io::Write;
+
+    let mut iterator = vec.iter();
+    let mut folder = folder.as_ref().to_path_buf();
+    let basefilename = basefilename.as_ref();
+    let typename = typename.as_ref();
+    if remove_dir {
+        let _ = std::fs::remove_dir_all(&folder);
+    }
+    std::fs::create_dir_all(&folder)?;
+
+    let mut filename = format!("{basefilename}.h");
+    let mut file = {
+        folder.push(&filename);
+        let ret = std::fs::OpenOptions::new()
+            .create(true)
+            .write(true)
+            .truncate(true)
+            .open(&folder);
+        folder.pop();
+        ret?
+    };
+
+    writeln!(&mut file, include_str!("./42header"), filename)?;
+    filename.pop();
+    filename.pop();
+    filename.push_str("_H");
+    filename.make_ascii_uppercase();
+    writeln!(&mut file, "#ifndef {filename}")?;
+    writeln!(&mut file, "# define {filename}\n")?;
+
+    writeln!(&mut file, "enum {typename} {{")?;
+    for line in vec {
+        writeln!(&mut file, "\t{line}")?;
+    }
+    writeln!(&mut file, "}};")?;
+    writeln!(&mut file, "\n#endif // {filename}")?;
+
+    Ok(1)
+}
+
+fn define_to_files(
+    folder: impl AsRef<Path>,
+    basefilename: impl AsRef<str>,
+    vec: &Vec<String>,
+    remove_dir: bool,
+) -> Result<usize> {
+    use std::io::Write;
+
+    let mut iterator = vec.iter();
+    let mut folder = folder.as_ref().to_path_buf();
+    let basefilename = basefilename.as_ref();
+    if remove_dir {
+        let _ = std::fs::remove_dir_all(&folder);
+    }
+    std::fs::create_dir_all(&folder)?;
+
+    let mut filename = format!("{basefilename}.h");
+    let mut file = {
+        folder.push(&filename);
+        let ret = std::fs::OpenOptions::new()
+            .create(true)
+            .write(true)
+            .truncate(true)
+            .open(&folder);
+        folder.pop();
+        ret?
+    };
+
+    writeln!(&mut file, include_str!("./42header"), filename)?;
+    filename.pop();
+    filename.pop();
+    filename.push_str("_H");
+    filename.make_ascii_uppercase();
+    writeln!(&mut file, "#ifndef {filename}")?;
+    writeln!(&mut file, "# define {filename}\n")?;
+
+    for line in vec {
+        writeln!(&mut file, "{line}")?;
+    }
+    writeln!(&mut file, "\n#endif // {filename}")?;
+
+    Ok(1)
+}
+
+fn line_norminette(s: &str) -> Vec<String> {
+    let mut lines = Vec::new();
+    lines.push(s.to_string());
+    while lines.last().map(|l| l.len() > 60).unwrap_or(false) {
+        let mut last = lines.pop().unwrap();
+        if last.len() > 60 {
+            let split = last[..60].rfind(char::is_whitespace).unwrap_or_else(|| {
+                last[60..]
+                    .find(char::is_whitespace)
+                    .expect("no whitespace wtf")
+                    + 60
+            }) + 1;
+            let (before, after) = last.split_at(split);
+            lines.push((format!("{before}\\")));
+            lines.push((format!("\t{after}")));
+        } else {
+            lines.push(last);
+        }
+    }
+    lines
+}
+
+fn charset_to_files(
+    folder: impl AsRef<Path>,
+    basefilename: impl AsRef<str>,
+    vec: &Vec<String>,
+    remove_dir: bool,
+) -> Result<usize> {
+    use std::io::Write;
+
+    let mut iterator = vec.iter();
+    let mut folder = folder.as_ref().to_path_buf();
+    let basefilename = basefilename.as_ref();
+    if remove_dir {
+        let _ = std::fs::remove_dir_all(&folder);
+    }
+    std::fs::create_dir_all(&folder)?;
+
+    let mut filename = format!("{basefilename}_inline.h");
+    let mut file = {
+        folder.push(&filename);
+        let ret = std::fs::OpenOptions::new()
+            .create(true)
+            .write(true)
+            .truncate(true)
+            .open(&folder);
+        folder.pop();
+        ret?
+    };
+
+    writeln!(&mut file, include_str!("./42header"), filename)?;
+    filename.pop();
+    filename.pop();
+    filename.push_str("_H");
+    filename.make_ascii_uppercase();
+    writeln!(&mut file, "#ifndef {filename}")?;
+    writeln!(&mut file, "# define {filename}")?;
+    writeln!(&mut file, "# include \"parser/charset.h\"")?;
+    writeln!(&mut file, "# include <stdint.h>\n")?;
+
+    for line in vec {
+        let line = line.clone();
+        let name = &line["t_char_range\t".len()..line.find('[').expect("This isn't a charset wtf")];
+        let line = line.replacen(&name, "char_set_val", 1);
+        let lines = line_norminette(&format!("static {line}"));
+        writeln!(&mut file, "static inline t_char_range\t*{name}(void)")?;
+        writeln!(&mut file, "{{")?;
+        for l in lines {
+            writeln!(&mut file, "\t{l}")?;
+        }
+        writeln!(&mut file, "\n\treturn (char_set_val);")?;
+        writeln!(&mut file, "}}\n")?;
+    }
+    writeln!(&mut file, "#endif // {filename}")?;
+
+    Ok(1)
+}
+
+fn lex_funcs_to_files(
+    folder: impl AsRef<Path>,
+    basefilename: impl AsRef<str>,
+    vec: &Vec<String>,
+    remove_dir: bool,
+) -> Result<usize> {
+    use std::io::Write;
+
+    let mut iterator = vec.iter();
+    let mut folder = folder.as_ref().to_path_buf();
+    let basefilename = basefilename.as_ref();
+    if remove_dir {
+        let _ = std::fs::remove_dir_all(&folder);
+    }
+    std::fs::create_dir_all(&folder)?;
+
+    let mut data: IndexMap<
+        String,
+        (
+            usize,
+            String,
+            Vec</*main funcs */ (Option<usize>, String)>,
+            Vec</*inline funcs */ (usize, String)>,
+        ),
+    > = Default::default();
+
+    for func in iterator {
+        let Some(first) = func.lines().next() else {
+            eprintln!("empty line for lex_funcs");
+            continue;
+        };
+
+        let mut ws = first.split_whitespace();
+        if (ws.next() != Some("//")) {
+            eprintln!("missing info lex_funcs \"header\" (no //)");
+            continue;
+        }
+        let ty = match ws.next() {
+            Some("COUNT") => "COUNT",
+            Some("STATE") => "STATE",
+            Some("INLINE") => "INLINE",
+            Some("MAIN") => "MAIN",
+            _ => {
+                eprintln!("missing info lex_funcs \"header\" (no or invalid TYPE)");
+                eprintln!("line = {first:?}");
+                continue;
+            }
+        };
+        let Some(next) = ws.next() else {
+            eprintln!("missing info lex_funcs \"header\" (no lex_type)");
+            continue;
+        };
+        let Some(arg) = ws.next() else {
+            eprintln!("missing info lex_funcs \"header\" (no ARG)");
+            continue;
+        };
+        let entry = data.entry(next.to_string()).or_default();
+
+        match ty {
+            "MAIN" => {
+                entry.1 = func
+                    .lines()
+                    .skip(1)
+                    .flat_map(|l| [l, "\n"])
+                    .collect::<String>();
+            }
+            "COUNT" => {
+                entry.0 = arg.parse()?;
+            }
+            "STATE" => {
+                let parsed = if (arg == "DEFAULT") {
+                    None
+                } else {
+                    Some(arg.parse()?)
+                };
+                entry.2.push((
+                    parsed,
+                    func.lines()
+                        .skip(1)
+                        .flat_map(|l| [l, "\n"])
+                        .collect::<String>(),
+                ));
+            }
+            "INLINE" => {
+                let parsed = arg.parse()?;
+                entry.3.push((
+                    parsed,
+                    func.lines()
+                        .skip(1)
+                        .flat_map(|l| [l, "\n"])
+                        .collect::<String>(),
+                ));
+            }
+            _ => {
+                unreachable!("should've gotten pruned before")
+            }
+        }
+    }
+
+    let mut file_count = 0;
+    for (ty, (count, mut main_func, mut funcs, mut inlined)) in data {
+        folder.push(&ty);
+        folder.push("inline");
+        std::fs::create_dir_all(&folder)?;
+        
+        {
+            let mut inlined = std::mem::take(&mut inlined).into_iter().peekable();
+            let mut header_count = 0;
+            while inlined.peek().is_some() {
+                let mut filename = format!("inline_impl{header_count}.h");
+                let mut file = {
+                    folder.push(&filename);
+                    let ret = std::fs::OpenOptions::new()
+                        .create(true)
+                        .write(true)
+                        .truncate(true)
+                        .open(&folder);
+                    folder.pop();
+                    file_count += 1;
+                    ret?
+                };
+
+                writeln!(&mut file, include_str!("./42header"), filename)?;
+                filename.pop();
+                filename.pop();
+                filename.push_str("_H");
+                filename.make_ascii_uppercase();
+                writeln!(&mut file, "#ifndef {filename}")?;
+                writeln!(&mut file, "# define {filename}\n")?;
+                writeln!(&mut file, "# include \"../../../headers/symbols.h\"")?;
+                writeln!(
+                    &mut file,
+                    "# include \"../../../headers/external_scanner_symbol_identifiers.h\""
+                )?;
+                writeln!(
+                    &mut file,
+                    "# include \"../../../headers/field_identifiers.h\""
+                )?;
+                writeln!(&mut file, "# include \"../../../headers/constants.h\"")?;
+                writeln!(&mut file, "# include \"parser/charset.h\"")?;
+                for (state, f) in inlined.by_ref().take(5) {
+                    for line in f.lines() {
+                        for l in line_norminette(line) {
+                            writeln!(&mut file, "{l}")?;
+                        }
+                    }
+                }
+                writeln!(&mut file, "#endif // {filename}")?;
+                header_count += 1;
+            }
+            folder.pop();
+            let mut filename = format!("inline.h");
+            let mut file = {
+                folder.push(&filename);
+                let ret = std::fs::OpenOptions::new()
+                    .create(true)
+                    .write(true)
+                    .truncate(true)
+                    .open(&folder);
+                folder.pop();
+                file_count += 1;
+                ret?
+            };
+
+            writeln!(&mut file, include_str!("./42header"), filename)?;
+            filename.pop();
+            filename.pop();
+            filename.push_str("_H");
+            filename.make_ascii_uppercase();
+            writeln!(&mut file, "#ifndef {filename}")?;
+            writeln!(&mut file, "# define {filename}\n")?;
+            writeln!(&mut file, "# include \"../headers/symbols.h\"")?;
+            writeln!(
+                &mut file,
+                "# include \"../headers/external_scanner_symbol_identifiers.h\""
+            )?;
+            writeln!(&mut file, "# include \"../../headers/field_identifiers.h\"")?;
+            writeln!(&mut file, "# include \"../../headers/constants.h\"")?;
+            writeln!(&mut file, "# include \"parser/charset.h\"")?;
+
+            for i in 0..header_count {
+                writeln!(&mut file, "# include \"./inline/inline_impl{i}.h\"")?;
+            }
+
+            writeln!(&mut file, "\n#endif // {filename}")?;
+        }
+        let mut func_names: Vec<String> = Vec::new();
+
+        {
+            let mut funcs = std::mem::take(&mut funcs).into_iter().peekable();
+            let mut func_file_count = 0;
+            while funcs.peek().is_some() {
+                let mut filename = format!("state_{func_file_count}.c");
+                let mut file = {
+                    folder.push(&filename);
+                    let ret = std::fs::OpenOptions::new()
+                        .create(true)
+                        .write(true)
+                        .truncate(true)
+                        .open(&folder);
+                    folder.pop();
+                    file_count += 1;
+                    ret?
+                };
+
+                writeln!(&mut file, include_str!("./42header"), filename)?;
+                writeln!(&mut file, "#include \"./{ty}_funcs.h\"")?;
+                for (state, f) in funcs.by_ref().take(5) {
+                    if let Some(line) = f.lines().filter(|s| !s.trim().is_empty()).next() {
+                        func_names.push(line.trim().to_string());
+                    }
+                    for line in f.lines() {
+                        for l in line_norminette(line) {
+                            writeln!(&mut file, "{l}")?;
+                        }
+                    }
+                    // for line in f.lines() {
+                    //     for l in line_norminette(line) {
+                    //         writeln!(&mut file, "{line}")?;
+                    //     }
+                    // }
+                }
+                func_file_count += 1;
+            }
+            let mut filename = format!("main_func.c");
+            let mut file = {
+                folder.push(&filename);
+                let ret = std::fs::OpenOptions::new()
+                    .create(true)
+                    .write(true)
+                    .truncate(true)
+                    .open(&folder);
+                folder.pop();
+                file_count += 1;
+                ret?
+            };
+
+            writeln!(&mut file, include_str!("./42header"), filename)?;
+            writeln!(&mut file, "#include \"./{ty}_funcs.h\"")?;
+            for line in main_func.lines() {
+                for l in line_norminette(line) {
+                    writeln!(&mut file, "{l}")?;
+                }
+            }
+            writeln!(&mut file, "#endif // {filename}")?;
+        }
+        // HERE
+        {
+            let mut filename = format!("{ty}_funcs.h");
+            let mut file = {
+                folder.push(&filename);
+                let ret = std::fs::OpenOptions::new()
+                    .create(true)
+                    .write(true)
+                    .truncate(true)
+                    .open(&folder);
+                folder.pop();
+                file_count += 1;
+                ret?
+            };
+
+            writeln!(&mut file, include_str!("./42header"), filename)?;
+            filename.pop();
+            filename.pop();
+            filename.push_str("_H");
+            filename.make_ascii_uppercase();
+            writeln!(&mut file, "#ifndef {filename}")?;
+            writeln!(&mut file, "# define {filename}\n")?;
+            writeln!(&mut file, "# include \"../../headers/symbols.h\"")?;
+            writeln!(
+                &mut file,
+                "# include \"../../headers/external_scanner_symbol_identifiers.h\""
+            )?;
+            writeln!(&mut file, "# include \"../../headers/field_identifiers.h\"")?;
+            writeln!(&mut file, "# include \"../../headers/constants.h\"")?;
+            writeln!(&mut file, "# include \"./inline.h\"")?;
+            writeln!(&mut file, "# include \"parser/charset.h\"\n")?;
+
+            for func in func_names {
+                writeln!(&mut file, "{func};")?;
+            }
+
+            writeln!(&mut file, "\n#endif // {filename}")?;
+        }
+        let mut funcs_name = Vec::new();
+        {
+            let mut func_count = 0;
+            folder.push("./create_table");
+            std::fs::create_dir_all(&folder)?;
+            let mut funcs = (0..count).peekable();
+            let mut file_array_count = 0;
+            while funcs.peek().is_some() {
+                let mut filename = format!("{ty}_array{file_array_count}.c");
+                let mut file = {
+                    folder.push(&filename);
+                    let ret = std::fs::OpenOptions::new()
+                        .create(true)
+                        .write(true)
+                        .truncate(true)
+                        .open(&folder);
+                    folder.pop();
+                    file_count += 1;
+                    ret?
+                };
+
+                writeln!(&mut file, include_str!("./42header"), filename)?;
+                writeln!(&mut file, "#include \"../../headers/symbols.h\"")?;
+                writeln!(
+                    &mut file,
+                    "#include \"../../headers/external_scanner_symbol_identifiers.h\""
+                )?;
+                writeln!(&mut file, "#include \"../../headers/field_identifiers.h\"")?;
+                writeln!(&mut file, "#include \"../../headers/constants.h\"")?;
+                writeln!(&mut file, "#include \"../{ty}_funcs.h\"")?;
+                writeln!(&mut file, "#include \"./{ty}_array_funcs.h\"")?;
+                writeln!(&mut file, "#include \"parser/charset.h\"")?;
+
+                for _ in 0..5 {
+                    writeln!(&mut file, "\nvoid\t{ty}_array{func_count}(t_{ty}_array *v)")?;
+                    funcs_name.push(format!("void\t{ty}_array{func_count}(t_{ty}_array *v)"));
+                    writeln!(&mut file, "{{")?;
+                    for i in funcs.by_ref().take(20) {
+                        writeln!(&mut file, "\tv->[{i}] = {ty}_s{i};")?;
+                    }
+                    if (funcs.peek().is_some()) {
+                        writeln!(&mut file, "\t{ty}_array{func_count}(v);")?;
+                        writeln!(&mut file, "}}")?;
+                    } else {
+                        writeln!(&mut file, "}}")?;
+                        break;
+                    }
+                    func_count += 1;
+                }
+                writeln!(&mut file, "\n/* EOF {filename} */")?;
+                file_array_count += 1;
+            }
+            {
+                let mut filename = format!("{ty}_array.h");
+                let mut file = {
+                    folder.push(&filename);
+                    let ret = std::fs::OpenOptions::new()
+                        .create(true)
+                        .write(true)
+                        .truncate(true)
+                        .open(&folder);
+                    folder.pop();
+                    file_count += 1;
+                    ret?
+                };
+
+                writeln!(&mut file, include_str!("./42header"), filename)?;
+                filename.pop();
+                filename.pop();
+                filename.push_str("_H");
+                filename.make_ascii_uppercase();
+                writeln!(&mut file, "#ifndef {filename}")?;
+                writeln!(&mut file, "# define {filename}\n")?;
+                writeln!(&mut file, "# include \"../../headers/symbols.h\"")?;
+                writeln!(
+                    &mut file,
+                    "# include \"../../headers/external_scanner_symbol_identifiers.h\""
+                )?;
+                writeln!(&mut file, "# include \"../../headers/field_identifiers.h\"")?;
+                writeln!(&mut file, "# include \"../../headers/constants.h\"")?;
+                writeln!(&mut file, "# include \"../{ty}_funcs.h\"")?;
+                writeln!(&mut file, "# include \"parser/charset.h\"\n")?;
+
+                for prot in &funcs_name {
+                    writeln!(&mut file, "{prot};")?;
+                }
+                writeln!(&mut file, "\n#endif // {filename}")?;
+            }
+            folder.pop();
+        }
+
+        folder.pop();
+    }
+
+    Ok(file_count)
+}
+
+#[rustfmt::skip]
 fn main() -> Result<()> {
     color_eyre::install()?;
 
@@ -126,10 +778,9 @@ fn main() -> Result<()> {
     // external_scanner_states(&data)?.print_lines();
     // external_scanner_symbol_map(&data)?.print_lines();
     // external_scanner_symbol_identifiers(&data)?.print_lines();
-    // lex_modes(&data)?.print_lines();
     // char_set(&data)?.print_lines();
-    lex_state(&data)?.print_lines(); // TODO!
-
+    // lex_state(&data)?.print_lines();
+    // lex_modes(&data)?.print_lines();
     // field_map_entries(&data)?.print_lines();
     // field_map_slices(&data)?.print_lines();
     // primary_state_ids(&data)?.print_lines();
@@ -142,6 +793,33 @@ fn main() -> Result<()> {
     // symbols_names(&data)?.print_lines();
     // symbols(&data)?.print_lines();
     // values(&data)?.print_lines();
+    
+    array_to_files("out/parse_actions", "parse_actions", "t_parse_actions_array", &parse_actions(&data)?, true)?;
+    array_to_files("out/small_parse_table_map", "small_parse_table_map", "t_small_parse_table_map_array", &small_parse_table_map(&data)?, true)?;
+    array_to_files("out/small_parse_table", "small_parse_table", "t_small_parse_table_array", &small_parse_table(&data)?, true)?;
+    array_to_files("out/parse_table", "parse_table", "t_parse_table_array", &parse_table(&data)?, true)?;
+    array_to_files("out/external_scanner_states", "external_scanner_states", "t_external_scanner_states_array", &external_scanner_states(&data)?, true)?;
+    array_to_files("out/external_scanner_symbol_map", "external_scanner_symbol_map", "t_external_scanner_symbol_map_array", &external_scanner_symbol_map(&data)?, true)?;
+    array_to_files("out/lex_modes", "lex_modes", "t_lex_modes_array", &lex_modes(&data)?, true)?;
+    array_to_files("out/field_map_entries", "field_map_entries", "t_field_map_entries_array", &field_map_entries(&data)?, true)?;
+    array_to_files("out/field_map_slices", "field_map_slices", "t_field_map_slices_array", &field_map_slices(&data)?, true)?;
+    array_to_files("out/primary_state_ids", "primary_state_ids", "t_primary_state_ids_array", &primary_state_ids(&data)?, true)?;
+    array_to_files("out/non_terminal_alias_map", "non_terminal_alias_map", "t_non_terminal_alias_map_array", &non_terminal_alias_map(&data)?, true)?;
+    array_to_files("out/alias_sequences", "alias_sequences", "t_alias_sequences_array", &alias_sequences(&data)?, true)?;
+    array_to_files("out/field_names", "field_names", "t_field_names_array", &field_names(&data)?, true)?;
+    array_to_files("out/unique_symbols_map", "unique_symbols_map", "t_unique_symbols_map_array", &unique_symbols_map(&data)?, true)?;
+    array_to_files("out/symbols_names", "symbols_names", "t_symbols_names_array", &symbols_names(&data)?, true)?;
+    
+    /* ENUM */
+    enum_to_files("out/headers", "symbols", "e_symbols", &symbols(&data)?, true)?;
+    enum_to_files("out/headers", "external_scanner_symbol_identifiers", "e_external_scanner_symbol_identifiers", &external_scanner_symbol_identifiers(&data)?, false)?;
+    enum_to_files("out/headers", "field_identifiers", "e_field_identifiers", &field_identifiers(&data)?, false)?;
+
+    define_to_files("out/headers", "constants", &values(&data)?, false)?;
+    
+    charset_to_files("out/char_set", "charset", &char_set(&data)?, true)?;
+    /* other */
+    lex_funcs_to_files("out/lex_funcs", "lex_func", &lex_state(&data)?, true)?;
 
     Ok(())
 }
@@ -372,7 +1050,7 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
         );
         {
             let mut func = String::new();
-            writeln!(&mut func, "// MAIN {base}\n")?;
+            writeln!(&mut func, "// MAIN {base} 0\n")?;
             writeln!(
                 &mut func,
                 "bool\t{base}_main(t_lexer *t, t_state_id state)\n{{"
@@ -401,7 +1079,7 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
         }
         for (&state, actions) in state_and_condition_action {
             let mut f = String::new();
-            writeln!(&mut f, "// STATE {base}{state}\n")?;
+            writeln!(&mut f, "// STATE {base} {state}\n")?;
             writeln!(
                 &mut f,
                 "bool\t{base}_s{state}(t_lexer *lexer, t_lexer_state *s)\n{{"
@@ -457,7 +1135,7 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
         }
         for (state, chars) in advance_map {
             let mut f = String::new();
-            
+
             let mut s = String::new();
             for (chr, state) in chars {
                 write!(&mut s, "{}, {state}, ", escape_char(*chr))?;
@@ -470,7 +1148,10 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
                 "static inline bool\t{base}_map{state}(t_lexer *lexer, t_lexer_state *s)\n{{"
             )?;
             writeln!(&mut f, "\tstatic uint32_t\tmap[] = {{{s}}};\n")?;
-            writeln!(&mut f, "\treturn (advance_map_inner(map, sizeof(map) / size(*map), lexer, s))")?;
+            writeln!(
+                &mut f,
+                "\treturn (advance_map_inner(map, sizeof(map) / size(*map), lexer, s));"
+            )?;
             writeln!(&mut f, "}}")?;
             out.push(f);
         }
