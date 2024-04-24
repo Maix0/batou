@@ -22,85 +22,6 @@ typedef uint16_t t_field_id;
 typedef struct TSLanguage TSLanguage;
 #endif
 
-typedef struct {
-  t_field_id field_id;
-  uint8_t child_index;
-  bool inherited;
-} t_field_map_entry;
-
-static inline t_field_map_entry
-fmap_entry(t_field_id field_id, uint8_t child_index, bool inherited) {
-  return ((t_field_map_entry){
-      .field_id = field_id,
-      .child_index = child_index,
-      .inherited = inherited,
-  });
-}
-
-typedef struct {
-  uint16_t index;
-  uint16_t length;
-} t_field_map_slice;
-
-static inline t_field_map_slice fmap_slice(uint16_t index, uint16_t length) {
-  return ((t_field_map_slice){
-      .index = index,
-      .length = length,
-  });
-}
-
-typedef struct {
-  bool visible;
-  bool named;
-  bool supertype;
-} t_symbol_metadata;
-
-static inline t_symbol_metadata symbol_metadata(bool visible, bool named,
-                                                bool supertype) {
-  return ((t_symbol_metadata){
-      .visible = visible,
-      .named = named,
-      .supertype = supertype,
-  });
-}
-
-typedef enum {
-  ActionTypeShift,
-  ActionTypeReduce,
-  ActionTypeAccept,
-  ActionTypeRecover,
-} t_parse_action_type;
-
-typedef union {
-  struct {
-    uint8_t type;
-    t_state_id state;
-    bool extra;
-    bool repetition;
-  } shift;
-  struct {
-    uint8_t type;
-    uint8_t child_count;
-    t_symbol symbol;
-    int16_t dynamic_precedence;
-    uint16_t production_id;
-  } reduce;
-  uint8_t type;
-} t_parse_action;
-
-typedef struct {
-  uint16_t lex_state;
-  uint16_t external_lex_state;
-} t_lex_mode;
-
-typedef union {
-  t_parse_action action;
-  struct {
-    uint8_t count;
-    bool reusable;
-  } entry;
-} t_parse_action_entry;
-
 struct TSLanguage {
   uint32_t version;
   uint32_t symbol_count;
@@ -186,10 +107,6 @@ struct TSLanguage {
 
 #define ACTIONS(id) id
 
-static inline t_parse_action_entry entry(uint8_t count, bool reusable) {
-  return (
-      (t_parse_action_entry){.entry = {.count = count, .reusable = reusable}});
-}
 
 #define SHIFT(state_value)                                                     \
   {                                                                            \
@@ -198,12 +115,6 @@ static inline t_parse_action_entry entry(uint8_t count, bool reusable) {
     }                                                                          \
   }
 
-static inline t_parse_action_entry shift(t_state_id state_value) {
-  return ((t_parse_action_entry){{.shift = {
-                                      .type = ActionTypeShift,
-                                      .state = (state_value),
-                                  }}});
-}
 
 #define SHIFT_REPEAT(state_value)                                              \
   {                                                                            \
@@ -216,11 +127,6 @@ static inline t_parse_action_entry shift(t_state_id state_value) {
     }                                                                          \
   }
 
-static inline t_parse_action_entry shift_repeat(t_state_id state_value) {
-  return ((t_parse_action_entry){{.shift = {.type = ActionTypeShift,
-                                            .state = (state_value),
-                                            .repetition = true}}});
-}
 
 #define SHIFT_EXTRA()                                                          \
   {                                                                            \
@@ -228,52 +134,6 @@ static inline t_parse_action_entry shift_repeat(t_state_id state_value) {
       .shift = {.type = ActionTypeShift, .extra = true }                       \
     }                                                                          \
   }
-
-static inline t_parse_action_entry shift_extra(void) {
-  return ((t_parse_action_entry){
-      {.shift = {.type = ActionTypeShift, .extra = true}}});
-}
-
-#define REDUCE(symbol_val, child_count_val, ...)                               \
-  {                                                                            \
-    {                                                                          \
-      .reduce = {.type = ActionTypeReduce,                                     \
-                 .symbol = symbol_val,                                         \
-                 .child_count = child_count_val,                               \
-                 __VA_ARGS__},                                                 \
-    }                                                                          \
-  }
-
-static inline t_parse_action_entry reduce(
-
-    t_symbol symbol, uint8_t child_count, int16_t dynamic_precedence,
-    uint16_t production_id) {
-  return ((t_parse_action_entry){{.reduce = {
-                                      .type = ActionTypeReduce,
-                                      .child_count = child_count,
-                                      .symbol = symbol,
-                                      .dynamic_precedence = dynamic_precedence,
-                                      .production_id = production_id,
-                                  }}});
-}
-
-#define RECOVER()                                                              \
-  {                                                                            \
-    { .type = ActionTypeRecover }                                              \
-  }
-
-static inline t_parse_action_entry recover(void) {
-  return ((t_parse_action_entry){{.type = ActionTypeRecover}});
-}
-
-#define ACCEPT_INPUT()                                                         \
-  {                                                                            \
-    { .type = ActionTypeAccept }                                               \
-  }
-
-static inline t_parse_action_entry accept(void) {
-  return ((t_parse_action_entry){{.type = ActionTypeAccept}});
-}
 
 #ifdef __cplusplus
 }

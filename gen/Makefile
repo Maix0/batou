@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/24 17:12:18 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/24 22:59:37 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,6 +131,6 @@ fuck_raphael:
 
 generate_filelist:
 	@/usr/bin/env zsh -c "tree -iFf --noreport output | rg '^output/src/(.*)\.c\$$' --replace '\$$1' | sort -u" > ./generic_files.list
-	@/usr/bin/env zsh -c "tree -iFf --noreport $(SOURCE_DIR) | rg '^$(SOURCE_DIR)/(.*)\.c\$$' --replace '\$$1' | sort -u" > ./source_files.list
+	/usr/bin/env zsh -c "tree -iFf --noreport $(SRC_DIR) | rg '^$(SRC_DIR)/(.*)\.c\$$' --replace '\$$1' | sort -u" > ./source_files.list
 
 -include $(DEPS)

@@ -153,7 +153,7 @@ fn array_to_files(
             ret?
         };
         writeln!(&mut file, include_str!("./42header"), filename)?;
-        writeln!(&mut file, "#include \"./{basefilename}.h\"")?;
+        writeln!(&mut file, "#include \"./{basefilename}.h\"\n")?;
         for (fcount, lines) in iterator.by_ref().take(5) {
             writeln!(
                 &mut file,
@@ -263,6 +263,61 @@ fn enum_to_files(
     Ok(1)
 }
 
+fn init_type(folder: impl AsRef<Path>, typename: impl AsRef<str>) -> Result<usize> {
+    let typename = typename.as_ref();
+    init_type_custom(
+        folder,
+        typename,
+        format!("{typename}_0"),
+        format!("../{typename}/{typename}.h"),
+    )
+}
+
+fn init_type_custom(
+    folder: impl AsRef<Path>,
+    typename: impl AsRef<str>,
+    funcname: impl AsRef<str>,
+    headerpath: impl AsRef<str>,
+) -> Result<usize> {
+    use std::io::Write;
+    let mut folder = folder.as_ref().to_path_buf();
+    let typename = typename.as_ref();
+    let headerpath = headerpath.as_ref();
+    let funcname = funcname.as_ref();
+
+    let mut filename = format!("create_{typename}.c");
+    let mut file = {
+        folder.push(&filename);
+        let ret = std::fs::OpenOptions::new()
+            .create(true)
+            .write(true)
+            .truncate(true)
+            .open(&folder);
+        folder.pop();
+        ret?
+    };
+
+    writeln!(&mut file, include_str!("./42header"), filename)?;
+
+    writeln!(&mut file, "#include \"../types/type_{typename}.h\"")?;
+    writeln!(&mut file, "#include \"{headerpath}\"\n")?;
+    writeln!(&mut file, "t_{typename}_array\t*create_{typename}(void)")?;
+    writeln!(&mut file, "{{")?;
+    writeln!(&mut file, "\tstatic t_{typename}_array\ttable = {{}};")?;
+    writeln!(&mut file, "\tstatic bool\tinit = false;")?;
+    writeln!(&mut file)?;
+    writeln!(&mut file, "\tif (!init)")?;
+    writeln!(&mut file, "\t{{")?;
+    writeln!(&mut file, "\t\t{funcname}(&table);")?;
+    writeln!(&mut file, "\t\tinit = true;")?;
+    writeln!(&mut file, "\t}}")?;
+    writeln!(&mut file, "\treturn (&table);")?;
+    writeln!(&mut file, "}}")?;
+    writeln!(&mut file, "\n/* {filename} */")?;
+
+    Ok(1)
+}
+
 fn define_to_files(
     folder: impl AsRef<Path>,
     basefilename: impl AsRef<str>,
@@ -364,20 +419,20 @@ fn charset_to_files(
     filename.make_ascii_uppercase();
     writeln!(&mut file, "#ifndef {filename}")?;
     writeln!(&mut file, "# define {filename}")?;
-    writeln!(&mut file, "# include \"parser/charset.h\"")?;
+    writeln!(&mut file, "# include \"../../parse_types.h\"")?;
     writeln!(&mut file, "# include <stdint.h>\n")?;
 
     for line in vec {
         let line = line.clone();
         let name = &line["t_char_range\t".len()..line.find('[').expect("This isn't a charset wtf")];
-        let line = line.replacen(&name, "char_set_val", 1);
+        let line = line.replacen(&name, "val", 1);
         let lines = line_norminette(&format!("static {line}"));
         writeln!(&mut file, "static inline t_char_range\t*{name}(void)")?;
         writeln!(&mut file, "{{")?;
         for l in lines {
             writeln!(&mut file, "\t{l}")?;
         }
-        writeln!(&mut file, "\n\treturn (char_set_val);")?;
+        writeln!(&mut file, "\n\treturn (val);")?;
         writeln!(&mut file, "}}\n")?;
     }
     writeln!(&mut file, "#endif // {filename}")?;
@@ -524,7 +579,7 @@ fn lex_funcs_to_files(
                     "# include \"../../../headers/field_identifiers.h\""
                 )?;
                 writeln!(&mut file, "# include \"../../../headers/constants.h\"")?;
-                writeln!(&mut file, "# include \"parser/charset.h\"")?;
+                writeln!(&mut file, "# include \"../../../../parse_types.h\"")?;
                 for (state, f) in inlined.by_ref().take(5) {
                     for line in f.lines() {
                         for l in line_norminette(line) {
@@ -556,14 +611,14 @@ fn lex_funcs_to_files(
             filename.make_ascii_uppercase();
             writeln!(&mut file, "#ifndef {filename}")?;
             writeln!(&mut file, "# define {filename}\n")?;
-            writeln!(&mut file, "# include \"../headers/symbols.h\"")?;
+            writeln!(&mut file, "# include \"../../headers/symbols.h\"")?;
             writeln!(
                 &mut file,
-                "# include \"../headers/external_scanner_symbol_identifiers.h\""
+                "# include \"../../headers/external_scanner_symbol_identifiers.h\""
             )?;
             writeln!(&mut file, "# include \"../../headers/field_identifiers.h\"")?;
             writeln!(&mut file, "# include \"../../headers/constants.h\"")?;
-            writeln!(&mut file, "# include \"parser/charset.h\"")?;
+            writeln!(&mut file, "# include \"../../../parse_types.h\"")?;
 
             for i in 0..header_count {
                 writeln!(&mut file, "# include \"./inline/inline_impl{i}.h\"")?;
@@ -629,7 +684,7 @@ fn lex_funcs_to_files(
                     writeln!(&mut file, "{l}")?;
                 }
             }
-            writeln!(&mut file, "#endif // {filename}")?;
+            writeln!(&mut file, "/* {filename} */")?;
         }
         // HERE
         {
@@ -653,7 +708,7 @@ fn lex_funcs_to_files(
             filename.make_ascii_uppercase();
             writeln!(&mut file, "#ifndef {filename}")?;
             writeln!(&mut file, "# define {filename}\n")?;
-            writeln!(&mut file, "# include \"../types/type_{basefilename}.h\"")?;
+            writeln!(&mut file, "# include \"../../types/type_{ty}.h\"")?;
             writeln!(&mut file, "# include \"../../headers/symbols.h\"")?;
             writeln!(
                 &mut file,
@@ -662,7 +717,7 @@ fn lex_funcs_to_files(
             writeln!(&mut file, "# include \"../../headers/field_identifiers.h\"")?;
             writeln!(&mut file, "# include \"../../headers/constants.h\"")?;
             writeln!(&mut file, "# include \"./inline.h\"")?;
-            writeln!(&mut file, "# include \"parser/charset.h\"\n")?;
+            writeln!(&mut file, "# include \"../../../parse_types.h\"\n")?;
 
             for func in func_names {
                 writeln!(&mut file, "{func};")?;
@@ -678,7 +733,7 @@ fn lex_funcs_to_files(
             let mut funcs = (0..count).peekable();
             let mut file_array_count = 0;
             while funcs.peek().is_some() {
-                let mut filename = format!("{ty}_array{file_array_count}.c");
+                let mut filename = format!("{ty}_array_{file_array_count}.c");
                 let mut file = {
                     folder.push(&filename);
                     let ret = std::fs::OpenOptions::new()
@@ -692,26 +747,31 @@ fn lex_funcs_to_files(
                 };
 
                 writeln!(&mut file, include_str!("./42header"), filename)?;
-                writeln!(&mut file, "#include \"../../headers/symbols.h\"")?;
+                writeln!(&mut file, "#include \"../../../headers/symbols.h\"")?;
                 writeln!(
                     &mut file,
-                    "#include \"../../headers/external_scanner_symbol_identifiers.h\""
+                    "#include \"../../../headers/external_scanner_symbol_identifiers.h\""
                 )?;
-                writeln!(&mut file, "#include \"../../headers/field_identifiers.h\"")?;
-                writeln!(&mut file, "#include \"../../headers/constants.h\"")?;
+                writeln!(
+                    &mut file,
+                    "#include \"../../../headers/field_identifiers.h\""
+                )?;
+                writeln!(&mut file, "#include \"../../../headers/constants.h\"")?;
                 writeln!(&mut file, "#include \"../{ty}_funcs.h\"")?;
-                writeln!(&mut file, "#include \"./{ty}_array_funcs.h\"")?;
-                writeln!(&mut file, "#include \"parser/charset.h\"")?;
+                writeln!(&mut file, "#include \"./{ty}_array.h\"\n")?;
 
                 for _ in 0..5 {
-                    writeln!(&mut file, "\nvoid\t{ty}_array{func_count}(t_{ty}_array *v)")?;
-                    funcs_name.push(format!("void\t{ty}_array{func_count}(t_{ty}_array *v)"));
+                    writeln!(
+                        &mut file,
+                        "\nvoid\t{ty}_array_{func_count}(t_{ty}_array *v)"
+                    )?;
+                    funcs_name.push(format!("void\t{ty}_array_{func_count}(t_{ty}_array *v)"));
                     writeln!(&mut file, "{{")?;
                     for i in funcs.by_ref().take(20) {
                         writeln!(&mut file, "\tv->a[{i}] = {ty}_s{i};")?;
                     }
                     if (funcs.peek().is_some()) {
-                        writeln!(&mut file, "\t{ty}_array{func_count}(v);")?;
+                        writeln!(&mut file, "\t{ty}_array_{}(v);", func_count + 1)?;
                         writeln!(&mut file, "}}")?;
                     } else {
                         writeln!(&mut file, "}}")?;
@@ -743,16 +803,22 @@ fn lex_funcs_to_files(
                 filename.make_ascii_uppercase();
                 writeln!(&mut file, "#ifndef {filename}")?;
                 writeln!(&mut file, "# define {filename}\n")?;
-                writeln!(&mut file, "# include \"../types/type_{ty}.h\"")?;
-                writeln!(&mut file, "# include \"../../headers/symbols.h\"")?;
+                writeln!(&mut file, "# include \"../../../types/type_{ty}.h\"")?;
+                writeln!(&mut file, "# include \"../../../headers/symbols.h\"")?;
                 writeln!(
                     &mut file,
-                    "# include \"../../headers/external_scanner_symbol_identifiers.h\""
+                    "# include \"../../../headers/external_scanner_symbol_identifiers.h\""
                 )?;
-                writeln!(&mut file, "# include \"../../headers/field_identifiers.h\"")?;
-                writeln!(&mut file, "# include \"../../headers/constants.h\"")?;
-                writeln!(&mut file, "# include \"../{ty}_funcs.h\"")?;
-                writeln!(&mut file, "# include \"parser/charset.h\"\n")?;
+                writeln!(
+                    &mut file,
+                    "# include \"../../../headers/field_identifiers.h\""
+                )?;
+                writeln!(&mut file, "# include \"../../../headers/constants.h\"")?;
+                writeln!(
+                    &mut file,
+                    "# include \"../../../char_set/charset_inline.h\""
+                )?;
+                writeln!(&mut file, "# include \"../{ty}_funcs.h\"\n")?;
 
                 for prot in &funcs_name {
                     writeln!(&mut file, "{prot};")?;
@@ -763,6 +829,18 @@ fn lex_funcs_to_files(
         }
 
         folder.pop();
+
+        define_type(
+            "out/types",
+            format!("{ty}"),
+            ("void", "*", format!("[{count}]")),
+        )?;
+        init_type_custom(
+            "out/create",
+            format!("{ty}"),
+            format!("{ty}_array_0"),
+            format!("../lex_funcs/{ty}/create_table/{ty}_array.h"),
+        )?;
     }
 
     Ok(file_count)
@@ -798,6 +876,7 @@ fn define_type(
     filename.make_ascii_uppercase();
     writeln!(&mut file, "#ifndef {filename}")?;
     writeln!(&mut file, "# define {filename}\n")?;
+    writeln!(&mut file, "# include \"../../parse_types.h\"")?;
     writeln!(&mut file, "# include \"../headers/symbols.h\"")?;
     writeln!(
         &mut file,
@@ -806,9 +885,10 @@ fn define_type(
     writeln!(&mut file, "# include \"../headers/field_identifiers.h\"")?;
     writeln!(&mut file, "# include \"../headers/constants.h\"\n")?;
 
-    writeln!(&mut file, "typedef struct s_{typename}_array {{")?;
+    writeln!(&mut file, "typedef struct s_{typename}_array")?;
+    writeln!(&mut file, "{{")?;
     writeln!(&mut file, "\t{at_pre}\t{at_mid}a{at_post};")?;
-    writeln!(&mut file, "}}\tt_{typename}_array;\n")?;
+    writeln!(&mut file, "}}\tt_{typename}_array;")?;
     writeln!(&mut file, "\n#endif // {filename}")?;
 
     Ok(())
@@ -857,22 +937,42 @@ fn main() -> Result<()> {
     array_to_files("out/field_names", "field_names", "t_field_names_array", &field_names(&data)?, true)?;
     array_to_files("out/unique_symbols_map", "unique_symbols_map", "t_unique_symbols_map_array", &unique_symbols_map(&data)?, true)?;
     array_to_files("out/symbols_names", "symbols_names", "t_symbols_names_array", &symbols_names(&data)?, true)?;
-    
-    define_type("out/types", "parse_actions", ("t_parse_actions", "", "[]"))?;
-    define_type("out/types", "small_parse_table_map", ("uint32_t", "", "[]"))?;
-    define_type("out/types", "small_parse_table", ("uint16_t", "", "[]"))?;
+
+    define_type("out/types", "parse_actions", ("t_parse_actions", "", "[120]"))?;
+    define_type("out/types", "small_parse_table_map", ("uint32_t", "", "[120]"))?;
+    define_type("out/types", "small_parse_table", ("uint16_t", "", "[120]"))?;
     define_type("out/types", "parse_table", ("uint16_t", "", "[LARGE_STATE_COUNT][SYMBOL_COUNT]"))?;
     define_type("out/types", "external_scanner_states", ("bool", "", format!("[{}][EXTERNAL_TOKEN_COUNT]", data.external_scanner_states.0)))?;
     define_type("out/types", "external_scanner_symbol_map", ("t_symbol", "", "[EXTERNAL_TOKEN_COUNT]"))?;
     define_type("out/types", "lex_modes", ("t_lex_modes", "", "[STATE_COUNT]"))?;
-    define_type("out/types", "field_map_entries", ("t_field_map_entry", "", "[]"))?;
-    define_type("out/types", "field_map_slices", ("t_field_map_slice", "", "[PRODUCTION_COUNT]"))?;
+    define_type("out/types", "field_map_entries", ("t_field_map_entry", "", "[120]"))?;
+    define_type("out/types", "field_map_slices", ("t_field_map_slice", "", "[PRODUCTION_ID_COUNT]"))?;
     define_type("out/types", "primary_state_ids", ("t_state_id", "", "[STATE_COUNT]"))?;
-    define_type("out/types", "non_terminal_alias_map", ("uint16_t", "", "[]"))?;
+    define_type("out/types", "non_terminal_alias_map", ("uint16_t", "", "[120]"))?;
     define_type("out/types", "alias_sequences", ("t_symbol", "", "[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH]"))?;
-    define_type("out/types", "field_names", ("const char", "*", "[]"))?;
-    define_type("out/types", "unique_symbol_map", ("t_symbol", "", "[]"))?;
-    define_type("out/types", "symbols_names", ("const char", "*", "[]"))?;
+    define_type("out/types", "field_names", ("const char", "*", "[120]"))?;
+    define_type("out/types", "unique_symbols_map", ("t_symbol", "", "[120]"))?;
+    define_type("out/types", "symbols_names", ("const char", "*", "[120]"))?;
+
+    let _ = std::fs::remove_dir_all("out/create");
+    std::fs::create_dir_all("out/create")?;
+
+    init_type("out/create", "parse_actions")?;
+    init_type("out/create", "small_parse_table_map")?;
+    init_type("out/create", "small_parse_table")?;
+    init_type("out/create", "parse_table")?;
+    init_type("out/create", "external_scanner_states")?;
+    init_type("out/create", "external_scanner_symbol_map")?;
+    init_type("out/create", "lex_modes")?;
+    init_type("out/create", "field_map_entries")?;
+    init_type("out/create", "field_map_slices")?;
+    init_type("out/create", "primary_state_ids")?;
+    init_type("out/create", "non_terminal_alias_map")?;
+    init_type("out/create", "alias_sequences")?;
+    init_type("out/create", "field_names")?;
+    init_type("out/create", "unique_symbols_map")?;
+    init_type("out/create", "symbols_names")?;
+
 
     /* ENUM */
     enum_to_files("out/headers", "symbols", "e_symbols", &symbols(&data)?, true)?;
@@ -1053,7 +1153,9 @@ fn field_map_entries(
 }
 
 fn add_conditions(f: &mut impl std::fmt::Write, cond: &[Condition]) -> Result<()> {
-    write!(f, "(")?;
+    if (cond.len() != 1) {
+        write!(f, "(")?;
+    }
     for elem in cond {
         match elem {
             Condition::Or => {
@@ -1087,14 +1189,16 @@ fn add_conditions(f: &mut impl std::fmt::Write, cond: &[Condition]) -> Result<()
                 write!(f, "s->lookahead <= {}", escape_char(*chr))?;
             }
             Condition::SetContains(name, count) => {
-                write!(f, "set_contains({name}, {count}, s->lookahead)")?;
+                write!(f, "set_contains({name}(), {count}, s->lookahead)")?;
             }
             Condition::Group(conds) => {
                 add_conditions(f, conds)?;
             }
         }
     }
-    write!(f, ")")?;
+    if (cond.len() != 1) {
+        write!(f, ")")?;
+    }
     Ok(())
 }
 
@@ -1105,23 +1209,35 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
 
     for (lex_func_name, state_and_condition_action) in lex_state {
         let mut advance_map = Vec::new();
-        let base = format!(
-            "lex_{}",
-            lex_func_name
-                .strip_prefix("ts_lex_")
+        let base = format!("lex{}", {
+            let mut s = lex_func_name
+                .strip_prefix("ts_lex")
                 .unwrap_or(lex_func_name.as_str())
-        );
+                .to_string();
+            while Some('_') == s.chars().last() {
+                s.pop();
+            }
+            if s.is_empty() {
+                "_normal".to_string()
+            } else {
+                s
+            }
+        });
         {
             let mut func = String::new();
             writeln!(&mut func, "// MAIN {base} 0\n")?;
             writeln!(
                 &mut func,
-                "bool\t{base}_main(t_lexer *t, t_state_id state)\n{{"
+                "bool {base}_call(t_lexer *lexer, t_lexer_state *s);"
             )?;
-            writeln!(&mut func, "\tt_state_id\ts;\n")?;
             writeln!(
                 &mut func,
-                "\ts = (t_state_id){{.result = false, .skip = false, .eof = false}};"
+                "bool\t{base}_main(t_lexer *lexer, t_state_id state)\n{{"
+            )?;
+            writeln!(&mut func, "\tt_lexer_state\ts;\n")?;
+            writeln!(
+                &mut func,
+                "\ts = (t_lexer_state){{.result = false, .skip = false, .eof = false}};"
             )?;
             writeln!(&mut func, "\ts.state = state;")?;
             // ==START
@@ -1154,25 +1270,25 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
                     advance_map.push((state, map));
                     writeln!(&mut f, "\tif ({base}_map{state}(lexer, s))")?;
                 } else if !condition.is_empty() {
-                    write!(&mut f, "\tif ")?;
+                    write!(&mut f, "\tif (")?;
                     add_conditions(&mut f, condition)?;
-                    writeln!(&mut f);
+                    writeln!(&mut f, ")");
                 }
                 let ident = &"\t\t\t\t\t\t\t"[..(!condition.is_empty() as usize + 1)];
                 match action {
                     serde_mod::Action::AcceptToken(sym) => {
-                        writeln!(&mut f, "{ident}accept_token({sym}, lexer, s);")
+                        writeln!(&mut f, "{ident}lex_accept_token({sym}, lexer, s);")
                     }
                     serde_mod::Action::AdvanceMap(map) => writeln!(&mut f, "\t\treturn (true);"),
                     serde_mod::Action::Advance(sym) => {
-                        writeln!(&mut f, "{ident}return (advance({sym}, lexer, s));")
+                        writeln!(&mut f, "{ident}return (lex_advance({sym}, lexer, s));")
                     }
                     serde_mod::Action::Skip(sym) => {
-                        writeln!(&mut f, "{ident}return (skip({sym}, lexer, s));")
+                        writeln!(&mut f, "{ident}return (lex_skip({sym}, lexer, s));")
                     }
                     serde_mod::Action::EndState => {
                         end_state = true;
-                        writeln!(&mut f, "{ident}return (end_state());")
+                        writeln!(&mut f, "{ident}return (lex_end_state(lexer, s));")
                     }
                 }?;
             }
@@ -1213,7 +1329,7 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
             writeln!(&mut f, "\tstatic uint32_t\tmap[] = {{{s}}};\n")?;
             writeln!(
                 &mut f,
-                "\treturn (advance_map_inner(map, sizeof(map) / size(*map), lexer, s));"
+                "\treturn (advance_map_inner(map, sizeof(map) / sizeof(*map), lexer, s));"
             )?;
             writeln!(&mut f, "}}")?;
             out.push(f);
@@ -1247,8 +1363,8 @@ fn char_set(serde_mod::Output { char_set, .. }: &serde_mod::Output) -> Result<Ve
         inside.pop();
         inside.pop();
         out.push(format!(
-            "uint32_t\t{setname}[{}] = {{{inside}}};",
-            char_set.len()
+            "t_char_range\t{setname}[{}] = {{{inside}}};",
+            chars.len()
         ));
     }
     Ok(out)
