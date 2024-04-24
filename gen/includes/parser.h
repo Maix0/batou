@@ -15,7 +15,7 @@ extern "C" {
 #define ts_builtin_sym_end 0
 #define TREE_SITTER_SERIALIZATION_BUFFER_SIZE 1024
 
-#ifndef TREE_SITTER_API_H_
+#ifndef PARSER_RAW_TYPES_H
 typedef uint16_t t_state_id;
 typedef uint16_t t_symbol;
 typedef uint16_t t_field_id;
