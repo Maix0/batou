@@ -1,0 +1,3 @@
+(radiff2 ./dumped-mine/parse_actions_entries  ./dumped-theirs/parse_actions_entries 2>&1)
+INFO: File size differs 133856 vs 133848
+INFO: Buffer truncated to 133848 byte(s) (8 not compared)

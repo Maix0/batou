@@ -1,0 +1,3 @@
+(radiff2 ./dumped-mine/parse_table  ./dumped-theirs/parse_table 2>&1)
+INFO: File size differs 295680 vs 133848
+INFO: Buffer truncated to 133848 byte(s) (161832 not compared)
