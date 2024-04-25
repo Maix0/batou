@@ -1,0 +1,1927 @@
+graph {
+label="new_parse"
+}
+
+graph {
+label="process version:0, version_count:1, state:1, row:0, col:0"
+}
+
+graph {
+label="lex_external state:2, row:0, column:0"
+}
+
+graph {
+label="lex_internal state:542, row:0, column:0"
+}
+
+graph {
+label="lexed_lookahead sym:word, size:6"
+}
+
+graph {
+label="shift state:907"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe180a0 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 1
+error_cost: 0"]
+node_0x55705fe180a0 [label="907" tooltip="position: 1,6
+node_count:1
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe16da0 [label="word"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:907, row:0, col:6"
+}
+
+graph {
+label="lex_external state:4, row:0, column:6"
+}
+
+graph {
+label="lex_internal state:537, row:0, column:6"
+}
+
+graph {
+label="lexed_lookahead sym:\", size:2"
+}
+
+graph {
+label="reduce sym:command_name, child_count:1"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18650 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 2
+error_cost: 0"]
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="shift state:5746"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe180a0 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 3
+error_cost: 0"]
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:5746, row:0, col:8"
+}
+
+graph {
+label="lex_internal state:318, row:0, column:8"
+}
+
+graph {
+label="lexed_lookahead sym:${, size:2"
+}
+
+graph {
+label="shift state:4652"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18740 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 4
+error_cost: 0"]
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:4652, row:0, col:10"
+}
+
+graph {
+label="lex_external state:98, row:0, column:10"
+}
+
+graph {
+label="lexed_lookahead sym:variable_name, size:4"
+}
+
+graph {
+label="shift state:4221"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18890 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 5
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:4221, row:0, col:14"
+}
+
+graph {
+label="lex_external state:90, row:0, column:14"
+}
+
+graph {
+label="lex_internal state:319, row:0, column:14"
+}
+
+graph {
+label="lexed_lookahead sym:-, size:1"
+}
+
+graph {
+label="shift state:5249"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18980 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 6
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:5249, row:0, col:15"
+}
+
+graph {
+label="lex_external state:107, row:0, column:15"
+}
+
+graph {
+label="lex_internal state:313, row:0, column:15"
+}
+
+graph {
+label="lexed_lookahead sym:$(, size:2"
+}
+
+graph {
+label="shift state:233"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18a70 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 7
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18a70 [label="233" tooltip="position: 1,17
+node_count:7
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18980 [label="'$('"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:233, row:0, col:17"
+}
+
+graph {
+label="lex_external state:2, row:0, column:17"
+}
+
+graph {
+label="lex_internal state:542, row:0, column:17"
+}
+
+graph {
+label="lexed_lookahead sym:word, size:7"
+}
+
+graph {
+label="shift state:940"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18b60 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 8
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18b60 [label="940" tooltip="position: 1,24
+node_count:8
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18b60 -> node_0x55705fe18a70 [label="word"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 [label="233" tooltip="position: 1,17
+node_count:7
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18980 [label="'$('"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:940, row:0, col:24"
+}
+
+graph {
+label="lex_external state:4, row:0, column:24"
+}
+
+graph {
+label="lex_internal state:537, row:0, column:24"
+}
+
+graph {
+label="lexed_lookahead sym:word, size:4"
+}
+
+graph {
+label="reduce sym:command_name, child_count:1"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18cb0 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 9
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18cb0 [label="533" tooltip="position: 1,24
+node_count:9
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18cb0 -> node_0x55705fe18a70 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 [label="233" tooltip="position: 1,17
+node_count:7
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18980 [label="'$('"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="shift state:1023"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18b60 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 10
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18b60 [label="1023" tooltip="position: 1,28
+node_count:10
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18b60 -> node_0x55705fe18cb0 [label="word"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18cb0 [label="533" tooltip="position: 1,24
+node_count:9
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18cb0 -> node_0x55705fe18a70 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 [label="233" tooltip="position: 1,17
+node_count:7
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18980 [label="'$('"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:1023, row:0, col:28"
+}
+
+graph {
+label="lex_external state:37, row:0, column:28"
+}
+
+graph {
+label="lex_internal state:537, row:0, column:28"
+}
+
+graph {
+label="lexed_lookahead sym:), size:1"
+}
+
+graph {
+label="reduce sym:command_repeat2, child_count:1"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18e90 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 10
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18e90 [label="566" tooltip="position: 1,28
+node_count:10
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18e90 -> node_0x55705fe18cb0 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18cb0 [label="533" tooltip="position: 1,24
+node_count:9
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18cb0 -> node_0x55705fe18a70 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 [label="233" tooltip="position: 1,17
+node_count:7
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18980 [label="'$('"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:command, child_count:2"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18b60 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 11
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18b60 [label="4797" tooltip="position: 1,28
+node_count:11
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18b60 -> node_0x55705fe18a70 [label="command"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 [label="233" tooltip="position: 1,17
+node_count:7
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18980 [label="'$('"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:_statements, child_count:1"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18cb0 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 11
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18cb0 [label="7531" tooltip="position: 1,28
+node_count:11
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18cb0 -> node_0x55705fe18a70 [label="_statements"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 [label="233" tooltip="position: 1,17
+node_count:7
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18980 [label="'$('"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="shift state:6537"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18b60 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 12
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18b60 [label="6537" tooltip="position: 1,29
+node_count:12
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18b60 -> node_0x55705fe18cb0 [label="')'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18cb0 [label="7531" tooltip="position: 1,28
+node_count:11
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18cb0 -> node_0x55705fe18a70 [label="_statements"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 [label="233" tooltip="position: 1,17
+node_count:7
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18980 [label="'$('"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:6537, row:0, col:29"
+}
+
+graph {
+label="lex_external state:124, row:0, column:29"
+}
+
+graph {
+label="lex_internal state:326, row:0, column:29"
+}
+
+graph {
+label="lexed_lookahead sym:}, size:1"
+}
+
+graph {
+label="reduce sym:command_substitution, child_count:3"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18e90 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 13
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18e90 [label="6498" tooltip="position: 1,29
+node_count:13
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18e90 -> node_0x55705fe18980 [label="command_substitution"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5249" tooltip="position: 1,15
+node_count:6
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18890 [label="'-'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:_expansion_expression, child_count:2"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18a70 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 13
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18a70 [label="7243" tooltip="position: 1,29
+node_count:13
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18890 [label="_expansion_expression"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 [label="4221" tooltip="position: 1,14
+node_count:5
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18740 [label="variable_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:_expansion_body, child_count:2"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18980 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 13
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18980 [label="7433" tooltip="position: 1,29
+node_count:13
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18740 [label="_expansion_body"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="shift state:6122"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18890 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 14
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18890 [label="6122" tooltip="position: 1,30
+node_count:14
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18890 -> node_0x55705fe18980 [label="'}'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="7433" tooltip="position: 1,29
+node_count:13
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18740 [label="_expansion_body"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="4652" tooltip="position: 1,10
+node_count:4
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="'${'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:6122, row:0, col:30"
+}
+
+graph {
+label="lex_external state:115, row:0, column:30"
+}
+
+graph {
+label="lexed_lookahead sym:_concat, size:0"
+}
+
+graph {
+label="reduce sym:expansion, child_count:3"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18a70 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 15
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18a70 [label="6127" tooltip="position: 1,30
+node_count:15
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe180a0 [label="expansion"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="shift state:6183"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18740 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 15
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18740 [label="6183" tooltip="position: 1,30
+node_count:15
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe18a70 [label="_concat"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 [label="6127" tooltip="position: 1,30
+node_count:15
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe180a0 [label="expansion"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:6183, row:0, col:30"
+}
+
+graph {
+label="lex_internal state:318, row:0, column:30"
+}
+
+graph {
+label="lexed_lookahead sym:\", size:1"
+}
+
+graph {
+label="reduce sym:string_repeat1, child_count:2"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18980 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 15
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18980 [label="5737" tooltip="position: 1,30
+node_count:15
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe180a0 [label="string_repeat1"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="shift state:1231"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18a70 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 16
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18a70 [label="1231" tooltip="position: 1,31
+node_count:16
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18a70 -> node_0x55705fe18980 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 [label="5737" tooltip="position: 1,30
+node_count:15
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe180a0 [label="string_repeat1"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="5746" tooltip="position: 1,8
+node_count:3
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="'\"'"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:1231, row:0, col:31"
+}
+
+graph {
+label="lex_external state:37, row:0, column:31"
+}
+
+graph {
+label="lex_internal state:537, row:0, column:31"
+}
+
+graph {
+label="lexed_lookahead sym:raw_string, size:7"
+}
+
+graph {
+label="reduce sym:string, child_count:3"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18740 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 17
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18740 [label="1093" tooltip="position: 1,31
+node_count:17
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe18650 [label="string"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:command_repeat2, child_count:1"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe180a0 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 17
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe180a0 [label="557" tooltip="position: 1,31
+node_count:17
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="shift state:1093"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18740 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 18
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18740 [label="1093" tooltip="position: 1,38
+node_count:18
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe180a0 [label="raw_string"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="557" tooltip="position: 1,31
+node_count:17
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:1093, row:0, col:38"
+}
+
+graph {
+label="lex_external state:37, row:0, column:38"
+}
+
+graph {
+label="lex_internal state:537, row:0, column:38"
+}
+
+graph {
+label="lexed_lookahead sym:word, size:7"
+}
+
+graph {
+label="reduce sym:command_repeat2, child_count:1"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18980 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 18
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18980 [label="569" tooltip="position: 1,38
+node_count:18
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe180a0 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 [label="557" tooltip="position: 1,31
+node_count:17
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:command_repeat2, child_count:2"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18740 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 18
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18740 [label="557" tooltip="position: 1,38
+node_count:18
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe18650 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="shift state:1093"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe180a0 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 19
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe180a0 [label="1093" tooltip="position: 1,45
+node_count:19
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18740 [label="word"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="557" tooltip="position: 1,38
+node_count:18
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe18650 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="process version:0, version_count:1, state:1093, row:0, col:45"
+}
+
+graph {
+label="lex_external state:37, row:0, column:45"
+}
+
+graph {
+label="lex_internal state:537, row:0, column:45"
+}
+
+graph {
+label="lexed_lookahead sym:end, size:0"
+}
+
+graph {
+label="reduce sym:command_repeat2, child_count:1"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18980 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 19
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18980 [label="569" tooltip="position: 1,45
+node_count:19
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18980 -> node_0x55705fe18740 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 [label="557" tooltip="position: 1,38
+node_count:18
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe18650 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:command_repeat2, child_count:2"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe180a0 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 19
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe180a0 [label="557" tooltip="position: 1,45
+node_count:19
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe180a0 -> node_0x55705fe18650 [label="command_repeat2"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 [label="534" tooltip="position: 1,6
+node_count:2
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="command_name"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:command, child_count:2"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18740 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 20
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18740 [label="4860" tooltip="position: 1,45
+node_count:20
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe16da0 [label="command"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:_statements, child_count:1"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18650 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 20
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18650 [label="7469" tooltip="position: 1,45
+node_count:20
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18650 -> node_0x55705fe16da0 [label="_statements"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="reduce sym:program, child_count:1"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+node_head_0 [shape=none, label=""]
+node_head_0 -> node_0x55705fe18740 [label=0, fontcolor=blue, weight=10000, labeltooltip="node_count: 21
+error_cost: 0
+external_scanner_state:  0  0  0  0"]
+node_0x55705fe18740 [label="7470" tooltip="position: 1,45
+node_count:21
+error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe18740 -> node_0x55705fe16da0 [label="program"labeltooltip="error_cost: 0
+dynamic_precedence: 0"];
+node_0x55705fe16da0 [label="1" tooltip="position: 1,0
+node_count:0
+error_cost: 0
+dynamic_precedence: 0"];
+}
+
+
+graph {
+label="accept"
+}
+
+digraph stack {
+rankdir="RL";
+edge [arrowhead=none]
+}
+
+
+graph {
+label="done"
+}
+
+digraph tree {
+edge [arrowhead=none]
+tree_0x7ffc5c51e3b8 [label="program", tooltip="range: 0 - 45
+state: 0
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 20
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe197a0 [label="_statements", tooltip="range: 0 - 45
+state: 1
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 20
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe196e0 [label="command", tooltip="range: 0 - 45
+state: 1
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 19
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19670 [label="command_name", tooltip="range: 0 - 6
+state: 1
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 1
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe185f0 [label="word", shape=plaintext, tooltip="range: 0 - 6
+state: 1
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19670 -> tree_0x55705fe185f0 [tooltip=0]
+tree_0x55705fe196e0 -> tree_0x55705fe19670 [tooltip=0]
+tree_0x55705fe19678 [label="command_repeat2", tooltip="range: 6 - 45
+state: 534
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 17
+repeat-depth: 2
+lookahead-bytes: 1"]
+tree_0x55705fe19600 [label="command_repeat2", tooltip="range: 6 - 38
+state: 65535
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 16
+repeat-depth: 1
+lookahead-bytes: 1"]
+tree_0x55705fe19530 [label="command_repeat2", tooltip="range: 6 - 31
+state: 534
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 15
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19470 [label="string", tooltip="range: 6 - 31
+state: 534
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 14
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19400 [label="\"", shape=plaintext, tooltip="range: 6 - 8
+state: 907
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19470 -> tree_0x55705fe19400 [tooltip=0]
+tree_0x55705fe19408 [label="string_repeat1", tooltip="range: 8 - 30
+state: 5746
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 12
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19390 [label="expansion", tooltip="range: 8 - 30
+state: 5746
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 11
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19320 [label="${", shape=plaintext, tooltip="range: 8 - 10
+state: 5746
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19390 -> tree_0x55705fe19320 [tooltip=0]
+tree_0x55705fe19328 [label="_expansion_body", tooltip="range: 10 - 29
+state: 4652
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 9
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19250 [label="variable_name", shape=plaintext, tooltip="range: 10 - 14
+state: 4652
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19328 -> tree_0x55705fe19250 [tooltip=0]
+tree_0x55705fe19258 [label="_expansion_expression", tooltip="range: 14 - 29
+state: 4221
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 8
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe191e0 [label="-", shape=plaintext, tooltip="range: 14 - 15
+state: 4221
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19258 -> tree_0x55705fe191e0 [tooltip=0]
+tree_0x55705fe191e8 [label="command_substitution", tooltip="range: 15 - 29
+state: 5249
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 6
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19170 [label="$(", shape=plaintext, tooltip="range: 15 - 17
+state: 5249
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe191e8 -> tree_0x55705fe19170 [tooltip=0]
+tree_0x55705fe19178 [label="_statements", tooltip="range: 17 - 28
+state: 233
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 4
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19080 [label="command", tooltip="range: 17 - 28
+state: 233
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 3
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19010 [label="command_name", tooltip="range: 17 - 24
+state: 233
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 1
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe18c50 [label="word", shape=plaintext, tooltip="range: 17 - 24
+state: 233
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19010 -> tree_0x55705fe18c50 [tooltip=0]
+tree_0x55705fe19080 -> tree_0x55705fe19010 [tooltip=0]
+tree_0x55705fe19018 [label="command_repeat2", tooltip="range: 24 - 28
+state: 533
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 1
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe18e30 [label="word", shape=plaintext, tooltip="range: 24 - 28
+state: 940
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19018 -> tree_0x55705fe18e30 [tooltip=0]
+tree_0x55705fe19080 -> tree_0x55705fe19018 [tooltip=1]
+tree_0x55705fe19178 -> tree_0x55705fe19080 [tooltip=0]
+tree_0x55705fe191e8 -> tree_0x55705fe19178 [tooltip=1]
+tree_0x55705fe19180 [label=")", shape=plaintext, tooltip="range: 28 - 29
+state: 1023
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe191e8 -> tree_0x55705fe19180 [tooltip=2]
+tree_0x55705fe19258 -> tree_0x55705fe191e8 [tooltip=1]
+tree_0x55705fe19328 -> tree_0x55705fe19258 [tooltip=1]
+tree_0x55705fe19390 -> tree_0x55705fe19328 [tooltip=1]
+tree_0x55705fe19330 [label="}", shape=plaintext, tooltip="range: 29 - 30
+state: 6537
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19390 -> tree_0x55705fe19330 [tooltip=2]
+tree_0x55705fe19408 -> tree_0x55705fe19390 [tooltip=0]
+tree_0x55705fe19398 [label="_concat", shape=plaintext, tooltip="range: 30 - 30
+state: 6122
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19408 -> tree_0x55705fe19398 [tooltip=1]
+tree_0x55705fe19470 -> tree_0x55705fe19408 [tooltip=1]
+tree_0x55705fe19410 [label="\"", shape=plaintext, tooltip="range: 30 - 31
+state: 6183
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19470 -> tree_0x55705fe19410 [tooltip=2]
+tree_0x55705fe19530 -> tree_0x55705fe19470 [tooltip=0]
+tree_0x55705fe19600 -> tree_0x55705fe19530 [tooltip=0]
+tree_0x55705fe19538 [label="command_repeat2", tooltip="range: 31 - 38
+state: 557
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 1
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe194d0 [label="raw_string", shape=plaintext, tooltip="range: 31 - 38
+state: 1231
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19538 -> tree_0x55705fe194d0 [tooltip=0]
+tree_0x55705fe19600 -> tree_0x55705fe19538 [tooltip=1]
+tree_0x55705fe19678 -> tree_0x55705fe19600 [tooltip=0]
+tree_0x55705fe19608 [label="command_repeat2", tooltip="range: 38 - 45
+state: 557
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 1
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe195a0 [label="word", shape=plaintext, tooltip="range: 38 - 45
+state: 1093
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x55705fe19608 -> tree_0x55705fe195a0 [tooltip=0]
+tree_0x55705fe19678 -> tree_0x55705fe19608 [tooltip=1]
+tree_0x55705fe196e0 -> tree_0x55705fe19678 [tooltip=1]
+tree_0x55705fe197a0 -> tree_0x55705fe196e0 [tooltip=0]
+tree_0x7ffc5c51e3b8 -> tree_0x55705fe197a0 [tooltip=0]
+tree_0x55705fe197a8 [label="end", shape=plaintext, fontcolor=gray, tooltip="range: 45 - 45
+state: 1093
+error-cost: 0
+has-changes: 0
+depends-on-column: 0
+descendant-count: 0
+repeat-depth: 0
+lookahead-bytes: 1"]
+tree_0x7ffc5c51e3b8 -> tree_0x55705fe197a8 [tooltip=1]
+}
+

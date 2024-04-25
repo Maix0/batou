@@ -17,13 +17,13 @@ enum e_lex_ret	lex_func_default(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
-//TODO START_LEXER!!!!!!
 bool	lex_keywords(t_lexer	*lexer, t_state_id	state)
 {
 	t_lex_state	lex_state;
 
 	lex_state = (t_lex_state){};
 	lex_state.lex_ret = LEX_START;
+	lex_state.state = state;
 	lex_state.eof = lexer->eof(lexer);
 	while (lex_state.lex_ret != LEX_STOP)
 	{
@@ -32,7 +32,7 @@ bool	lex_keywords(t_lexer	*lexer, t_state_id	state)
 		lex_state.lex_ret = LEX_STOP;
 		lex_state.skip = false;
 		lex_state.lookahead = lexer->lookahead;
-		lex_state.lex_ret = lex_keywords_func_choose(lexer, state, &lex_state);
+		lex_state.lex_ret = lex_keywords_func_choose(lexer, lex_state.state, &lex_state);
 	}
 	return (lex_state.result);
 }

@@ -269,7 +269,7 @@ fn init_type(folder: impl AsRef<Path>, typename: impl AsRef<str>) -> Result<usiz
         folder,
         typename,
         format!("{typename}_0"),
-        format!("../{typename}/{typename}.h"),
+        [format!("../{typename}/{typename}.h")].into_iter(),
     )
 }
 
@@ -277,12 +277,11 @@ fn init_type_custom(
     folder: impl AsRef<Path>,
     typename: impl AsRef<str>,
     funcname: impl AsRef<str>,
-    headerpath: impl AsRef<str>,
+    headerpath: impl Iterator<Item = impl AsRef<str>>,
 ) -> Result<usize> {
     use std::io::Write;
     let mut folder = folder.as_ref().to_path_buf();
     let typename = typename.as_ref();
-    let headerpath = headerpath.as_ref();
     let funcname = funcname.as_ref();
 
     let mut filename = format!("create_{typename}.c");
@@ -300,8 +299,10 @@ fn init_type_custom(
     writeln!(&mut file, include_str!("./42header"), filename)?;
 
     writeln!(&mut file, "#include \"../types/type_{typename}.h\"")?;
-    writeln!(&mut file, "#include \"{headerpath}\"\n")?;
-    writeln!(&mut file, "t_{typename}_array\t*create_{typename}(void)")?;
+    for header in headerpath {
+        writeln!(&mut file, "#include \"{}\"", header.as_ref())?;
+    }
+    writeln!(&mut file, "\nt_{typename}_array\t*create_{typename}(void)")?;
     writeln!(&mut file, "{{")?;
     writeln!(&mut file, "\tstatic t_{typename}_array\ttable = {{}};")?;
     writeln!(&mut file, "\tstatic bool\tinit = false;")?;
@@ -460,9 +461,10 @@ fn lex_funcs_to_files(
         String,
         (
             usize,
-            String,
+            String, /*main main func*/
             Vec</*main funcs */ (Option<usize>, String)>,
             Vec</*inline funcs */ (usize, String)>,
+            String, /*call func*/
         ),
     > = Default::default();
 
@@ -482,6 +484,7 @@ fn lex_funcs_to_files(
             Some("STATE") => "STATE",
             Some("INLINE") => "INLINE",
             Some("MAIN") => "MAIN",
+            Some("CALL") => "CALL",
             _ => {
                 eprintln!("missing info lex_funcs \"header\" (no or invalid TYPE)");
                 eprintln!("line = {first:?}");
@@ -499,6 +502,13 @@ fn lex_funcs_to_files(
         let entry = data.entry(next.to_string()).or_default();
 
         match ty {
+            "CALL" => {
+                entry.4 = func
+                    .lines()
+                    .skip(1)
+                    .flat_map(|l| [l, "\n"])
+                    .collect::<String>();
+            }
             "MAIN" => {
                 entry.1 = func
                     .lines()
@@ -540,7 +550,7 @@ fn lex_funcs_to_files(
     }
 
     let mut file_count = 0;
-    for (ty, (count, mut main_func, mut funcs, mut inlined)) in data {
+    for (ty, (count, mut main_func, mut funcs, mut inlined, call)) in data {
         folder.push(&ty);
         folder.push("inline");
         std::fs::create_dir_all(&folder)?;
@@ -656,11 +666,6 @@ fn lex_funcs_to_files(
                             writeln!(&mut file, "{l}")?;
                         }
                     }
-                    // for line in f.lines() {
-                    //     for l in line_norminette(line) {
-                    //         writeln!(&mut file, "{line}")?;
-                    //     }
-                    // }
                 }
                 func_file_count += 1;
             }
@@ -679,6 +684,11 @@ fn lex_funcs_to_files(
 
             writeln!(&mut file, include_str!("./42header"), filename)?;
             writeln!(&mut file, "#include \"./{ty}_funcs.h\"")?;
+            for line in call.lines() {
+                for l in line_norminette(line) {
+                    writeln!(&mut file, "{l}")?;
+                }
+            }
             for line in main_func.lines() {
                 for l in line_norminette(line) {
                     writeln!(&mut file, "{l}")?;
@@ -716,6 +726,7 @@ fn lex_funcs_to_files(
             )?;
             writeln!(&mut file, "# include \"../../headers/field_identifiers.h\"")?;
             writeln!(&mut file, "# include \"../../headers/constants.h\"")?;
+            writeln!(&mut file, "# include \"../../char_set/charset_inline.h\"")?;
             writeln!(&mut file, "# include \"./inline.h\"")?;
             writeln!(&mut file, "# include \"../../../parse_types.h\"\n")?;
 
@@ -761,10 +772,7 @@ fn lex_funcs_to_files(
                 writeln!(&mut file, "#include \"./{ty}_array.h\"\n")?;
 
                 for _ in 0..5 {
-                    writeln!(
-                        &mut file,
-                        "\nvoid\t{ty}_array_{func_count}(t_{ty}_array *v)"
-                    )?;
+                    writeln!(&mut file, "void\t{ty}_array_{func_count}(t_{ty}_array *v)")?;
                     funcs_name.push(format!("void\t{ty}_array_{func_count}(t_{ty}_array *v)"));
                     writeln!(&mut file, "{{")?;
                     for i in funcs.by_ref().take(20) {
@@ -777,9 +785,10 @@ fn lex_funcs_to_files(
                         writeln!(&mut file, "}}")?;
                         break;
                     }
+                    writeln!(&mut file)?;
                     func_count += 1;
                 }
-                writeln!(&mut file, "\n/* EOF {filename} */")?;
+                writeln!(&mut file, "/* EOF {filename} */")?;
                 file_array_count += 1;
             }
             {
@@ -839,7 +848,7 @@ fn lex_funcs_to_files(
             "out/create",
             format!("{ty}"),
             format!("{ty}_array_0"),
-            format!("../lex_funcs/{ty}/create_table/{ty}_array.h"),
+            [format!("../lex_funcs/{ty}/create_table/{ty}_array.h")].iter(),
         )?;
     }
 
@@ -922,7 +931,7 @@ fn main() -> Result<()> {
     // symbols(&data)?.print_lines();
     // values(&data)?.print_lines();
     
-    array_to_files("out/parse_actions", "parse_actions", "t_parse_actions_array", &parse_actions(&data)?, true)?;
+    array_to_files("out/parse_actions_entries", "parse_actions_entries", "t_parse_actions_entries_array", &parse_actions(&data)?, true)?;
     array_to_files("out/small_parse_table_map", "small_parse_table_map", "t_small_parse_table_map_array", &small_parse_table_map(&data)?, true)?;
     array_to_files("out/small_parse_table", "small_parse_table", "t_small_parse_table_array", &small_parse_table(&data)?, true)?;
     array_to_files("out/parse_table", "parse_table", "t_parse_table_array", &parse_table(&data)?, true)?;
@@ -937,27 +946,29 @@ fn main() -> Result<()> {
     array_to_files("out/field_names", "field_names", "t_field_names_array", &field_names(&data)?, true)?;
     array_to_files("out/unique_symbols_map", "unique_symbols_map", "t_unique_symbols_map_array", &unique_symbols_map(&data)?, true)?;
     array_to_files("out/symbols_names", "symbols_names", "t_symbols_names_array", &symbols_names(&data)?, true)?;
+    array_to_files("out/symbols_metadata", "symbols_metadata", "t_symbols_metadata_array", &symbol_metadata(&data)?, true)?;
 
-    define_type("out/types", "parse_actions", ("t_parse_actions", "", "[120]"))?;
-    define_type("out/types", "small_parse_table_map", ("uint32_t", "", "[120]"))?;
-    define_type("out/types", "small_parse_table", ("uint16_t", "", "[120]"))?;
+    define_type("out/types", "parse_actions_entries", ("t_parse_action_entry", "", format!("[{}]", data.parse_actions.last().map(|(k, v)| k + v.0.len()).unwrap_or_default() + 2)))?;
+    define_type("out/types", "small_parse_table_map", ("uint32_t", "", format!("[{}]", data.small_parse_table_map.keys().copied().max().unwrap_or_default() + 1)))?;
+    define_type("out/types", "small_parse_table", ("uint16_t", "", format!("[324394]")))?;
     define_type("out/types", "parse_table", ("uint16_t", "", "[LARGE_STATE_COUNT][SYMBOL_COUNT]"))?;
     define_type("out/types", "external_scanner_states", ("bool", "", format!("[{}][EXTERNAL_TOKEN_COUNT]", data.external_scanner_states.0)))?;
     define_type("out/types", "external_scanner_symbol_map", ("t_symbol", "", "[EXTERNAL_TOKEN_COUNT]"))?;
     define_type("out/types", "lex_modes", ("t_lex_modes", "", "[STATE_COUNT]"))?;
-    define_type("out/types", "field_map_entries", ("t_field_map_entry", "", "[120]"))?;
+    define_type("out/types", "field_map_entries", ("t_field_map_entry", "", format!("[{}]", data.field_map_entries.last().map(|(k,v)| k+v.len()).unwrap_or_default() + 1)))?;
     define_type("out/types", "field_map_slices", ("t_field_map_slice", "", "[PRODUCTION_ID_COUNT]"))?;
     define_type("out/types", "primary_state_ids", ("t_state_id", "", "[STATE_COUNT]"))?;
-    define_type("out/types", "non_terminal_alias_map", ("uint16_t", "", "[120]"))?;
+    define_type("out/types", "non_terminal_alias_map", ("uint16_t", "", format!("[{}]", data.non_terminal_alias_map.iter().map(|(k,v)| 1 + v.len()).sum::<usize>() + 2)))?;
     define_type("out/types", "alias_sequences", ("t_symbol", "", "[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH]"))?;
-    define_type("out/types", "field_names", ("const char", "*", "[120]"))?;
-    define_type("out/types", "unique_symbols_map", ("t_symbol", "", "[120]"))?;
-    define_type("out/types", "symbols_names", ("const char", "*", "[120]"))?;
+    define_type("out/types", "field_names", ("const char", "*", format!("[{}]", data.field_names.len() + 1)))?;
+    define_type("out/types", "unique_symbols_map", ("t_symbol", "", format!("[{}]", data.unique_symbols_map.len() + 1)))?;
+    define_type("out/types", "symbols_names", ("const char", "*", format!("[{}]", data.symbols_names.len() + 1)))?;
+    define_type("out/types", "symbols_metadata", ("t_symbol_metadata", "", format!("[{}]", data.symbol_metadata.len() + 1)))?;
 
     let _ = std::fs::remove_dir_all("out/create");
     std::fs::create_dir_all("out/create")?;
 
-    init_type("out/create", "parse_actions")?;
+    init_type_custom("out/create", "parse_actions_entries", "parse_actions_entries_0", ["../types/type_parse_actions_entries.h", "../parse_actions_entries/parse_actions_entries.h"].iter())?;
     init_type("out/create", "small_parse_table_map")?;
     init_type("out/create", "small_parse_table")?;
     init_type("out/create", "parse_table")?;
@@ -972,6 +983,7 @@ fn main() -> Result<()> {
     init_type("out/create", "field_names")?;
     init_type("out/create", "unique_symbols_map")?;
     init_type("out/create", "symbols_names")?;
+    init_type("out/create", "symbols_metadata")?;
 
 
     /* ENUM */
@@ -1228,10 +1240,6 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
             writeln!(&mut func, "// MAIN {base} 0\n")?;
             writeln!(
                 &mut func,
-                "bool {base}_call(t_lexer *lexer, t_lexer_state *s);"
-            )?;
-            writeln!(
-                &mut func,
                 "bool\t{base}_main(t_lexer *lexer, t_state_id state)\n{{"
             )?;
             writeln!(&mut func, "\tt_lexer_state\ts;\n")?;
@@ -1253,6 +1261,31 @@ fn lex_state(serde_mod::Output { lex_state, .. }: &serde_mod::Output) -> Result<
             writeln!(&mut func, "\t\ts.eof = lexer->eof(lexer);")?;
             writeln!(&mut func, "\t}}")?;
             writeln!(&mut func, "\treturn (s.result);")?;
+            writeln!(&mut func, "}}")?;
+            out.push(func);
+        }
+        {
+            let mut func = String::new();
+            writeln!(&mut func, "// CALL {base} 0\n")?;
+            writeln!(&mut func, "t_{base}_array\t*create_{base}(void);\n")?;
+            writeln!(
+                &mut func,
+                "bool\t{base}_call(t_lexer *lexer, t_lexer_state *s)\n{{"
+            )?;
+            writeln!(&mut func, "\tt_{base}_array\t*t;\n")?;
+            writeln!(&mut func, "\tt = create_{base}();")?;
+            writeln!(
+                &mut func,
+                "\tif (s->state < {})",
+                state_and_condition_action.len()
+            )?;
+            writeln!(&mut func, "\t{{")?;
+            writeln!(
+                &mut func,
+                "\t\treturn (((bool (*)(t_lexer *, t_lexer_state *))(t->a[s->state]))(lexer, s));"
+            )?;
+            writeln!(&mut func, "\t}}")?;
+            writeln!(&mut func, "\treturn ({base}_default(lexer, s));")?;
             writeln!(&mut func, "}}")?;
             out.push(func);
         }
@@ -1505,7 +1538,7 @@ fn parse_actions(
                     MyParseAction::Shift(state) => format!("shift({state})"),
                     MyParseAction::ShiftRepeat(state) => format!("shift_repeat({state})"),
                     MyParseAction::Reduce(symbol, count, precedence, production_id) =>
-                        format!("shift_repeat({symbol}, {count}, {precedence}, {production_id})"),
+                        format!("reduce({symbol}, {count}, {precedence}, {production_id})"),
                 }
             ));
         }

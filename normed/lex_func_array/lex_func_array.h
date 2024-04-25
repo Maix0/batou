@@ -6,7 +6,7 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:17:54 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/22 15:20:11 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:46:06 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,11 @@
 # include "../headers/lex.h"
 # include "../lex_func/lexer_funcs.h"
 
-typedef struct s_lex_func_array
-{
-	t_lex_func	(*arr)[959];
-}	t_lex_func_array;
-
 typedef struct s_lex_func_array_void
 {
 	void	*(arr)[959];
 }	t_lex_func_array_void;
 
-void	init_lex_func_array0(t_lex_func_array_void *v);
 void	init_lex_func_array1(t_lex_func_array_void *v);
 void	init_lex_func_array2(t_lex_func_array_void *v);
 void	init_lex_func_array3(t_lex_func_array_void *v);

@@ -1,6 +1,6 @@
 app/main
-grammar/parser
 grammar/scanner
+grammar/parser
 ts/language
 ts/lexer
 ts/node

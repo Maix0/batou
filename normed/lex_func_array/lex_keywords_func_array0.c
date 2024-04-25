@@ -6,14 +6,17 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:17:54 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/22 15:30:43 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:49:17 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./lex_keywords_func_array.h"
 
-void	init_lex_keywords_func_array0(t_lex_keywords_func_array_void *v)
+void	init_lex_keywords_func_array0(t_lex_keyword_funcs *nv)
 {
+	t_lex_keywords_func_array_void	*v;
+
+	v = (t_lex_keywords_func_array_void *)nv;
 	v->arr[0] = &lex_keywords_func_0;
 	v->arr[1] = &lex_keywords_func_1;
 	v->arr[2] = &lex_keywords_func_2;

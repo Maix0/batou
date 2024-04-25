@@ -72,16 +72,21 @@ enum e_lex_ret	lex_func_957(t_lexer	*lexer, t_lex_state	*s)
 	return (LEX_STOP);
 }
 
+#include  <stdio.h>
+
 enum e_lex_ret	lex_func_958(t_lexer	*lexer, t_lex_state	*s)
 {
 	s->result = true;
 	lexer->result_symbol = sym_word;
 	lexer->mark_end(lexer);
+	printf("BACKSLASH ?\n");
 	if (s->lookahead == '\\')
 		return (lex_advance(518, s));
-	if ((!s->eof && set_contains(sym__comment_word_character_set_1(), \
-	12, s->lookahead)))
-		return (lex_advance(958, s));
+	printf("COMMENT?\n");
+	// if ((!s->eof && set_contains(sym__comment_word_character_set_1(), \
+	// 12, s->lookahead)))
+	// 	return (lex_advance(958, s));
+	printf("Stop ???\n");
 	return (LEX_STOP);
 }
 

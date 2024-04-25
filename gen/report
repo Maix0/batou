@@ -1,0 +1,49 @@
+out/create/create_parse_actions_entries.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  20, col:  17):	Misaligned variable declaration
+out/create/create_small_parse_table_map.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_small_parse_table.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_parse_table.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_external_scanner_states.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_external_scanner_symbol_map.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_lex_modes.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_field_map_entries.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_field_map_slices.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_primary_state_ids.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_non_terminal_alias_map.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_alias_sequences.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_field_names.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_unique_symbols_map.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_symbols_names.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_lex_normal.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/create/create_lex_keywords.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  17):	Misaligned variable declaration
+out/lex_funcs/lex_normal/state_17.c: Error!
+Error: TOO_MANY_LINES       (line:  67, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_LINES       (line:  98, col:   1):	Function has more than 25 lines
+out/lex_funcs/lex_normal/state_96.c: Error!
+Error: TOO_MANY_LINES       (line: 117, col:   1):	Function has more than 25 lines
+out/lex_funcs/lex_normal/state_103.c: Error!
+Error: TOO_MANY_LINES       (line:  75, col:   1):	Function has more than 25 lines
+out/lex_funcs/lex_normal/state_104.c: Error!
+Error: TOO_MANY_LINES       (line:  46, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_LINES       (line:  79, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_LINES       (line: 112, col:   1):	Function has more than 25 lines
+out/lex_funcs/lex_keywords/state_0.c: Error!
+Error: TOO_MANY_LINES       (line:  63, col:   1):	Function has more than 25 lines
+out/lex_funcs/lex_keywords/state_4.c: Error!
+Error: TOO_MANY_LINES       (line:  60, col:   1):	Function has more than 25 lines

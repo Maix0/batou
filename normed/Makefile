@@ -6,21 +6,21 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/22 15:30:16 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/22 16:47:53 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 define_module = $(addprefix $(1)/, $(2))
 
-BUILD_DIR		=	../build
+BUILD_DIR		?=	../build
 SRC_DIR			=	.
 INCLUDE_DIR		=	../experiment/include 
 LIBS_DIR		=	.
 GENERIC_DIR		=	output/src
-GENERIC_INCLUDE		=	output/include
+GENERIC_INCLUDE	=	output/include
 
 BONUS_FLAGS		=
-NAME			=	parser
+NAME			=	liblanguage.a
 LIB_NAME		?=
 TARGET			=	$(NAME)
 CC				=	clang
@@ -29,20 +29,20 @@ BONUS_FILES		=
 LIBS_NAME		=
 SUBJECT_URL		=	
 
-GENERIC_FILES		=	$(shell cat generic_files.list)
+GENERIC_FILES	=	$(shell cat generic_files.list)
 SRC_FILES		=	$(shell cat src.list)
 
 BONUS			=	$(addsuffix .c,$(addprefix $(SRC_DIR)/,$(BONUS_FILES)))
-SRC			=	$(addsuffix .c,$(addprefix $(SRC_DIR)/,$(SRC_FILES))) \
-				$(addsuffix .c,$(addprefix $(GENERIC_DIR)/,$(GENERIC_FILES)))
+SRC				=	$(addsuffix .c,$(addprefix $(SRC_DIR)/,$(SRC_FILES))) \
+					$(addsuffix .c,$(addprefix $(GENERIC_DIR)/,$(GENERIC_FILES)))
 
 BONUS_OBJ		=	$(addsuffix .o,$(addprefix $(BUILD_DIR)/,$(BONUS_FILES)))
 
-OBJ			=	$(addsuffix .o,$(addprefix $(BUILD_DIR)/,$(SRC_FILES))) \
-				$(addsuffix .o,$(addprefix $(BUILD_DIR)/,$(GENERIC_FILES)))
+OBJ				=	$(addsuffix .o,$(addprefix $(BUILD_DIR)/,$(SRC_FILES))) \
+					$(addsuffix .o,$(addprefix $(BUILD_DIR)/,$(GENERIC_FILES)))
 
 DEPS			=	$(addsuffix .d,$(addprefix $(BUILD_DIR)/,$(SRC_FILES))) \
-				$(addsuffix .d,$(addprefix $(BUILD_DIR)/,$(GENERIC_FILES)))
+					$(addsuffix .d,$(addprefix $(BUILD_DIR)/,$(GENERIC_FILES)))
 
 LIBS			=	$(addprefix $(LIBS_DIR)/,$(LIBS_NAME))
 INCLUDES		=	$(addprefix -I,$(foreach P,$(INCLUDE_DIR) $(GENERIC_INCLUDE) $(LIBS) $(addsuffix /include,$(LIBS)) vendor $(addsuffix /vendor,$(LIBS)),$(realpath $(P))))
@@ -68,8 +68,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@printf \\n$(COL_GRAY)Building\ Output\ $(COL_WHITE)$(COL_BOLD)%-28s$(COL_RESET)\  \
 		$(NAME)
-	@#ar rcs $(BUILD_DIR)/$(NAME) $(NAME)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@ar rcs $(BUILD_DIR)/$(NAME) $(OBJ)
 	@printf $(COL_GREEN)done$(COL_RESET)\\n
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
