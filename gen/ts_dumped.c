@@ -18,7 +18,7 @@ void dump_to_file(const char *filename, void *data, size_t size, size_t elem_siz
 
 int main(void)
 {
-	dump_to_file("./parse_table", ts_parse_table, sizeof(ts_parse_actions), sizeof(*ts_parse_actions));
+	dump_to_file("./parse_table", ts_parse_table, sizeof(ts_parse_table), sizeof(*ts_parse_table));
 	dump_to_file("./small_parse_table", ts_small_parse_table, sizeof(ts_small_parse_table), sizeof(*ts_small_parse_table));
 	dump_to_file("./small_parse_table_map", ts_small_parse_table_map, sizeof(ts_small_parse_table_map), sizeof(*ts_small_parse_table_map));
 	dump_to_file("./parse_actions_entries", ts_parse_actions, sizeof(ts_parse_actions), sizeof(*ts_parse_actions));

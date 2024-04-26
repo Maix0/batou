@@ -948,22 +948,27 @@ fn main() -> Result<()> {
     array_to_files("out/symbols_names", "symbols_names", "t_symbols_names_array", &symbols_names(&data)?, true)?;
     array_to_files("out/symbols_metadata", "symbols_metadata", "t_symbols_metadata_array", &symbol_metadata(&data)?, true)?;
 
-    define_type("out/types", "parse_actions_entries", ("t_parse_action_entry", "", format!("[{}]", data.parse_actions.last().map(|(k, v)| k + v.0.len()).unwrap_or_default() + 2)))?;
-    define_type("out/types", "small_parse_table_map", ("uint32_t", "", format!("[{}]", data.small_parse_table_map.keys().copied().max().unwrap_or_default() + 1)))?;
-    define_type("out/types", "small_parse_table", ("uint16_t", "", format!("[324394]")))?;
+    let large_state_count = data.values
+        .get("LARGE_STATE_COUNT")
+        .ok_or(eyre!("Missing LARGE_STATE_COUNT define value"))?
+        .parse::<usize>()?;
+
+    define_type("out/types", "parse_actions_entries", ("t_parse_action_entry", "", format!("[{}]", data.parse_actions.last().map(|(k, v)| k + v.0.len()).unwrap_or_default() + 1)))?;
+    define_type("out/types", "small_parse_table_map", ("uint32_t", "", format!("[{}]", data.small_parse_table_map.keys().copied().max().unwrap_or_default() + 1 - large_state_count)))?; // TODO
+    define_type("out/types", "small_parse_table", ("uint16_t", "", format!("[{}]", data.small_parse_table.iter().max_by_key(|(k, _)| **k).map(|(i, t)| i + t.0 + t.1.iter().map(|((_, c), v)| 2 + v.len()).sum::<usize>()).unwrap_or_default())))?;
     define_type("out/types", "parse_table", ("uint16_t", "", "[LARGE_STATE_COUNT][SYMBOL_COUNT]"))?;
     define_type("out/types", "external_scanner_states", ("bool", "", format!("[{}][EXTERNAL_TOKEN_COUNT]", data.external_scanner_states.0)))?;
     define_type("out/types", "external_scanner_symbol_map", ("t_symbol", "", "[EXTERNAL_TOKEN_COUNT]"))?;
     define_type("out/types", "lex_modes", ("t_lex_modes", "", "[STATE_COUNT]"))?;
-    define_type("out/types", "field_map_entries", ("t_field_map_entry", "", format!("[{}]", data.field_map_entries.last().map(|(k,v)| k+v.len()).unwrap_or_default() + 1)))?;
+    define_type("out/types", "field_map_entries", ("t_field_map_entry", "", format!("[{}]", data.field_map_entries.last().map(|(k,v)| k+v.len()).unwrap_or_default())))?;
     define_type("out/types", "field_map_slices", ("t_field_map_slice", "", "[PRODUCTION_ID_COUNT]"))?;
     define_type("out/types", "primary_state_ids", ("t_state_id", "", "[STATE_COUNT]"))?;
     define_type("out/types", "non_terminal_alias_map", ("uint16_t", "", format!("[{}]", data.non_terminal_alias_map.iter().map(|(k,v)| 1 + v.len()).sum::<usize>() + 2)))?;
     define_type("out/types", "alias_sequences", ("t_symbol", "", "[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH]"))?;
     define_type("out/types", "field_names", ("const char", "*", format!("[{}]", data.field_names.len() + 1)))?;
-    define_type("out/types", "unique_symbols_map", ("t_symbol", "", format!("[{}]", data.unique_symbols_map.len() + 1)))?;
+    define_type("out/types", "unique_symbols_map", ("t_symbol", "", format!("[{}]", data.unique_symbols_map.len())))?;
     define_type("out/types", "symbols_names", ("const char", "*", format!("[{}]", data.symbols_names.len() + 1)))?;
-    define_type("out/types", "symbols_metadata", ("t_symbol_metadata", "", format!("[{}]", data.symbol_metadata.len() + 1)))?;
+    define_type("out/types", "symbols_metadata", ("t_symbol_metadata", "", format!("[{}]", data.symbol_metadata.len())))?;
 
     let _ = std::fs::remove_dir_all("out/create");
     std::fs::create_dir_all("out/create")?;
@@ -1487,16 +1492,23 @@ fn small_parse_table(
     for (i, (u, v)) in small_parse_table {
         let s = format!("v->a[{i}] = {u};");
         out.push(s);
-        for (k, ((state, count), symbols)) in v.iter().enumerate() {
+        let mut c = 1;
+        for ((state, count), symbols) in v.iter() {
             out.push(format!(
                 "v->a[{}] = {};",
-                i + 2 * k + 1,
+                i + c,
                 match state {
                     serde_mod::ParseThingy::State(u) => format!("state({u})"),
                     serde_mod::ParseThingy::Actions(u) => format!("actions({u})"),
                 }
             ));
-            out.push(format!("v->a[{}] = {count};", i + 2 * k + 2,));
+            c += 1;
+            out.push(format!("v->a[{}] = {count};", i + c));
+            c += 1;
+            for sym in symbols {
+                out.push(format!("v->a[{}] = {sym};", i + c));
+                c += 1;
+            }
         }
     }
     Ok(out)

@@ -6,32 +6,51 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:19:52 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/25 22:42:41 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:00:32 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "./out/headers/constants.h"
 #include "./parse_types.h"
 #include <fcntl.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <unistd.h>
 
-const uint16_t			   *create_parse_table(void);
-const uint16_t			   *create_small_parse_table(void);
-const uint32_t			   *create_small_parse_table_map(void);
-const t_parse_action_entry *create_parse_actions_entries(void);
-const char *const		   *create_symbols_names(void);
-const char *const		   *create_field_names(void);
-const t_field_map_slice	   *create_field_map_slices(void);
-const t_field_map_entry	   *create_field_map_entries(void);
-const t_symbol_metadata	   *create_symbols_metadata(void);
-const t_symbol			   *create_unique_symbols_map(void);
-const t_symbol			   *create_non_terminal_alias_map(void);
-const t_symbol			   *create_alias_sequences(void);
-const t_lex_modes		   *create_lex_modes(void);
-const t_state_id		   *create_primary_state_ids(void);
-const bool				   *create_external_scanner_states(void);
-const t_symbol			   *create_external_scanner_symbol_map(void);
+#include "./out/types/type_alias_sequences.h"
+#include "./out/types/type_external_scanner_states.h"
+#include "./out/types/type_external_scanner_symbol_map.h"
+#include "./out/types/type_field_map_entries.h"
+#include "./out/types/type_field_map_slices.h"
+#include "./out/types/type_field_names.h"
+#include "./out/types/type_lex_modes.h"
+#include "./out/types/type_lex_normal.h"
+#include "./out/types/type_non_terminal_alias_map.h"
+#include "./out/types/type_parse_actions_entries.h"
+#include "./out/types/type_parse_table.h"
+#include "./out/types/type_primary_state_ids.h"
+#include "./out/types/type_small_parse_table.h"
+#include "./out/types/type_small_parse_table_map.h"
+#include "./out/types/type_symbols_metadata.h"
+#include "./out/types/type_symbols_names.h"
+#include "./out/types/type_unique_symbols_map.h"
+
+t_parse_table_array					*create_parse_table(void);
+t_small_parse_table_array			*create_small_parse_table(void);
+t_small_parse_table_map_array		*create_small_parse_table_map(void);
+t_parse_actions_entries_array		*create_parse_actions_entries(void);
+t_symbols_names_array				*create_symbols_names(void);
+t_field_names_array					*create_field_names(void);
+t_field_map_slices_array			*create_field_map_slices(void);
+t_field_map_entries_array			*create_field_map_entries(void);
+t_symbols_metadata_array			*create_symbols_metadata(void);
+t_unique_symbols_map_array			*create_unique_symbols_map(void);
+t_non_terminal_alias_map_array		*create_non_terminal_alias_map(void);
+t_alias_sequences_array				*create_alias_sequences(void);
+t_lex_modes_array					*create_lex_modes(void);
+t_primary_state_ids_array			*create_primary_state_ids(void);
+t_external_scanner_states_array		*create_external_scanner_states(void);
+t_external_scanner_symbol_map_array *create_external_scanner_symbol_map(void);
 
 void dump_to_file(const char *filename, void *data, size_t size)
 {
@@ -48,29 +67,39 @@ void dump_to_file(const char *filename, void *data, size_t size)
 
 int main(void)
 {
-	dump_to_file("./parse_table", (void *)create_parse_table(), 295680);
+	dump_to_file("./parse_table", (void *)create_parse_table(),
+				 sizeof(*create_parse_table()));
 	dump_to_file("./small_parse_table", (void *)create_small_parse_table(),
-				 648788);
+				 sizeof(*create_small_parse_table()));
 	dump_to_file("./small_parse_table_map",
-				 (void *)create_small_parse_table_map(), 30684);
+				 (void *)create_small_parse_table_map(),
+				 sizeof(*create_small_parse_table_map()));
 	dump_to_file("./parse_actions_entries",
-				 (void *)create_parse_actions_entries(), 133856);
+				 (void *)create_parse_actions_entries(),
+				 sizeof(*create_parse_actions_entries()));
 	// dump_to_file("./symbols_names", (void *)create_symbols_names(), 0);
 	// dump_to_file("./field_names", (void *)create_field_names(), 0);
-	dump_to_file("./field_map_slices", (void *)create_field_map_slices(), 636);
+	dump_to_file("./field_map_slices", (void *)create_field_map_slices(),
+				 sizeof(*create_field_map_slices()));
 	dump_to_file("./field_map_entries", (void *)create_field_map_entries(),
-				 1152);
-	dump_to_file("./symbols_metadata", (void *)create_symbols_metadata(), 843);
+				 sizeof(*create_field_map_entries()));
+	dump_to_file("./symbols_metadata", (void *)create_symbols_metadata(),
+				 sizeof(*create_symbols_metadata()));
 	dump_to_file("./unique_symbols_map", (void *)create_unique_symbols_map(),
-				 562);
+				 sizeof(*create_unique_symbols_map()));
 	dump_to_file("./non_terminal_alias_map",
-				 (void *)create_non_terminal_alias_map(), 10);
-	dump_to_file("./alias_sequences", (void *)create_alias_sequences(), 2544);
-	dump_to_file("./lex_modes", (void *)create_lex_modes(), 30684);
+				 (void *)create_non_terminal_alias_map(),
+				 sizeof(*create_non_terminal_alias_map()));
+	dump_to_file("./alias_sequences", (void *)create_alias_sequences(),
+				 sizeof(*create_alias_sequences()));
+	dump_to_file("./lex_modes", (void *)create_lex_modes(),
+				 sizeof(*create_lex_modes()));
 	dump_to_file("./primary_state_ids", (void *)create_primary_state_ids(),
-				 15342);
+				 sizeof(*create_primary_state_ids()));
 	dump_to_file("./external_scanner_states",
-				 (void *)create_external_scanner_states(), 3799);
+				 (void *)create_external_scanner_states(),
+				 sizeof(*create_external_scanner_states()));
 	dump_to_file("./external_scanner_symbol_map",
-				 (void *)create_external_scanner_symbol_map(), 58);
+				 (void *)create_external_scanner_symbol_map(),
+				 sizeof(*create_external_scanner_symbol_map()));
 }

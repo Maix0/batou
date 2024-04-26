@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/25 16:09:10 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/26 17:24:38 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,6 @@ all: $(NAME)
 $(NAME): $(OBJ) libs_build
 	@printf \\n$(COL_GRAY)Building\ Output\ $(COL_WHITE)$(COL_BOLD)%-28s$(COL_RESET)\  \
 		$(NAME)
-	@#$(CC) $(INCLUDES) $(OBJ) $(CFLAGS) $(BONUS_FLAGS) -o $(NAME)
 	@ar rcs $(BUILD_DIR)/$(NAME) $(OBJ)
 	@printf $(COL_GREEN)done$(COL_RESET)\\n
 

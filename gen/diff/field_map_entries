@@ -1,4 +1,0 @@
-radiff2 ./dumped-mine/field_map_entries  ./dumped-theirs/field_map_entries
-
-INFO: File size differs 1152 vs 1148
-INFO: Buffer truncated to 1148 byte(s) (4 not compared)

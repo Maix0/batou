@@ -1,6 +1,5 @@
 app/main
 grammar/scanner
-grammar/parser
 ts/language
 ts/lexer
 ts/node
@@ -9,3 +8,4 @@ ts/stack
 ts/subtree
 ts/tree
 ts/tree_cursor
+../../gen/create_language
