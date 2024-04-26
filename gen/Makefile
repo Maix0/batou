@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/26 17:24:38 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/26 18:07:07 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ BONUS_FLAGS		=
 NAME			=	libgmr.a
 LIB_NAME		?=
 TARGET			=	$(NAME)
-CC				?=	clang
-CFLAGS			=	-Wall -Wextra -Werror -g2 -lbsd -L$(BUILD_DIR) -Wno-unused-command-line-argument -MMD -Wno-unused-parameter -Wno-unused-variable
+CC				=	clang
+CFLAGS			=	-Wall -Wextra -Werror -g2 -lbsd -L$(BUILD_DIR) -Wno-unused-command-line-argument -MMD -O2
 BONUS_FILES		=
 LIBS_NAME		=	
 SUBJECT_URL		=	'https://cdn.intra.42.fr/pdf/pdf/105445/en.subject.pdf'

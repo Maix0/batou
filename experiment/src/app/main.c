@@ -118,16 +118,19 @@ void print_node_data(t_node *t, t_usize depth)
 		print_node_data(&t->childs[idx++], depth + 1);
 }
 #include <fcntl.h>
+#include <time.h>
 
 int main(void)
 {
 	char *str = "./echo \"${ECHO-$(another cmd)}\" 'arg2' no_arg";
 
 	TSParser *parser = ts_parser_new();
-	int fd = open("./out.dot", O_RDWR | O_CREAT | O_TRUNC | O_CLOEXEC);
-	ts_parser_print_dot_graphs(parser, fd);
 
-	ts_parser_set_language(parser, tree_sitter_bash());
+	printf("before = %zu\n", clock());
+	const TSLanguage *lang = tree_sitter_bash();
+	printf("after = %zu\n", clock());
+
+	ts_parser_set_language(parser, lang);
 
 	TSTree *ret = ts_parser_parse_string(parser, NULL, str, strlen(str));
 

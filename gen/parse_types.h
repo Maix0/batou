@@ -6,7 +6,7 @@
 /*   By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 23:01:45 by maiboyer          #+#    #+#             */
-/*   Updated: 2024/04/25 16:48:27 by maiboyer         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:05:40 by maiboyer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_lexer_state
 static inline bool lex_skip(t_state_id state_value, t_lexer *lexer,
 							t_lexer_state *s)
 {
+	(void)(lexer);
 	s->skip = true;
 	s->state = state_value;
 	return (true);
@@ -56,6 +57,7 @@ static inline bool lex_skip(t_state_id state_value, t_lexer *lexer,
 static inline bool lex_advance(t_state_id state_value, t_lexer *lexer,
 							   t_lexer_state *s)
 {
+	(void)(lexer);
 	s->state = state_value;
 	return (true);
 };
@@ -252,7 +254,8 @@ static inline bool advance_map_inner(uint32_t *map, uint32_t elems, t_lexer *l,
 									 t_lexer_state *s)
 {
 	uint32_t i;
-
+	
+	(void)(l);
 	i = 0;
 	while (i < elems)
 	{
