@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/25 16:43:54 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/27 16:20:34 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ define_module = $(addprefix $(1)/, $(2))
 BUILD_DIR		=	../build
 SRC_DIR			=	src
 INCLUDE_DIR		=	include output/include
-LIBS_DIR		=	.
+LIBS_DIR		=	../
 GENERIC_DIR		=	output/src
 GENERIC_INCLUDE	=	output/include
 
@@ -26,7 +26,7 @@ TARGET			=	$(NAME)
 CC				=	clang
 CFLAGS			=	-Wall -Wextra -Werror -g2 -lbsd -L. -L$(BUILD_DIR) -lgmr -Wno-unused-command-line-argument -MMD -Wno-unused-parameter -Wno-unused-variable
 BONUS_FILES		=
-LIBS_NAME		=	
+LIBS_NAME		=	gen
 SUBJECT_URL		=	'https://cdn.intra.42.fr/pdf/pdf/105445/en.subject.pdf'
 
 GENERIC_FILES	=	$(shell cat generic_files.list)
@@ -65,22 +65,16 @@ COL_RESET		=	\\e[0m
 
 all: $(NAME)
 
-$(NAME): $(OBJ) libs_build
+$(NAME): $(OBJ) $(BUILD_DIR)/libgmr.a
 	@printf \\n$(COL_GRAY)Building\ Output\ $(COL_WHITE)$(COL_BOLD)%-28s$(COL_RESET)\  \
 		$(NAME)
 	@$(CC) $(INCLUDES) $(OBJ) $(CFLAGS) $(BONUS_FLAGS) -o $(NAME)
 	@#ar rcs $(BUILD_DIR)/$(NAME) $(OBJ)
 	@printf $(COL_GREEN)done$(COL_RESET)\\n
 
-libs_build:
-	@- $(foreach LIB,$(LIBS),\
-		mkdir -p $(BUILD_DIR); \
-		printf \\n; \
-		printf $(COL_GRAY)Building\ library\ $(COL_RESET); \
-		printf $(COL_WHITE)$(COL_BOLD)%-25s$(COL_RESET)\\n $(LIB); \
-		make LIB_NAME=$(LIB)/ BUILD_DIR=$(realpath $(BUILD_DIR)) -C $(LIB) --no-print-directory all; \
-		printf \\n; \
-	)
+$(BUILD_DIR)/libgmr.a:
+	$(MAKE) -C ../gen all
+
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
