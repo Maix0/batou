@@ -120,15 +120,19 @@ void print_node_data(t_node *t, t_usize depth)
 #include <fcntl.h>
 #include <time.h>
 
+#define CLOCKS_PER_MILI (CLOCKS_PER_SEC / 1000)
+#define CLOCKS_PER_NANOS (CLOCKS_PER_MILI / 1000)
+
 int main(void)
 {
 	char *str = "./echo \"${ECHO-$(another cmd)}\" 'arg2' no_arg";
 
 	TSParser *parser = ts_parser_new();
 
-	printf("before = %zu\n", clock());
+	clock_t before = clock() / (CLOCKS_PER_MILI / 10);
 	const TSLanguage *lang = tree_sitter_bash();
-	printf("after = %zu\n", clock());
+	clock_t after = clock() / (CLOCKS_PER_MILI / 10);
+	printf("took %zu ms to build the language\n", after - before);
 
 	ts_parser_set_language(parser, lang);
 
