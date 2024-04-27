@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/27 16:20:34 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/27 16:38:16 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,11 +66,9 @@ COL_RESET		=	\\e[0m
 all: $(NAME)
 
 $(NAME): $(OBJ) $(BUILD_DIR)/libgmr.a
-	@printf \\n$(COL_GRAY)Building\ Output\ $(COL_WHITE)$(COL_BOLD)%-28s$(COL_RESET)\  \
-		$(NAME)
+	@echo -e "\\n$(COL_GRAY)Building\ Output\ $(COL_WHITE)$(COL_BOLD)$(NAME)$(COL_RESET)..."
 	@$(CC) $(INCLUDES) $(OBJ) $(CFLAGS) $(BONUS_FLAGS) -o $(NAME)
 	@#ar rcs $(BUILD_DIR)/$(NAME) $(OBJ)
-	@printf $(COL_GREEN)done$(COL_RESET)\\n
 
 $(BUILD_DIR)/libgmr.a:
 	$(MAKE) -C ../gen all
@@ -78,15 +76,13 @@ $(BUILD_DIR)/libgmr.a:
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@printf $(COL_GRAY)Building\ $(COL_BOLD)$(COL_WHITE)%-50s\  $(LIB_NAME)$<
+	@echo -e "$(COL_GRAY)Building\ $(COL_BOLD)$(COL_WHITE)$(LIB_NAME)$<$(COL_RESET)..."
 	@$(CC) $(CFLAGS) $(WERROR) $(BONUS_FLAGS) $(INCLUDES) -c $< -o $@
-	@printf $(COL_RESET)$(COL_GREEN)done$(COL_RESET)\\n
 
 $(BUILD_DIR)/%.o: $(GENERIC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@printf $(COL_GRAY)Building\ $(COL_BOLD)$(COL_WHITE)%-50s\  $(LIB_NAME)$<
+	@echo -e "$(COL_GRAY)Building\ $(COL_BOLD)$(COL_WHITE)$(LIB_NAME)$<$(COL_RESET)..."
 	@$(CC) $(CFLAGS) $(WERROR) $(BONUS_FLAGS) $(INCLUDES) -c $< -o $@
-	@printf $(COL_RESET)$(COL_GREEN)done$(COL_RESET)\\n
 
 clean:
 	@- $(foreach LIB,$(LIBS), \
@@ -109,19 +105,15 @@ fclean: clean
 	@rm -f $(NAME)
 	@printf $(COL_GREEN)done$(COL_RESET)\\n
 
-re: fclean all
-
-format:
-	@zsh -c "c_formatter_42 **/*.c **/*.h"
+re: 
+	@$(MAKE) --no-print-directory fclean
+	@$(MAKE) --no-print-directory all
 
 subject: subject.txt
 	@bat --plain subject.txt
 
 subject.txt:
 	@curl $(SUBJECT_URL) | pdftotext -layout -nopgbrk - subject.txt
-
-fuck_raphael:
-	@echo "Oh que oui~~~\net jte nioc"
 
 generate_filelist:
 	@/usr/bin/env zsh -c "tree -iFf --noreport output | rg '^output/src/(.*)\.c\$$' --replace '\$$1' | sort -u" > ./generic_files.list
