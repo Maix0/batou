@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/27 16:38:16 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/27 17:08:34 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ define_module = $(addprefix $(1)/, $(2))
 BUILD_DIR		=	../build
 SRC_DIR			=	src
 INCLUDE_DIR		=	include output/include
-LIBS_DIR		=	../
 GENERIC_DIR		=	output/src
 GENERIC_INCLUDE	=	output/include
 
@@ -26,7 +25,6 @@ TARGET			=	$(NAME)
 CC				=	clang
 CFLAGS			=	-Wall -Wextra -Werror -g2 -lbsd -L. -L$(BUILD_DIR) -lgmr -Wno-unused-command-line-argument -MMD -Wno-unused-parameter -Wno-unused-variable
 BONUS_FILES		=
-LIBS_NAME		=	gen
 SUBJECT_URL		=	'https://cdn.intra.42.fr/pdf/pdf/105445/en.subject.pdf'
 
 GENERIC_FILES	=	$(shell cat generic_files.list)
@@ -45,12 +43,14 @@ DEPS			=	$(addsuffix .d,$(addprefix $(BUILD_DIR)/,$(SRC_FILES))) \
 				$(addsuffix .d,$(addprefix $(BUILD_DIR)/,$(GENERIC_FILES)))
 
 LIBS			=	$(addprefix $(LIBS_DIR)/,$(LIBS_NAME))
-INCLUDES		=	$(addprefix -I,$(foreach P,$(INCLUDE_DIR) $(GENERIC_INCLUDE) $(LIBS) $(addsuffix /include,$(LIBS)) vendor $(addsuffix /vendor,$(LIBS)),$(realpath $(P))))
+INCLUDES		=	$(addprefix -I,$(foreach P,$(INCLUDE_DIR) $(GENERIC_INCLUDE),$(realpath $(P))))
 COL_GRAY		=	\\e[90m
 COL_WHITE		=	\\e[37m
 COL_GREEN		=	\\e[32m
 COL_BOLD		=	\\e[1m
 COL_RESET		=	\\e[0m
+
+LIBGMR_DIR 		=	../gen
 
 .PHONY: all
 .PHONY: libs_build
@@ -66,22 +66,22 @@ COL_RESET		=	\\e[0m
 all: $(NAME)
 
 $(NAME): $(OBJ) $(BUILD_DIR)/libgmr.a
-	@echo -e "\\n$(COL_GRAY)Building\ Output\ $(COL_WHITE)$(COL_BOLD)$(NAME)$(COL_RESET)..."
+	@echo -e "\\n$(COL_GRAY)Building Output $(COL_WHITE)$(COL_BOLD)$(NAME)$(COL_RESET)..."
 	@$(CC) $(INCLUDES) $(OBJ) $(CFLAGS) $(BONUS_FLAGS) -o $(NAME)
 	@#ar rcs $(BUILD_DIR)/$(NAME) $(OBJ)
 
 $(BUILD_DIR)/libgmr.a:
-	$(MAKE) -C ../gen all
+	@$(MAKE) -C $(LIBGMR_DIR) all
 
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@echo -e "$(COL_GRAY)Building\ $(COL_BOLD)$(COL_WHITE)$(LIB_NAME)$<$(COL_RESET)..."
+	@echo -e "$(COL_GRAY)Building $(COL_BOLD)$(COL_WHITE)$(LIB_NAME)$<$(COL_RESET)..."
 	@$(CC) $(CFLAGS) $(WERROR) $(BONUS_FLAGS) $(INCLUDES) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(GENERIC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@echo -e "$(COL_GRAY)Building\ $(COL_BOLD)$(COL_WHITE)$(LIB_NAME)$<$(COL_RESET)..."
+	@echo -e "$(COL_GRAY)Building $(COL_BOLD)$(COL_WHITE)$(LIB_NAME)$<$(COL_RESET)..."
 	@$(CC) $(CFLAGS) $(WERROR) $(BONUS_FLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
@@ -89,10 +89,8 @@ clean:
 		make clean LIB_NAME=$(LIB)/ BUILD_DIR=$(realpath $(BUILD_DIR)) -C $(LIB) --no-print-directory || true;\
 	)
 	@- $(if $(LIB_NAME),,\
-		printf $(COL_WHITE)Clearing\ Artefacts\ ; \
-		printf $(COL_GRAY)\%-25s$(COL_RESET)\  \($(BUILD_DIR)\); \
+		echo -e "$(COL_WHITE)Clearing Artefacts $(COL_GRAY)$(BUILD_DIR)$(COL_RESET)..."; \
 		rm -rf $(BUILD_DIR); \
-		printf $(COL_GREEN)done$(COL_RESET)\\n; \
 	)
 	@echo >/dev/null
 
@@ -100,10 +98,8 @@ fclean: clean
 	@- $(foreach LIB,$(LIBS), \
 		make fclean LIB_NAME=$(LIB)/ BUILD_DIR=$(realpath $(BUILD_DIR)) -C $(LIB) --no-print-directory || true;\
 	)
-	@printf $(COL_WHITE)Clearing\ Output\ $(COL_GRAY)%-28s$(COL_RESET)\  \
-		\($(LIB_NAME)$(NAME)\)
+	@echo -e "$(COL_WHITE)Clearing Output $(COL_GRAY)$(LIB_NAME)/$(NAME)$(COL_RESET)..."
 	@rm -f $(NAME)
-	@printf $(COL_GREEN)done$(COL_RESET)\\n
 
 re: 
 	@$(MAKE) --no-print-directory fclean
