@@ -6,7 +6,7 @@
 #    By: maiboyer <maiboyer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:20:01 by maiboyer          #+#    #+#              #
-#    Updated: 2024/04/27 16:17:33 by maiboyer         ###   ########.fr        #
+#    Updated: 2024/04/28 16:44:55 by maiboyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME			=	libgmr.a
 LIB_NAME		?=
 TARGET			=	$(NAME)
 CC				=	clang
-CFLAGS			=	-Wall -Wextra -Werror -g2 -MMD
+CFLAGS			=	-Wall -Wextra -Werror -g3 -MMD
 
 SRC_FILES		=	$(shell cat source_files.list)
 SRC				=	$(addsuffix .c,$(addprefix $(SRC_DIR)/,$(SRC_FILES)))

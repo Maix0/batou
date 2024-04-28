@@ -125,7 +125,7 @@ void print_node_data(t_node *t, t_usize depth)
 
 int main(void)
 {
-	char *str = "./echo \"${ECHO-$(another cmd)}\" 'arg2' no_arg";
+	char *str = "./echo \"${ECHO-$(another cmd)}\" 'arg2' no_arg $(";
 
 	TSParser *parser = ts_parser_new();
 
