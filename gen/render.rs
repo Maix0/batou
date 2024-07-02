@@ -1192,7 +1192,6 @@ impl Generator {
                 add!(self, ") ");
             }
 
-            dbg!(conditions.len());
             self.add_advance_action(action, val, conditions);
             add!(self, "\n");
         }

@@ -4,3 +4,5 @@
 target/
 /build
 bash
+gen/out
+gen/lang

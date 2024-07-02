@@ -1,7 +1,7 @@
 #![allow(unused)]
 mod serde_mod;
 
-use std::path::Path;
+use std::{path::Path, process::exit};
 
 use color_eyre::{eyre::eyre, Result};
 use indexmap::IndexMap;
@@ -908,29 +908,31 @@ fn main() -> Result<()> {
     color_eyre::install()?;
 
     let data: serde_mod::Output = serde_json::from_str(DATA)?;
-    // parse_actions(&data)?.print_lines();
-    // small_parse_table_map(&data)?.print_lines();
-    // small_parse_table(&data)?.print_lines();
-    // parse_table(&data)?.print_lines();
-    // external_scanner_states(&data)?.print_lines();
-    // external_scanner_symbol_map(&data)?.print_lines();
-    // external_scanner_symbol_identifiers(&data)?.print_lines();
-    // char_set(&data)?.print_lines();
-    // lex_state(&data)?.print_lines();
-    // lex_modes(&data)?.print_lines();
-    // field_map_entries(&data)?.print_lines();
-    // field_map_slices(&data)?.print_lines();
-    // primary_state_ids(&data)?.print_lines();
-    // non_terminal_alias_map(&data)?.print_lines();
-    // alias_sequences(&data)?.print_lines();
-    // symbol_metadata(&data)?.print_lines();
-    // field_names(&data)?.print_lines();
-    // field_identifiers(&data)?.print_lines();
-    // unique_symbols_map(&data)?.print_lines();
-    // symbols_names(&data)?.print_lines();
-    // symbols(&data)?.print_lines();
-    // values(&data)?.print_lines();
+
+    parse_actions(&data)?.print_lines();
+    small_parse_table_map(&data)?.print_lines();
+    small_parse_table(&data)?.print_lines();
+    parse_table(&data)?.print_lines();
+    external_scanner_states(&data)?.print_lines();
+    external_scanner_symbol_map(&data)?.print_lines();
+    external_scanner_symbol_identifiers(&data)?.print_lines();
+    char_set(&data)?.print_lines();
+    lex_state(&data)?.print_lines();
+    lex_modes(&data)?.print_lines();
+    field_map_entries(&data)?.print_lines();
+    field_map_slices(&data)?.print_lines();
+    primary_state_ids(&data)?.print_lines();
+    non_terminal_alias_map(&data)?.print_lines();
+    alias_sequences(&data)?.print_lines();
+    symbol_metadata(&data)?.print_lines();
+    field_names(&data)?.print_lines();
+    field_identifiers(&data)?.print_lines();
+    unique_symbols_map(&data)?.print_lines();
+    symbols_names(&data)?.print_lines();
+    symbols(&data)?.print_lines();
+    values(&data)?.print_lines();
     
+    exit(0);
     array_to_files("out/parse_actions_entries", "parse_actions_entries", "t_parse_actions_entries_array", &parse_actions(&data)?, true)?;
     array_to_files("out/small_parse_table_map", "small_parse_table_map", "t_small_parse_table_map_array", &small_parse_table_map(&data)?, true)?;
     array_to_files("out/small_parse_table", "small_parse_table", "t_small_parse_table_array", &small_parse_table(&data)?, true)?;
