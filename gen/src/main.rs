@@ -117,6 +117,142 @@ fn escape_str(s: &str) -> impl std::fmt::Display + '_ {
 
     CEscapedStr(s)
 }
+fn array_to_files_parse_table(
+    folder: impl AsRef<Path>,
+    basefilename: impl AsRef<str>,
+    typename: impl AsRef<str>,
+    ptable: &IndexMap<usize, Vec<String>>,
+    remove_dir: bool,
+) -> Result<usize> {
+    use std::io::Write;
+    let mut count = 0;
+    let mut folder = folder.as_ref().to_path_buf();
+    let basefilename = basefilename.as_ref();
+    let typename = typename.as_ref();
+    let mut tot_file = 0;
+    if remove_dir {
+        let _ = std::fs::remove_dir_all(&folder);
+    }
+    std::fs::create_dir_all(&folder)?;
+    let mut funcs = Vec::new();
+
+    for (index, vec) in ptable {
+        tot_file += array_to_files_parse_table_inner(
+            &folder,
+            format!("s{index}"),
+            typename,
+            vec,
+            "parse_table",
+            &mut funcs,
+        )?;
+    }
+    tot_file += array_to_files_parse_table_inner(
+        &folder,
+        "build",
+        typename,
+        &ptable
+            .keys()
+            .map(|&i| format!("s{i}_0(v);"))
+            .collect::<Vec<String>>(),
+        "parse_table",
+        &mut funcs,
+    )?;
+
+    {
+        let mut filename = format!("{basefilename}.h");
+        let mut file = {
+            folder.push(&filename);
+            let ret = std::fs::OpenOptions::new()
+                .create(true)
+                .write(true)
+                .truncate(true)
+                .open(&folder);
+            folder.pop();
+            tot_file += 1;
+            ret?
+        };
+        writeln!(&mut file, include_str!("./42header"), filename)?;
+        filename.pop();
+        filename.pop();
+        filename.push_str("_H");
+        filename.make_ascii_uppercase();
+        writeln!(&mut file, "#ifndef {filename}")?;
+        writeln!(&mut file, "# define {filename}\n")?;
+        writeln!(&mut file, "# include \"../types/type_{basefilename}.h\"")?;
+        writeln!(&mut file, "# include \"../headers/symbols.h\"")?;
+        writeln!(
+            &mut file,
+            "# include \"../headers/external_scanner_symbol_identifiers.h\""
+        )?;
+        writeln!(&mut file, "# include \"../headers/field_identifiers.h\"\n")?;
+        writeln!(&mut file, "# include \"../headers/constants.h\"\n")?;
+        for sig in funcs {
+            writeln!(&mut file, "{sig}")?;
+        }
+        writeln!(&mut file, "\n#endif // {filename}")?;
+    }
+    Ok(count)
+}
+
+fn array_to_files_parse_table_inner(
+    folder: impl AsRef<Path>,
+    basefilename: impl AsRef<str>,
+    typename: impl AsRef<str>,
+    vec: &Vec<String>,
+    header_name: impl AsRef<str>,
+    header_funcs: &mut Vec<String>,
+) -> Result<usize> {
+    use std::io::Write;
+    let mut iterator = vec.chunks(20).enumerate().peekable();
+    let mut count = 0;
+    let mut folder = folder.as_ref().to_path_buf();
+    let func_number = vec.chunks(20).count();
+    let basefilename = basefilename.as_ref();
+    let typename = typename.as_ref();
+    let header_name = header_name.as_ref();
+    let mut tot_file = 0;
+
+    while iterator.peek().is_some() {
+        let filename = format!("{basefilename}_{count}.c");
+        let mut file = {
+            folder.push(&filename);
+            let ret = std::fs::OpenOptions::new()
+                .create(true)
+                .write(true)
+                .truncate(true)
+                .open(&folder);
+            folder.pop();
+            tot_file += 1;
+            ret?
+        };
+        writeln!(&mut file, include_str!("./42header"), filename)?;
+        writeln!(&mut file, "#include \"./{header_name}.h\"\n")?;
+        for (fcount, lines) in iterator.by_ref().take(5) {
+            writeln!(
+                &mut file,
+                "void\t{basefilename}_{fcount}({typename} *v)\n{{"
+            )?;
+            header_funcs.push(format!("void\t{basefilename}_{fcount}({typename} *v);"));
+            for line in lines {
+                let mut line = line.clone();
+                if line.len() + 4 >= 80 {
+                    if let Some(idx) = line[1..].find(|c: char| c.is_ascii_whitespace()) {
+                        line.insert_str(idx + 2, "\\\n\t");
+                    };
+                }
+                writeln!(&mut file, "\t{line}")?;
+            }
+            if fcount + 1 < func_number {
+                writeln!(&mut file, "\treturn ({basefilename}_{}(v));", fcount + 1)?;
+            }
+            writeln!(&mut file, "}}\n")?;
+        }
+        writeln!(&mut file, "/* EOF {filename} */")?;
+        count += 1;
+    }
+
+    Ok(count)
+}
 
 fn array_to_files(
     folder: impl AsRef<Path>,
@@ -170,7 +306,7 @@ fn array_to_files(
                 writeln!(&mut file, "\t{line}")?;
             }
             if fcount + 1 < func_number {
-                writeln!(&mut file, "\t{basefilename}_{}(v);", fcount + 1)?;
+                writeln!(&mut file, "\treturn ({basefilename}_{}(v));", fcount + 1)?;
             }
             writeln!(&mut file, "}}\n")?;
         }
@@ -376,8 +512,8 @@ fn line_norminette(s: &str) -> Vec<String> {
                     + 60
             }) + 1;
             let (before, after) = last.split_at(split);
-            lines.push((format!("{before}\\")));
-            lines.push((format!("\t{after}")));
+            lines.push(format!("{before}\\"));
+            lines.push(format!("\t{after}"));
         } else {
             lines.push(last);
         }
@@ -909,34 +1045,31 @@ fn main() -> Result<()> {
 
     let data: serde_mod::Output = serde_json::from_str(DATA)?;
 
-    parse_actions(&data)?.print_lines();
-    small_parse_table_map(&data)?.print_lines();
-    small_parse_table(&data)?.print_lines();
-    parse_table(&data)?.print_lines();
-    external_scanner_states(&data)?.print_lines();
-    external_scanner_symbol_map(&data)?.print_lines();
-    external_scanner_symbol_identifiers(&data)?.print_lines();
-    char_set(&data)?.print_lines();
-    lex_state(&data)?.print_lines();
-    lex_modes(&data)?.print_lines();
-    field_map_entries(&data)?.print_lines();
-    field_map_slices(&data)?.print_lines();
-    primary_state_ids(&data)?.print_lines();
-    non_terminal_alias_map(&data)?.print_lines();
-    alias_sequences(&data)?.print_lines();
-    symbol_metadata(&data)?.print_lines();
-    field_names(&data)?.print_lines();
-    field_identifiers(&data)?.print_lines();
-    unique_symbols_map(&data)?.print_lines();
-    symbols_names(&data)?.print_lines();
-    symbols(&data)?.print_lines();
-    values(&data)?.print_lines();
+    // parse_actions(&data)?.print_lines();
+    // small_parse_table_map(&data)?.print_lines();
+    // small_parse_table(&data)?.print_lines();
+    // parse_table(&data)?.print_lines();
+    // external_scanner_states(&data)?.print_lines();
+    // external_scanner_symbol_map(&data)?.print_lines();
+    // external_scanner_symbol_identifiers(&data)?.print_lines();
+    // char_set(&data)?.print_lines();
+    // lex_state(&data)?.print_lines();
+    // lex_modes(&data)?.print_lines();
+    // field_map_entries(&data)?.print_lines();
+    // field_map_slices(&data)?.print_lines();
+    // primary_state_ids(&data)?.print_lines();
+    // non_terminal_alias_map(&data)?.print_lines();
+    // alias_sequences(&data)?.print_lines();
+    // symbol_metadata(&data)?.print_lines();
+    // field_names(&data)?.print_lines();
+    // field_identifiers(&data)?.print_lines();
+    // unique_symbols_map(&data)?.print_lines();
+    // symbols_names(&data)?.print_lines();
+    // symbols(&data)?.print_lines();
+    // values(&data)?.print_lines();
     
-    exit(0);
     array_to_files("out/parse_actions_entries", "parse_actions_entries", "t_parse_actions_entries_array", &parse_actions(&data)?, true)?;
     array_to_files("out/small_parse_table_map", "small_parse_table_map", "t_small_parse_table_map_array", &small_parse_table_map(&data)?, true)?;
-    array_to_files("out/small_parse_table", "small_parse_table", "t_small_parse_table_array", &small_parse_table(&data)?, true)?;
-    array_to_files("out/parse_table", "parse_table", "t_parse_table_array", &parse_table(&data)?, true)?;
     array_to_files("out/external_scanner_states", "external_scanner_states", "t_external_scanner_states_array", &external_scanner_states(&data)?, true)?;
     array_to_files("out/external_scanner_symbol_map", "external_scanner_symbol_map", "t_external_scanner_symbol_map_array", &external_scanner_symbol_map(&data)?, true)?;
     array_to_files("out/lex_modes", "lex_modes", "t_lex_modes_array", &lex_modes(&data)?, true)?;
@@ -949,6 +1082,8 @@ fn main() -> Result<()> {
     array_to_files("out/unique_symbols_map", "unique_symbols_map", "t_unique_symbols_map_array", &unique_symbols_map(&data)?, true)?;
     array_to_files("out/symbols_names", "symbols_names", "t_symbols_names_array", &symbols_names(&data)?, true)?;
     array_to_files("out/symbols_metadata", "symbols_metadata", "t_symbols_metadata_array", &symbol_metadata(&data)?, true)?;
+    array_to_files("out/parse_table", "parse_table", "t_parse_table_array", &parse_table(&data)?.into_iter().flat_map(|(_,v)| v).collect::<Vec<_>>(), true)?;
+    // array_to_files_parse_table("out/parse_table", "parse_table", "t_parse_table_array", &parse_table(&data)?, true)?;
 
     let large_state_count = data.values
         .get("LARGE_STATE_COUNT")
@@ -956,8 +1091,8 @@ fn main() -> Result<()> {
         .parse::<usize>()?;
 
     define_type("out/types", "parse_actions_entries", ("t_parse_action_entry", "", format!("[{}]", data.parse_actions.last().map(|(k, v)| k + v.0.len()).unwrap_or_default() + 1)))?;
-    define_type("out/types", "small_parse_table_map", ("uint32_t", "", format!("[{}]", data.small_parse_table_map.keys().copied().max().unwrap_or_default() + 1 - large_state_count)))?; // TODO
-    define_type("out/types", "small_parse_table", ("uint16_t", "", format!("[{}]", data.small_parse_table.iter().max_by_key(|(k, _)| **k).map(|(i, t)| i + t.0 + t.1.iter().map(|((_, c), v)| 2 + v.len()).sum::<usize>()).unwrap_or_default())))?;
+    // define_type("out/types", "small_parse_table_map", ("uint32_t", "", format!("[{}]", data.small_parse_table_map.keys().copied().max().unwrap_or_default() + 1 - large_state_count)))?; // TODO
+    // define_type("out/types", "small_parse_table", ("uint16_t", "", format!("[{}]", data.small_parse_table.iter().max_by_key(|(k, _)| **k).map(|(i, t)| i + t.0 + t.1.iter().map(|((_, c), v)| 2 + v.len()).sum::<usize>()).unwrap_or_default())))?;
     define_type("out/types", "parse_table", ("uint16_t", "", "[LARGE_STATE_COUNT][SYMBOL_COUNT]"))?;
     define_type("out/types", "external_scanner_states", ("bool", "", format!("[{}][EXTERNAL_TOKEN_COUNT]", data.external_scanner_states.0)))?;
     define_type("out/types", "external_scanner_symbol_map", ("t_symbol", "", "[EXTERNAL_TOKEN_COUNT]"))?;
@@ -976,8 +1111,8 @@ fn main() -> Result<()> {
     std::fs::create_dir_all("out/create")?;
 
     init_type_custom("out/create", "parse_actions_entries", "parse_actions_entries_0", ["../types/type_parse_actions_entries.h", "../parse_actions_entries/parse_actions_entries.h"].iter())?;
-    init_type("out/create", "small_parse_table_map")?;
-    init_type("out/create", "small_parse_table")?;
+    // init_type("out/create", "small_parse_table_map")?;
+    // init_type("out/create", "small_parse_table")?;
     init_type("out/create", "parse_table")?;
     init_type("out/create", "external_scanner_states")?;
     init_type("out/create", "external_scanner_symbol_map")?;
@@ -1001,7 +1136,7 @@ fn main() -> Result<()> {
     
     charset_to_files("out/char_set", "charset", &char_set(&data)?, true)?;
     
-    lex_funcs_to_files("out/lex_funcs", "lex_func", &lex_state(&data)?, true)?;
+    // lex_funcs_to_files("out/lex_funcs", "lex_func", &lex_state(&data)?, true)?;
 
     Ok(())
 }
@@ -1469,11 +1604,13 @@ fn external_scanner_states(
     Ok(out)
 }
 
-fn parse_table(serde_mod::Output { parse_table, .. }: &serde_mod::Output) -> Result<Vec<String>> {
-    let mut out = Vec::new();
+fn parse_table(
+    serde_mod::Output { parse_table, .. }: &serde_mod::Output,
+) -> Result<IndexMap<usize, Vec<String>>> {
+    let mut out = IndexMap::<_, Vec<String>>::new();
     for (first_index, sec_table) in parse_table {
         for (symbol, action) in sec_table.iter() {
-            out.push(format!(
+            out.entry(*first_index).or_default().push(format!(
                 "v->a[{first_index}][{symbol}] = {};",
                 match action {
                     serde_mod::ParseThingy::State(u) => format!("state({u})"),

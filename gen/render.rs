@@ -18,7 +18,7 @@ use super::{
     },
 };
 
-const SMALL_STATE_THRESHOLD: usize = 64;
+const SMALL_STATE_THRESHOLD: usize = usize::MAX;
 const ABI_VERSION_MIN: usize = 13;
 const ABI_VERSION_MAX: usize = tree_sitter::LANGUAGE_VERSION;
 const ABI_VERSION_WITH_PRIMARY_STATES: usize = 14;
@@ -379,16 +379,11 @@ impl Generator {
 
         // Determine which states should use the "small state" representation, and which should
         // use the normal array representation.
-        let threshold = cmp::min(SMALL_STATE_THRESHOLD, self.parse_table.symbols.len() / 2);
+        let threshold = SMALL_STATE_THRESHOLD;
+        //usize::MAX; //cmp::min(SMALL_STATE_THRESHOLD, self.parse_table.symbols.len() / 2);
         self.large_state_count = self
             .parse_table
-            .states
-            .iter()
-            .enumerate()
-            .take_while(|(i, s)| {
-                *i <= 1 || s.terminal_entries.len() + s.nonterminal_entries.len() > threshold
-            })
-            .count();
+            .states.len();
     }
 
     fn add_includes(&mut self) {
