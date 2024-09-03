@@ -254,7 +254,7 @@ fn array_to_files_parse_table_inner(
     Ok(count)
 }
 
-fn array_to_files(
+fn array_to_files_old(
     folder: impl AsRef<Path>,
     basefilename: impl AsRef<str>,
     typename: impl AsRef<str>,
@@ -351,6 +351,103 @@ fn array_to_files(
     Ok(count)
 }
 
+fn array_to_files_two(
+    folder: impl AsRef<Path>,
+    basefilename: impl AsRef<str>,
+    // funcname: impl AsRef<str>,
+    typename: impl AsRef<str>,
+    idx_vec: &IndexMap<usize, Vec<String>>,
+    remove_dir: bool,
+) -> Result<usize> {
+    use std::fmt::Write as _;
+    use std::io::Write as _;
+    let mut folder = folder.as_ref().to_path_buf();
+    let typename = typename.as_ref();
+    let basefilename = basefilename.as_ref();
+    let funcname = basefilename;
+    if (remove_dir) {
+        std::fs::remove_dir_all(&folder);
+    }
+    std::fs::create_dir_all(&folder);
+    let filename = format!("{basefilename}.c");
+    folder.push(&filename);
+    let mut f = std::fs::File::create(&folder)?;
+    writeln!(&mut f, include_str!("./42header"), filename)?;
+    writeln!(&mut f, "#include \"../types/type_{basefilename}.h\"")?;
+    writeln!(&mut f, "#include \"../headers/symbols.h\"")?;
+    writeln!(
+        &mut f,
+        "#include \"../headers/external_scanner_symbol_identifiers.h\""
+    )?;
+    writeln!(&mut f, "#include \"../headers/field_identifiers.h\"\n")?;
+    writeln!(&mut f, "#include \"../headers/constants.h\"\n")?;
+    writeln!(
+        &mut f,
+        "static const \\\n{typename}\tg_{typename} = {{.a = {{"
+    )?;
+    for (idx, lines) in idx_vec {
+        writeln!(&mut f, "[{idx}] = {{")?;
+        for line in lines {
+            writeln!(&mut f, "{line}")?;
+        }
+        writeln!(&mut f, "}},")?;
+    }
+    writeln!(&mut f, "}}}};\n")?;
+
+    writeln!(&mut f, "const {typename}\t*create_{funcname}(void)")?;
+    writeln!(&mut f, "{{")?;
+    writeln!(&mut f, "\treturn (&g_{typename});")?;
+    writeln!(&mut f, "}}")?;
+    Ok(1)
+}
+
+fn array_to_files(
+    folder: impl AsRef<Path>,
+    basefilename: impl AsRef<str>,
+    // funcname: impl AsRef<str>,
+    typename: impl AsRef<str>,
+    vec: &Vec<String>,
+    remove_dir: bool,
+) -> Result<usize> {
+    use std::fmt::Write as _;
+    use std::io::Write as _;
+    let mut folder = folder.as_ref().to_path_buf();
+    let typename = typename.as_ref();
+    let basefilename = basefilename.as_ref();
+    let funcname = basefilename;
+    if (remove_dir) {
+        std::fs::remove_dir_all(&folder);
+    }
+    std::fs::create_dir_all(&folder);
+    let filename = format!("{basefilename}.c");
+    folder.push(&filename);
+    let mut f = std::fs::File::create(&folder)?;
+    writeln!(&mut f, include_str!("./42header"), filename)?;
+    writeln!(&mut f, "#include \"../types/type_{basefilename}.h\"")?;
+    writeln!(&mut f, "#include \"../headers/symbols.h\"")?;
+    writeln!(
+        &mut f,
+        "#include \"../headers/external_scanner_symbol_identifiers.h\""
+    )?;
+    writeln!(&mut f, "#include \"../headers/field_identifiers.h\"\n")?;
+    writeln!(&mut f, "#include \"../headers/constants.h\"\n")?;
+
+    writeln!(
+        &mut f,
+        "static const \\\n{typename}\tg_{typename} = {{.a = {{"
+    )?;
+    for line in vec {
+        writeln!(&mut f, "{line}")?;
+    }
+    writeln!(&mut f, "}}}};\n")?;
+
+    writeln!(&mut f, "const {typename}\t*create_{funcname}(void)")?;
+    writeln!(&mut f, "{{")?;
+    writeln!(&mut f, "\treturn (&g_{typename});")?;
+    writeln!(&mut f, "}}")?;
+    Ok(1)
+}
+
 fn enum_to_files(
     folder: impl AsRef<Path>,
     basefilename: impl AsRef<str>,
@@ -438,6 +535,7 @@ fn init_type_custom(
     for header in headerpath {
         writeln!(&mut file, "#include \"{}\"", header.as_ref())?;
     }
+    writeln!(&mut file, "\nvoid\t{funcname}(t_{typename}_array *arr);")?;
     writeln!(&mut file, "\nt_{typename}_array\t*create_{typename}(void)")?;
     writeln!(&mut file, "{{")?;
     writeln!(&mut file, "\tstatic t_{typename}_array\ttable = {{}};")?;
@@ -1039,7 +1137,7 @@ fn define_type(
     Ok(())
 }
 
-#[rustfmt::skip]
+// #[rustfmt::skip]
 fn main() -> Result<()> {
     color_eyre::install()?;
 
@@ -1067,75 +1165,316 @@ fn main() -> Result<()> {
     // symbols_names(&data)?.print_lines();
     // symbols(&data)?.print_lines();
     // values(&data)?.print_lines();
-    
-    array_to_files("out/parse_actions_entries", "parse_actions_entries", "t_parse_actions_entries_array", &parse_actions(&data)?, true)?;
-    array_to_files("out/small_parse_table_map", "small_parse_table_map", "t_small_parse_table_map_array", &small_parse_table_map(&data)?, true)?;
-    array_to_files("out/external_scanner_states", "external_scanner_states", "t_external_scanner_states_array", &external_scanner_states(&data)?, true)?;
-    array_to_files("out/external_scanner_symbol_map", "external_scanner_symbol_map", "t_external_scanner_symbol_map_array", &external_scanner_symbol_map(&data)?, true)?;
-    array_to_files("out/lex_modes", "lex_modes", "t_lex_modes_array", &lex_modes(&data)?, true)?;
-    array_to_files("out/field_map_entries", "field_map_entries", "t_field_map_entries_array", &field_map_entries(&data)?, true)?;
-    array_to_files("out/field_map_slices", "field_map_slices", "t_field_map_slices_array", &field_map_slices(&data)?, true)?;
-    array_to_files("out/primary_state_ids", "primary_state_ids", "t_primary_state_ids_array", &primary_state_ids(&data)?, true)?;
-    array_to_files("out/non_terminal_alias_map", "non_terminal_alias_map", "t_non_terminal_alias_map_array", &non_terminal_alias_map(&data)?, true)?;
-    array_to_files("out/alias_sequences", "alias_sequences", "t_alias_sequences_array", &alias_sequences(&data)?, true)?;
-    array_to_files("out/field_names", "field_names", "t_field_names_array", &field_names(&data)?, true)?;
-    array_to_files("out/unique_symbols_map", "unique_symbols_map", "t_unique_symbols_map_array", &unique_symbols_map(&data)?, true)?;
-    array_to_files("out/symbols_names", "symbols_names", "t_symbols_names_array", &symbols_names(&data)?, true)?;
-    array_to_files("out/symbols_metadata", "symbols_metadata", "t_symbols_metadata_array", &symbol_metadata(&data)?, true)?;
-    array_to_files("out/parse_table", "parse_table", "t_parse_table_array", &parse_table(&data)?.into_iter().flat_map(|(_,v)| v).collect::<Vec<_>>(), true)?;
-    // array_to_files_parse_table("out/parse_table", "parse_table", "t_parse_table_array", &parse_table(&data)?, true)?;
 
-    let large_state_count = data.values
+    array_to_files(
+        "out/parse_actions_entries",
+        "parse_actions_entries",
+        "t_parse_actions_entries_array",
+        &parse_actions(&data)?,
+        true,
+    )?;
+    /*
+    array_to_files(
+        "out/small_parse_table_map",
+        "small_parse_table_map",
+        "t_small_parse_table_map_array",
+        &small_parse_table_map(&data)?,
+        true,
+    )?;
+    */
+    array_to_files_two(
+        "out/external_scanner_states",
+        "external_scanner_states",
+        "t_external_scanner_states_array",
+        &external_scanner_states(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/external_scanner_symbol_map",
+        "external_scanner_symbol_map",
+        "t_external_scanner_symbol_map_array",
+        &external_scanner_symbol_map(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/lex_modes",
+        "lex_modes",
+        "t_lex_modes_array",
+        &lex_modes(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/field_map_entries",
+        "field_map_entries",
+        "t_field_map_entries_array",
+        &field_map_entries(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/field_map_slices",
+        "field_map_slices",
+        "t_field_map_slices_array",
+        &field_map_slices(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/primary_state_ids",
+        "primary_state_ids",
+        "t_primary_state_ids_array",
+        &primary_state_ids(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/non_terminal_alias_map",
+        "non_terminal_alias_map",
+        "t_non_terminal_alias_map_array",
+        &non_terminal_alias_map(&data)?,
+        true,
+    )?;
+    array_to_files_two(
+        "out/alias_sequences",
+        "alias_sequences",
+        "t_alias_sequences_array",
+        &alias_sequences(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/field_names",
+        "field_names",
+        "t_field_names_array",
+        &field_names(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/unique_symbols_map",
+        "unique_symbols_map",
+        "t_unique_symbols_map_array",
+        &unique_symbols_map(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/symbols_names",
+        "symbols_names",
+        "t_symbols_names_array",
+        &symbols_names(&data)?,
+        true,
+    )?;
+    array_to_files(
+        "out/symbols_metadata",
+        "symbols_metadata",
+        "t_symbols_metadata_array",
+        &symbol_metadata(&data)?,
+        true,
+    )?;
+    //array_to_files_two(
+    //    "out/parse_table",
+    //    "parse_table",
+    //    "t_parse_table_array",
+    //    &parse_table(&data)?,
+    //    true,
+    //)?;
+    array_to_files_old(
+        "out/parse_table",
+        "parse_table",
+        "t_parse_table_array",
+        &parse_table(&data)?
+            .iter()
+            .flat_map(|(s, l)| l.iter())
+            .cloned()
+            .collect::<Vec<String>>(),
+        true,
+    )?;
+
+    let large_state_count = data
+        .values
         .get("LARGE_STATE_COUNT")
         .ok_or(eyre!("Missing LARGE_STATE_COUNT define value"))?
         .parse::<usize>()?;
 
-    define_type("out/types", "parse_actions_entries", ("t_parse_action_entry", "", format!("[{}]", data.parse_actions.last().map(|(k, v)| k + v.0.len()).unwrap_or_default() + 1)))?;
+    define_type(
+        "out/types",
+        "parse_actions_entries",
+        (
+            "t_parse_action_entry",
+            "",
+            format!(
+                "[{}]",
+                data.parse_actions
+                    .last()
+                    .map(|(k, v)| k + v.0.len())
+                    .unwrap_or_default()
+                    + 1
+            ),
+        ),
+    )?;
     // define_type("out/types", "small_parse_table_map", ("uint32_t", "", format!("[{}]", data.small_parse_table_map.keys().copied().max().unwrap_or_default() + 1 - large_state_count)))?; // TODO
     // define_type("out/types", "small_parse_table", ("uint16_t", "", format!("[{}]", data.small_parse_table.iter().max_by_key(|(k, _)| **k).map(|(i, t)| i + t.0 + t.1.iter().map(|((_, c), v)| 2 + v.len()).sum::<usize>()).unwrap_or_default())))?;
-    define_type("out/types", "parse_table", ("uint16_t", "", "[LARGE_STATE_COUNT][SYMBOL_COUNT]"))?;
-    define_type("out/types", "external_scanner_states", ("bool", "", format!("[{}][EXTERNAL_TOKEN_COUNT]", data.external_scanner_states.0)))?;
-    define_type("out/types", "external_scanner_symbol_map", ("t_symbol", "", "[EXTERNAL_TOKEN_COUNT]"))?;
-    define_type("out/types", "lex_modes", ("t_lex_modes", "", "[STATE_COUNT]"))?;
-    define_type("out/types", "field_map_entries", ("t_field_map_entry", "", format!("[{}]", data.field_map_entries.last().map(|(k,v)| k+v.len()).unwrap_or_default())))?;
-    define_type("out/types", "field_map_slices", ("t_field_map_slice", "", "[PRODUCTION_ID_COUNT]"))?;
-    define_type("out/types", "primary_state_ids", ("t_state_id", "", "[STATE_COUNT]"))?;
-    define_type("out/types", "non_terminal_alias_map", ("uint16_t", "", format!("[{}]", data.non_terminal_alias_map.iter().map(|(k,v)| 1 + v.len()).sum::<usize>() + 2)))?;
-    define_type("out/types", "alias_sequences", ("t_symbol", "", "[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH]"))?;
-    define_type("out/types", "field_names", ("const char", "*", format!("[{}]", data.field_names.len() + 1)))?;
-    define_type("out/types", "unique_symbols_map", ("t_symbol", "", format!("[{}]", data.unique_symbols_map.len())))?;
-    define_type("out/types", "symbols_names", ("const char", "*", format!("[{}]", data.symbols_names.len() + 1)))?;
-    define_type("out/types", "symbols_metadata", ("t_symbol_metadata", "", format!("[{}]", data.symbol_metadata.len())))?;
+    define_type(
+        "out/types",
+        "parse_table",
+        ("uint16_t", "", "[LARGE_STATE_COUNT][SYMBOL_COUNT]"),
+    )?;
+    define_type(
+        "out/types",
+        "external_scanner_states",
+        (
+            "bool",
+            "",
+            format!("[{}][EXTERNAL_TOKEN_COUNT]", data.external_scanner_states.0),
+        ),
+    )?;
+    define_type(
+        "out/types",
+        "external_scanner_symbol_map",
+        ("t_symbol", "", "[EXTERNAL_TOKEN_COUNT]"),
+    )?;
+    define_type(
+        "out/types",
+        "lex_modes",
+        ("t_lex_modes", "", "[STATE_COUNT]"),
+    )?;
+    define_type(
+        "out/types",
+        "field_map_entries",
+        (
+            "t_field_map_entry",
+            "",
+            format!(
+                "[{}]",
+                data.field_map_entries
+                    .last()
+                    .map(|(k, v)| k + v.len())
+                    .unwrap_or_default()
+            ),
+        ),
+    )?;
+    define_type(
+        "out/types",
+        "field_map_slices",
+        ("t_field_map_slice", "", "[PRODUCTION_ID_COUNT]"),
+    )?;
+    define_type(
+        "out/types",
+        "primary_state_ids",
+        ("t_state_id", "", "[STATE_COUNT]"),
+    )?;
+    define_type(
+        "out/types",
+        "non_terminal_alias_map",
+        (
+            "uint16_t",
+            "",
+            format!(
+                "[{}]",
+                data.non_terminal_alias_map
+                    .iter()
+                    .map(|(k, v)| 1 + v.len())
+                    .sum::<usize>()
+                    + 2
+            ),
+        ),
+    )?;
+    define_type(
+        "out/types",
+        "alias_sequences",
+        (
+            "t_symbol",
+            "",
+            "[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH]",
+        ),
+    )?;
+    define_type(
+        "out/types",
+        "field_names",
+        (
+            "const char",
+            "*",
+            format!("[{}]", data.field_names.len() + 1),
+        ),
+    )?;
+    define_type(
+        "out/types",
+        "unique_symbols_map",
+        (
+            "t_symbol",
+            "",
+            format!("[{}]", data.unique_symbols_map.len()),
+        ),
+    )?;
+    define_type(
+        "out/types",
+        "symbols_names",
+        (
+            "const char",
+            "*",
+            format!("[{}]", data.symbols_names.len() + 1),
+        ),
+    )?;
+    define_type(
+        "out/types",
+        "symbols_metadata",
+        (
+            "t_symbol_metadata",
+            "",
+            format!("[{}]", data.symbol_metadata.len()),
+        ),
+    )?;
 
     let _ = std::fs::remove_dir_all("out/create");
     std::fs::create_dir_all("out/create")?;
 
-    init_type_custom("out/create", "parse_actions_entries", "parse_actions_entries_0", ["../types/type_parse_actions_entries.h", "../parse_actions_entries/parse_actions_entries.h"].iter())?;
+    //init_type_custom(
+    //    "out/create",
+    //    "parse_actions_entries",
+    //    "parse_actions_entries_0",
+    //    [
+    //        "../types/type_parse_actions_entries.h",
+    //        "../parse_actions_entries/parse_actions_entries.h",
+    //    ]
+    //    .iter(),
+    //)?;
     // init_type("out/create", "small_parse_table_map")?;
     // init_type("out/create", "small_parse_table")?;
     init_type("out/create", "parse_table")?;
-    init_type("out/create", "external_scanner_states")?;
-    init_type("out/create", "external_scanner_symbol_map")?;
-    init_type("out/create", "lex_modes")?;
-    init_type("out/create", "field_map_entries")?;
-    init_type("out/create", "field_map_slices")?;
-    init_type("out/create", "primary_state_ids")?;
-    init_type("out/create", "non_terminal_alias_map")?;
-    init_type("out/create", "alias_sequences")?;
-    init_type("out/create", "field_names")?;
-    init_type("out/create", "unique_symbols_map")?;
-    init_type("out/create", "symbols_names")?;
-    init_type("out/create", "symbols_metadata")?;
-
+    // init_type("out/create", "external_scanner_states"    )?;
+    // init_type("out/create", "external_scanner_symbol_map")?;
+    // init_type("out/create", "lex_modes")?;
+    // init_type("out/create", "field_map_entries")?;
+    // init_type("out/create", "field_map_slices")?;
+    // init_type("out/create", "primary_state_ids")?;
+    // init_type("out/create", "non_terminal_alias_map")?;
+    // init_type("out/create", "alias_sequences")?;
+    // init_type("out/create", "field_names")?;
+    // init_type("out/create", "unique_symbols_map")?;
+    // init_type("out/create", "symbols_names")?;
+    // init_type("out/create", "symbols_metadata")?;
 
     /* ENUM */
-    enum_to_files("out/headers", "symbols", "e_symbols", &symbols(&data)?, true)?;
-    enum_to_files("out/headers", "external_scanner_symbol_identifiers", "e_external_scanner_symbol_identifiers", &external_scanner_symbol_identifiers(&data)?, false)?;
-    enum_to_files("out/headers", "field_identifiers", "e_field_identifiers", &field_identifiers(&data)?, false)?;
+    enum_to_files(
+        "out/headers",
+        "symbols",
+        "e_symbols",
+        &symbols(&data)?,
+        true,
+    )?;
+    enum_to_files(
+        "out/headers",
+        "external_scanner_symbol_identifiers",
+        "e_external_scanner_symbol_identifiers",
+        &external_scanner_symbol_identifiers(&data)?,
+        false,
+    )?;
+    enum_to_files(
+        "out/headers",
+        "field_identifiers",
+        "e_field_identifiers",
+        &field_identifiers(&data)?,
+        false,
+    )?;
     define_to_files("out/headers", "constants", &values(&data)?, false)?;
-    
+
     charset_to_files("out/char_set", "charset", &char_set(&data)?, true)?;
-    
+
     // lex_funcs_to_files("out/lex_funcs", "lex_func", &lex_state(&data)?, true)?;
 
     Ok(())
@@ -1162,7 +1501,7 @@ fn symbols_names(
 ) -> Result<Vec<String>> {
     let mut out = Vec::new();
     for (sym, name) in symbols_names {
-        out.push(format!("v->a[{sym}] = \"{}\";", escape_str(name.as_str())));
+        out.push(format!("[{sym}] = \"{}\",", escape_str(name.as_str())));
     }
     Ok(out)
 }
@@ -1174,7 +1513,7 @@ fn unique_symbols_map(
 ) -> Result<Vec<String>> {
     let mut out = Vec::new();
     for (sym, name) in unique_symbols_map {
-        out.push(format!("v->a[{sym}] = {name};"));
+        out.push(format!("[{sym}] = {name},"));
     }
     Ok(out)
 }
@@ -1194,7 +1533,7 @@ fn field_identifiers(
 fn field_names(serde_mod::Output { field_names, .. }: &serde_mod::Output) -> Result<Vec<String>> {
     let mut out = Vec::new();
     for (sym, name) in field_names {
-        out.push(format!("v->a[{sym}] = \"{}\";", escape_str(name.as_str())));
+        out.push(format!("[{sym}] = \"{}\",", escape_str(name.as_str())));
     }
     Ok(out)
 }
@@ -1214,9 +1553,7 @@ fn symbol_metadata(
         },
     ) in symbol_metadata
     {
-        out.push(format!(
-            "v->a[{sym}] = sym_metadata({visible}, {named}, {supertype});"
-        ));
+        out.push(format!("[{sym}] = {{{visible}, {named}, {supertype}}},"));
     }
     Ok(out)
 }
@@ -1225,11 +1562,11 @@ fn alias_sequences(
     serde_mod::Output {
         alias_sequences, ..
     }: &serde_mod::Output,
-) -> Result<Vec<String>> {
-    let mut out = Vec::new();
+) -> Result<IndexMap<usize, Vec<String>>> {
+    let mut out = IndexMap::<usize, Vec<String>>::new();
     for (i, list_alias) in alias_sequences {
         for (j, alias) in list_alias {
-            out.push(format!("v->a[{i}][{j}] = {alias};"))
+            out.entry(*i).or_default().push(format!("[{j}] = {alias},"))
         }
     }
     Ok(out)
@@ -1244,16 +1581,16 @@ fn non_terminal_alias_map(
     let mut out = Vec::new();
     let mut num = 0;
     for (i, v) in non_terminal_alias_map {
-        out.push(format!("v->a[{num}] = {i};"));
+        out.push(format!("[{num}] = {i},"));
         num += 1;
-        out.push(format!("v->a[{num}] = {};", v.len()));
+        out.push(format!("[{num}] = {},", v.len()));
         num += 1;
         for alias in v.iter() {
-            out.push(format!("v->a[{num}] = {alias};"));
+            out.push(format!("[{num}] = {alias},"));
             num += 1;
         }
     }
-    out.push(format!("v->a[{num}] = 0;"));
+    out.push(format!("[{num}] = 0,"));
     Ok(out)
 }
 
@@ -1264,7 +1601,7 @@ fn primary_state_ids(
 ) -> Result<Vec<String>> {
     let mut out = Vec::new();
     for (i, v) in primary_state_ids {
-        out.push(format!("v->a[{i}] = {v};",));
+        out.push(format!("[{i}] = {v},",));
     }
     Ok(out)
 }
@@ -1276,7 +1613,9 @@ fn field_map_slices(
 ) -> Result<Vec<String>> {
     let mut out = Vec::new();
     for (i, Production { row_id, length }) in field_map_slices {
-        out.push(format!("v->a[{i}] = fmap_slice({row_id}, {length});"));
+        out.push(format!(
+            "[{i}] = {{.index = {row_id}, .length = {length}}},"
+        ));
     }
     Ok(out)
 }
@@ -1298,7 +1637,7 @@ fn field_map_entries(
         ) in rhs.iter().enumerate()
         {
             out.push(format!(
-                "v->a[{}] = fmap_entry({field_id}, {index}, {inherited});",
+                "[{}] = {{.field_id = {field_id}, .child_index = {index}, .inherited = {inherited}}},",
                 i + k
             ));
         }
@@ -1549,13 +1888,15 @@ fn lex_modes(serde_mod::Output { lex_modes, .. }: &serde_mod::Output) -> Result<
     let mut out = Vec::new();
     for (lhs, rhs) in lex_modes {
         out.push(format!(
-            "v->a[{lhs}] = {};",
+            "[{lhs}] = {},",
             match rhs {
-                LexMode::Normal { lex_state } => format!("lex_mode_normal({lex_state})"),
+                LexMode::Normal { lex_state } => format!("{{.lex_state = {lex_state}}}"),
                 LexMode::External {
                     lex_state,
                     external_lex_state,
-                } => format!("lex_mode_external({lex_state}, {external_lex_state})"),
+                } => format!(
+                    "{{.lex_state = {lex_state}, .external_lex_state = {external_lex_state},}}"
+                ),
                 LexMode::EndOfNonTerminalExtra => format!("lex_mode_end()"),
             }
         ));
@@ -1584,7 +1925,7 @@ fn external_scanner_symbol_map(
 ) -> Result<Vec<String>> {
     let mut out = Vec::new();
     for (lhs, rhs) in external_scanner_symbol_map {
-        out.push(format!("v->a[{lhs}] = {rhs};",));
+        out.push(format!("[{lhs}] = {rhs},",));
     }
     Ok(out)
 }
@@ -1594,11 +1935,13 @@ fn external_scanner_states(
         external_scanner_states,
         ..
     }: &serde_mod::Output,
-) -> Result<Vec<String>> {
-    let mut out = Vec::new();
+) -> Result<IndexMap<usize, Vec<String>>> {
+    let mut out: IndexMap<usize, Vec<String>> = IndexMap::new();
     for (first_index, sec_table) in &(external_scanner_states.1) {
         for (symbol, state) in sec_table.iter() {
-            out.push(format!("v->a[{first_index}][{symbol}] = {state};",));
+            out.entry(*first_index)
+                .or_default()
+                .push(format!("[{symbol}] = {state},"));
         }
     }
     Ok(out)
@@ -1629,12 +1972,12 @@ fn small_parse_table(
 ) -> Result<Vec<String>> {
     let mut out = Vec::new();
     for (i, (u, v)) in small_parse_table {
-        let s = format!("v->a[{i}] = {u};");
+        let s = format!("[{i}] = {u},");
         out.push(s);
         let mut c = 1;
         for ((state, count), symbols) in v.iter() {
             out.push(format!(
-                "v->a[{}] = {};",
+                "[{}] = {},",
                 i + c,
                 match state {
                     serde_mod::ParseThingy::State(u) => format!("state({u})"),
@@ -1642,10 +1985,10 @@ fn small_parse_table(
                 }
             ));
             c += 1;
-            out.push(format!("v->a[{}] = {count};", i + c));
+            out.push(format!("[{}] = {count},", i + c));
             c += 1;
             for sym in symbols {
-                out.push(format!("v->a[{}] = {sym};", i + c));
+                out.push(format!("[{}] = {sym},", i + c));
                 c += 1;
             }
         }
@@ -1666,7 +2009,7 @@ fn small_parse_table_map(
         .ok_or(eyre!("Missing LARGE_STATE_COUNT define value"))?
         .parse::<usize>()?;
     for (i, v) in small_parse_table_map {
-        let s = format!("v->a[{}] = {v};", i - large_state_count);
+        let s = format!("[{}] = {v},", i - large_state_count);
         out.push(s);
     }
     Ok(out)
@@ -1677,19 +2020,24 @@ fn parse_actions(
 ) -> Result<Vec<String>> {
     let mut parse_actions_vec = Vec::new();
     for (k, (v, reusable)) in parse_actions {
-        parse_actions_vec.push(format!("v->a[{k}] = entry({}, {reusable});", v.len()));
+        parse_actions_vec.push(format!(
+            "[{k}] = {{.entry = {{.count = {}, .reusable = {reusable}}}}},",
+            v.len()
+        ));
         for (i, action) in v.iter().enumerate() {
             parse_actions_vec.push(format!(
-                "v->a[{}] = {};",
+                "[{}] = {},",
                 k + i + 1,
                 match action {
-                    MyParseAction::Recover => format!("recover()"),
-                    MyParseAction::AcceptInput => format!("accept()"),
-                    MyParseAction::ShiftExtra => format!("shift_extra()"),
-                    MyParseAction::Shift(state) => format!("shift({state})"),
-                    MyParseAction::ShiftRepeat(state) => format!("shift_repeat({state})"),
+                    MyParseAction::Recover => format!("{{{{.type = ActionTypeRecover}}}}"),
+                    MyParseAction::AcceptInput => format!("{{{{.type = ActionTypeAccept}}}}"),
+                    MyParseAction::ShiftExtra => format!("{{{{.shift = {{.type = ActionTypeShift, .extra = true}}}}}}"),
+                    MyParseAction::Shift(state) => format!("{{{{.shift = {{.type = ActionTypeShift, .state = {state}}}}}}}"),
+                    MyParseAction::ShiftRepeat(state) => format!("{{{{.shift = {{.type = ActionTypeShift, .state = {state}, .repetition = true}}}}}}"),
                     MyParseAction::Reduce(symbol, count, precedence, production_id) =>
-                        format!("reduce({symbol}, {count}, {precedence}, {production_id})"),
+                        format!("{{{{.reduce = {{.type = ActionTypeReduce, .child_count = {count},.symbol = {symbol}, .dynamic_precedence = {precedence} ,.production_id = {production_id}}}}}}}")    
+
+                    //format!("reduce({symbol}, {count}, {precedence}, {production_id})"),
                 }
             ));
         }
